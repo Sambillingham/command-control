@@ -1,0 +1,73 @@
+
+
+  h1 {
+      font-family:  Helvetica, Arial, sans-serif;
+      letter-spacing:3pt;
+      line-height: 140%;
+      color: #333;
+      text-transform: uppercase;
+      text-align: center;
+      font-size: 1.4em;
+    }
+    .container {
+
+      width: 90%;
+      margin: 0 auto;
+    }
+    .controls {
+
+      width: 500px;
+      margin: 0 auto;
+      margin-top: 20px;
+      padding: 0;
+      height: 200px;
+      background-color: #EBEBEB;
+      border: 1px solid #D9D9D9;
+    }
+
+    .arduino-buttons {
+
+      width: 50px;
+      height: 50px;
+      float: left;
+      margin: 20px;
+      border: 1px solid #d8d8d8;
+    }
+    .button-off {
+
+      background-color: #F02016;
+      border: none;
+
+      
+    }
+    .button-on {
+
+      background-color: #85F246;
+      border: none;
+    }
+
+.arduino-rotar {
+
+    border-radius: 50px;
+}
+.arduino-ir{
+  border-radius: 10px;
+
+
+}
+.arduino-slider{
+
+  width: 460px;
+}
+.rotar-num {
+
+  padding: 20px;
+  font-family:  Helvetica, Arial, sans-serif;
+  letter-spacing:3pt;
+  line-height: 140%;
+  color: #333;
+  text-transform: uppercase;
+  text-align: center;
+  font-size: 1em;
+
+}
