@@ -7,38 +7,33 @@ $(function() {
  
             socket.on('connect', function () {
 
-            
-                socket.on('button2', function (value) {
+                        socket.on('button' + 2, function (value) {
 
-                    if(value == 1){
+                            colorChanger(value, 2);
+                        
+                        });
+                        socket.on('button' + 3, function (value) {
 
-                        $("#button2").removeClass("button-off").addClass("button-on");
+                            colorChanger(value, 3);
+                        
+                        });
+                        socket.on('button' + 4, function (value) {
 
+                            colorChanger(value, 4);
+                        
+                        });
+                        socket.on('button' + 5, function (value) {
 
-                    } else {
+                            colorChanger(value, 5);
+                        
+                        });
+                        socket.on('button' + 6, function (value) {
 
-                        $("#button2").removeClass("button-on").addClass("button-off");
+                            colorChanger(value, 6);
+                        
+                        });
 
-                    }
-                });
-
-
-                socket.on('button4', function (value) {
-
-                    if(value == 1){
-
-                        $("#button4").removeClass("button-off").addClass("button-on");
-
-
-                    } else {
-
-                        $("#button4").removeClass("button-on").addClass("button-off");
-
-                    }
-                });
-
-                socket.on('disconnect', function () {
-                });
+                
 
             });
 
@@ -73,6 +68,23 @@ $(function() {
                     $("#welcome").addClass("notMobile").append("<h1>controllers require a mobile device</h1>");
 
             }
+
+    function colorChanger ( value , id ) {
+
+        thisValue = value;
+        thisId = id;
+
+        if(thisValue == 1){
+
+                $("#button" + thisId).removeClass("button-off").addClass("button-on");
+
+
+            } else {
+
+                $("#button" + thisId).removeClass("button-on").addClass("button-off");
+
+            }
+    }
 
 
 });
