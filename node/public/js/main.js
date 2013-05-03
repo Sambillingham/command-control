@@ -33,6 +33,12 @@ $(function() {
                         
                         });
 
+                        socket.on('slider'+ 1, function (value) {
+
+
+                            sliderChange(value, 1);
+                        });
+
                 
 
             });
@@ -84,6 +90,25 @@ $(function() {
                 $("#button" + thisId).removeClass("button-on").addClass("button-off");
 
             }
+    }
+
+    function sliderChange ( value, id ) {
+
+        thisValue = value;
+        thisId = id;
+
+        if ( thisValue == 3 ){
+
+            $("#slider"+ thisId).removeClass("button-off").removeClass("button-med").addClass("button-on");
+
+        } else if ( thisValue == 2 ){
+
+            $("#slider"+ thisId).removeClass("button-on").removeClass("button-off").addClass("button-med");
+
+        } else if ( thisValue == 1) {
+
+            $("#slider"+ thisId).removeClass("button-on").removeClass("button-med").addClass("button-off");
+        }
     }
 
 
