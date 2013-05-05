@@ -5,29 +5,30 @@
   #include <stdlib.h>
   #include "wifi_credentials.h"
 
-  
-  //timer
-  #include <SimpleTimer.h>
-  #include <Servo.h>
-
-  int testingInt;
-  char* charMe = "B";
   char* onSignal = "1";
   char* offSignal = "0";
+
+  char* sliderSignalLow = "1";
+  char* sliderSignalMed = "2";
+  char* sliderSignalHigh = "3";
 
   byte currentPayload;
   byte testByteA = 9;
 
-  int SwitchPin2 = 2;    
+  int SwitchPin2 = 2;
+  int SwitchPin3 = 3;    
   int SwitchPin4 = 4;
+  int SwitchPin5 = 5;
+  int SwitchPin6 = 6;
 
-  int button2 = 0;
-  int button4 = 0;   
+  int potPin = A5;
+  int slider1 = 0;
+  int slider1Setting = 0;
+  int previousSlider1Setting = 1;
 
-  Servo myservo;
+  int buttons[] = {0,0,0,0,0,0,0};
+  int previousButtons[] = {0,0,0,0,0,0,0};
 
-  SimpleTimer timer;
-  
   //wifly
   byte ip[] = { 192, 168, 0, 20 };
   WiFlyClient fypClient;
@@ -43,11 +44,12 @@
     }
 
     //Topics to subscribe to
-    char*  testTopic = "1/test";
+    char* testTopic = "1/test";
     char* nodeTopic = "5/node";
-    char* button2Topic = "1/button2";
-    char* button4Topic = "1/button4";
 
+    char* sliderTopic = "1/slider1";
+
+    char* buttonTopics[] = { "1/button0", "1/button1", "1/button2", "1/button3", "1/button4", "1/button5", "1/button6"};
 
     char* low = "5/low";
     char* med = "5/med";
@@ -96,11 +98,14 @@ void setup()
      
     pinMode(SwitchPin2, INPUT);
     digitalWrite(SwitchPin2, HIGH); // turn on pullup resistor for switch 
-    pinMode(3, OUTPUT);
+    pinMode(SwitchPin3, INPUT);
+    digitalWrite(SwitchPin3, HIGH); // turn on pullup resistor for switch 
     pinMode(SwitchPin4, INPUT);
     digitalWrite(SwitchPin4, HIGH); // turn on pullup resistor for switch   
-    pinMode(5, OUTPUT); 
-    pinMode(6, OUTPUT); 
+    pinMode(SwitchPin5, INPUT);
+    digitalWrite(SwitchPin5, HIGH); // turn on pullup resistor for switch 
+    pinMode(SwitchPin6, INPUT);
+    digitalWrite(SwitchPin6, HIGH); // turn on pullup resistor for switch 
     pinMode(7, OUTPUT); 
     pinMode(8, OUTPUT);
     pinMode(9, OUTPUT);
@@ -108,7 +113,6 @@ void setup()
     myservo.attach(9);
     
     wifiConnect();
-    timer.setInterval(600, testTimer);
     mqttSubscribe();
   
 }
@@ -116,12 +120,84 @@ void setup()
 void loop()
 {
     cl.loop();
-    timer.run();
     
-    
-    button2 = digitalRead(SwitchPin2);
-    button4 = digitalRead(SwitchPin4);
+    buttons[2] = digitalRead(SwitchPin2);
+    buttons[3] = digitalRead(SwitchPin3);
+    buttons[4] = digitalRead(SwitchPin4);
+    buttons[5] = digitalRead(SwitchPin5);
+    buttons[6] = digitalRead(SwitchPin6);
 
+    slider1 = analogRead(potPin);
+
+    if ( slider1 >= 823 ){
+
+        slider1Setting = 3;
+
+    } else if ( slider1 < 611 && slider1 >= 411){
+
+      slider1Setting = 2;
+
+    } else if ( slider1 < 200) {
+
+      slider1Setting = 1;
+
+    } else {
+
+      slider1Setting = 0;
+    }
+
+    if ( slider1Setting != previousSlider1Setting) {
+
+      previousSlider1Setting = slider1Setting;
+      Serial.println(slider1Setting);
+
+      if ( slider1Setting == 3 ){
+
+          cl.publish(sliderTopic, sliderSignalHigh );
+
+      } else if ( slider1Setting == 2 ){
+
+          cl.publish(sliderTopic, sliderSignalMed );
+
+      } else if ( slider1Setting == 1) {
+
+          cl.publish(sliderTopic, sliderSignalLow );
+          
+      } else {
+
+      }
+      
+
+
+    }
+
+    for (int i = 0; i < 8; i++) {
+
+        if ( buttons[i] != previousButtons[i]){
+
+            previousButtons[i] = buttons[i];
+
+            Serial.print("button : ");
+            Serial.print(i);
+            Serial.print(" is set to :");
+            Serial.println(buttons[i]);
+
+            if (buttons[i] == 1){
+
+              cl.publish(buttonTopics[i], onSignal );
+
+            } else if ( buttons[i] == 0 ) {
+
+                  cl.publish(buttonTopics[i], offSignal );
+
+            }
+
+          
+        } else if ( buttons[i] == previousButtons[i]){
+
+        }
+
+    }
 
 
     //TODO make this work
@@ -169,32 +245,6 @@ void mqttSubscribe(){
   else {
     Serial.println("MQTT subscription failed.");
   }
-}
-
-void testTimer(){
-
-  Serial.println("TESTING THIS @>% SEC thing");
-  cl.publish(testTopic, charMe );
-
-
-  if (button2 == 1){
-      cl.publish(button2Topic, onSignal );
-  } else if ( button2 == 0 ) {
-      cl.publish(button2Topic, offSignal );
- }
- if (button4 == 1){
-      cl.publish(button4Topic, onSignal );
-  } else if ( button4 == 0 ) {
-      cl.publish(button4Topic, offSignal );
- }
-  
-
-  Serial.print("button number 2 is");
-  Serial.println(button2);
-    Serial.println("---- > testing these buttons");
-    Serial.print("button number 4 is");
-    Serial.println(button4);
-
 }
 
 
