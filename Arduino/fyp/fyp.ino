@@ -13,7 +13,6 @@
   char* sliderSignalHigh = "3";
 
   byte currentPayload;
-  byte testByteA = 9;
 
   int SwitchPin2 = 2;
   int SwitchPin3 = 3;    
@@ -28,7 +27,7 @@
 
   int buttons[] = {0,0,0,0,0,0,0};
   int previousButtons[] = {0,0,0,0,0,0,0};
-
+  
   //wifly
   byte ip[] = { 192, 168, 0, 20 };
   WiFlyClient fypClient;
@@ -44,51 +43,18 @@
     }
 
     //Topics to subscribe to
-    char* testTopic = "1/test";
     char* nodeTopic = "5/node";
 
+    //Publish Topics set as Char Arrays
     char* sliderTopic = "1/slider1";
-
     char* buttonTopics[] = { "1/button0", "1/button1", "1/button2", "1/button3", "1/button4", "1/button5", "1/button6"};
 
-    char* low = "5/low";
-    char* med = "5/med";
-    char* meda = "5/meda";
-    char* high = "5/high";
     
 void callback(char* topic, byte* payload, unsigned int length) {
 
     if(String(topic) == nodeTopic){
 
         Serial.println("MQTT Recived");
-
-        Serial.println("Node TOPIC RECIVED");
-    }
-
-    
-    if(String(topic) == low){
-
-      myservo.write(0);
-       
-
-    }
-    if(String(topic) == med){
-
-      myservo.write(75);
-       
-
-    }
-
-    if(String(topic) == meda){
-
-      myservo.write(140);
-       
-    }
-    if(String(topic) == high){
-
-      myservo.write(179);
-      
-
     }
 }
 //Arduino setup
@@ -109,8 +75,6 @@ void setup()
     pinMode(7, OUTPUT); 
     pinMode(8, OUTPUT);
     pinMode(9, OUTPUT);
-
-    myservo.attach(9);
     
     wifiConnect();
     mqttSubscribe();
@@ -166,12 +130,10 @@ void loop()
       } else {
 
       }
-      
-
 
     }
 
-    for (int i = 0; i < 8; i++) {
+    for (int i = 2; i < 7; i++) {
 
         if ( buttons[i] != previousButtons[i]){
 
@@ -246,5 +208,6 @@ void mqttSubscribe(){
     Serial.println("MQTT subscription failed.");
   }
 }
+
 
 

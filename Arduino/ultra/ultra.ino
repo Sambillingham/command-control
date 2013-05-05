@@ -35,7 +35,7 @@ long UltraSoundInterval2 = 45;
 
 void setup() {
 
-  Serial.begin(9600);
+  Serial.begin(4800);
 
 }
 
