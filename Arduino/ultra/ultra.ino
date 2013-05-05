@@ -13,17 +13,8 @@ int array2Average = 0;
 long pulse1;
 long pulse2;
 
-boolean ultraLowest = false;
-boolean ultraLow = false;
-boolean ultraMid = false;
-boolean ultraHigh = false;
-boolean ultraHighest = false;
-
-boolean ultraLowest2 = false;
-boolean ultraLow2 = false;
-boolean ultraMid2 = false;
-boolean ultraHigh2 = false;
-boolean ultraHighest2 = false;
+int ultrasonicSensor1 = 0;
+int ultrasonicSensor2 = 0;
 
 long previousPulseMillis = 0;
 long previousPulseMillis2 = 0;
@@ -44,225 +35,62 @@ void loop() {
   pinMode(ultraPin1, INPUT);
   pinMode(ultraPin2, INPUT);
 
-
-
-  unsigned long currentTimer = millis();
+    unsigned long currentTimer = millis();
          
-        if(currentTimer - ultraSoundMillis > UltraSoundInterval) { 
+    if(currentTimer - ultraSoundMillis > UltraSoundInterval) { 
 
-            ultraSoundMillis = currentTimer; 
+        ultraSoundMillis = currentTimer; 
 
-            for(int i = 0; i < ultra1ArraySize; i++) {   
+        for(int i = 0; i < ultra1ArraySize; i++) {   
 
-                unsigned long currentMillis = millis();
-                 
-                if(currentMillis - previousPulseMillis > pulseInterval) { 
+            unsigned long currentMillis = millis();
+             
+            if(currentMillis - previousPulseMillis > pulseInterval) { 
 
-                    previousPulseMillis = currentMillis; 
+                previousPulseMillis = currentMillis; 
 
-                    pulse1 = pulseIn(ultraPin1, HIGH);
-                    ultra1Values[i] = pulse1/45;
-
-                }
-            }
-
-            //printArray(ultra1Values, ultra1ArraySize);
-            arrayAverage = findAverage(ultra1Values, ultra1ArraySize);
-            //Serial.println(arrayAverage);
-
-            if ( arrayAverage >= 10 && arrayAverage <= 22 ){
-
-                if ( ultraLowest == true ) {
-
-                    Serial.print("Ultrasound 1: ");
-                    Serial.println(1);
-
-                    // ultraLowest = false;
-                }
-
-                ultraLowest = true;
-                ultraLow = false;
-                ultraMid = false;
-                ultraHigh = false;
-                ultraHighest = false;
-
-            } else if ( arrayAverage > 22 && arrayAverage <= 32 ){
-
-                if ( ultraLow == true ) {
-
-                    Serial.print("Ultrasound 1: ");
-                    Serial.println(2);
-
-                    // ultraLow = false;
-                }
-
-                ultraLowest = false;
-                ultraLow = true;
-                ultraMid = false;
-                ultraHigh = false;
-                ultraHighest = false;
-
-            } else if ( arrayAverage > 32 && arrayAverage <= 42 ){
-
-                if ( ultraMid == true ) {
-
-                    Serial.print("Ultrasound 1: ");
-                    Serial.println(3);
-
-                    // ultraMid = false;
-                }
-
-                ultraLowest = false;
-                ultraLow = false;
-                ultraMid = true;
-                ultraHigh = false;
-                ultraHighest = false;
-
-            } else if ( arrayAverage > 42 && arrayAverage <= 52 ){
-
-                if ( ultraHigh == true ) {
-
-                    Serial.print("Ultrasound 1: ");
-                    Serial.println(4);
-
-                    // ultraHigh = false;
-                }
-
-                ultraLowest = false;
-                ultraLow = false;
-                ultraMid = false;
-                ultraHigh = true;
-                ultraHighest = false;
-
-            }
-            else if ( arrayAverage > 52 && arrayAverage <= 70 ){
-
-                if ( ultraHighest == true ) {
-
-                    Serial.print("Ultrasound 1: ");
-                    Serial.println(5);
-
-                    // ultraHighest = false;
-                }
-
-                ultraLowest = false;
-                ultraLow = false;
-                ultraMid = false;
-                ultraHigh = false;
-                ultraHighest = true;
+                pulse1 = pulseIn(ultraPin1, HIGH);
+                ultra1Values[i] = pulse1/45;
 
             }
         }
+
+        //printArray(ultra1Values, ultra1ArraySize);
+        arrayAverage = findAverage(ultra1Values, ultra1ArraySize);
+        //Serial.println(arrayAverage);
+
+        ultrasonicSensor1 = ultrasoundValue( arrayAverage , 1 );
+
+    }
 
         /*------------------2-----------------------*/
 
-        unsigned long currentTimer2 = millis();
-         
-        if(currentTimer2 - ultraSoundMillis2 > UltraSoundInterval2) { 
+    unsigned long currentTimer2 = millis();
+     
+    if(currentTimer2 - ultraSoundMillis2 > UltraSoundInterval2) { 
 
-            ultraSoundMillis2 = currentTimer2; 
+        ultraSoundMillis2 = currentTimer2; 
 
-            for(int i = 0; i < ultra1ArraySize; i++) {   
+        for(int i = 0; i < ultra1ArraySize; i++) {   
 
-                unsigned long currentMillis = millis();
-                 
-                if(currentMillis - previousPulseMillis2 > pulseInterval) { 
+            unsigned long currentMillis = millis();
+             
+            if(currentMillis - previousPulseMillis2 > pulseInterval) { 
 
-                    previousPulseMillis2 = currentMillis; 
+                previousPulseMillis2 = currentMillis; 
 
-                    pulse2 = pulseIn(ultraPin2, HIGH);
-                    ultra2Values[i] = pulse2/45;
-
-                }
-            }
-
-            //printArray(ultra2Values, ultra2ArraySize);
-            array2Average = findAverage(ultra2Values, ultra2ArraySize);
-            //Serial.println(array2Average);
-
-            if ( array2Average >= 10 && array2Average <= 22 ){
-
-                if ( ultraLowest2 == true ) {
-
-                    Serial.print("Ultrasound 2: ");
-                    Serial.println(1);
-
-                    // ultraLowest = false;
-                }
-
-                ultraLowest2 = true;
-                ultraLow2 = false;
-                ultraMid2 = false;
-                ultraHigh2 = false;
-                ultraHighest2 = false;
-
-            } else if ( array2Average > 22 && array2Average <= 32 ){
-
-                if ( ultraLow2 == true ) {
-
-                    Serial.print("Ultrasound 2: ");
-                    Serial.println(2);
-
-                    // ultraLow = false;
-                }
-
-                ultraLowest2 = false;
-                ultraLow2 = true;
-                ultraMid2 = false;
-                ultraHigh2 = false;
-                ultraHighest2 = false;
-
-            } else if ( array2Average > 32 && array2Average <= 42 ){
-
-                if ( ultraMid2 == true ) {
-
-                    Serial.print("Ultrasound 2: ");
-                    Serial.println(3);
-
-                    // ultraMid = false;
-                }
-
-                ultraLowest2 = false;
-                ultraLow2 = false;
-                ultraMid2 = true;
-                ultraHigh2 = false;
-                ultraHighest2 = false;
-
-            } else if ( array2Average > 42 && array2Average <= 52 ){
-
-                if ( ultraHigh2 == true ) {
-
-                    Serial.print("Ultrasound 2: ");
-                    Serial.println(4);
-
-                    // ultraHigh = false;
-                }
-
-                ultraLowest2 = false;
-                ultraLow2 = false;
-                ultraMid2 = false;
-                ultraHigh2 = true;
-                ultraHighest2 = false;
-
-            }
-            else if ( array2Average > 52 && array2Average <= 70 ){
-
-                if ( ultraHighest2 == true ) {
-
-                    Serial.print("Ultrasound 2: ");
-                    Serial.println(5);
-
-                    // ultraHighest = false;
-                }
-
-                ultraLowest2 = false;
-                ultraLow2 = false;
-                ultraMid2 = false;
-                ultraHigh2 = false;
-                ultraHighest2 = true;
+                pulse2 = pulseIn(ultraPin2, HIGH);
+                ultra2Values[i] = pulse2/45;
 
             }
         }
+
+        //printArray(ultra2Values, ultra2ArraySize);
+        array2Average = findAverage(ultra2Values, ultra2ArraySize);
+        //Serial.println(array2Average);
+
+        ultrasonicSensor2 = ultrasoundValue( array2Average , 2 );
+    }
 }
 
 int findAverage ( int *values, int size) {
@@ -270,14 +98,9 @@ int findAverage ( int *values, int size) {
             int currentArrayVal = 0;
             int preArrayVal = 0;
             int maxArrayVal = 0;
-            int maxArrayVal2 = 0;
             int minArrayVal = 235;
-            int minArrayVal2 = 235;
             int totalVal = 0;
             int average = 0;
-            int secondArray[] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-            boolean maxFound = false;
-            boolean minFound = false;
 
         for ( int i = 1; i < size; i++ ) {
 
@@ -304,12 +127,53 @@ int findAverage ( int *values, int size) {
         return average;
 }
 
-void printArray(int *a, int n) {
-  for (int i = 0; i < n; i++)
-  {
+void printArray (int *a, int n) {
+
+  for (int i = 0; i < n; i++) {
+
     Serial.print(a[i], DEC);
     Serial.print(' ');
+
   }
+
   Serial.println();
+
+}
+
+int ultrasoundValue ( int pulseArray , int ultrasoundNumber ) {
+
+    int pulseValue = 0;
+
+    if ( pulseArray >= 10 && pulseArray <= 22 ){
+
+        pulseValue = 1;
+
+    } else if ( pulseArray > 22 && pulseArray <= 32 ){
+
+        pulseValue = 2;
+
+    } else if ( pulseArray > 32 && pulseArray <= 42 ){
+
+        pulseValue = 3;
+
+    } else if ( pulseArray > 42 && pulseArray <= 52 ){
+
+        pulseValue = 4;
+    }
+    else if ( pulseArray > 52 && pulseArray <= 70 ){
+
+        pulseValue = 5;
+
+    } else {
+
+        pulseValue = 0;
+    }
+        return pulseValue;
+
+        Serial.print("Ultrasound ");
+        Serial.print(ultrasoundNumber);
+        Serial.print(": ");
+        Serial.println(pulseValue);
+
 }
 
