@@ -41,12 +41,14 @@ $(function() {
 
                         socket.on('ultrasound' + 1, function ( value) {
 
-                            console.log("ultrasound1: ", value);
+                            ultrasonicHeight( value , 1);
+                            $("#ul" + 2).text(value);
                         });
 
                         socket.on('ultrasound' + 2, function ( value) {
 
-                            console.log("ultrasound2: ", value);
+                            ultrasonicHeight( value , 2);
+                            $("#ul" + 1).text(value);
                         });
 
                 
@@ -54,37 +56,40 @@ $(function() {
             });
 
 
+    function ultrasonicHeight ( value , id ) {
 
-            // Do we have accelerometer support?
-            if (window.DeviceMotionEvent !== undefined) {
-
-                $("#welcome").removeClass("notMobile");
-
-                // Gyrate
-                window.ondeviceorientation = function(event) {
-
-                    var deviceDirection = Math.floor(event.alpha),
-                        deviceRollY     = Math.floor(event.beta),
-                        deviceRollX     = Math.floor(event.gamma);
-
-                            accellValues.x = deviceRollX;
-                            accellValues.y = deviceRollY;
-                            accellValues.d = deviceDirection;
-
-                            socket.emit('sendAccellValues' , accellValues );
-
-                        $("body").css("background-color", "rgb("+(255-accellValues.y)+","+(55+accellValues.y)+","+20+")");
-
-                };
+        thisValue = value;
+        thisId = id;
+        console.log("ultrasound", thisId, ": ", value);
 
 
-            } else {
 
-                    // NO accelerometer support
-                    $("#welcome").addClass("notMobile").append("<h1>controllers require a mobile device</h1>");
+        if ( thisValue == 1 ){
 
-            }
+            $("#ir"+ thisId).css("height", "75");
 
+        } else if ( thisValue == 2 ){
+
+            $("#ir"+ thisId).css("height", "150");
+
+        } else if ( thisValue == 3 ){
+
+            $("#ir"+ thisId).css("height", "225");
+
+        } else if ( thisValue == 4 ){
+
+            $("#ir"+ thisId).css("height", "300");
+        }
+         else if ( thisValue == 5 ){
+
+            $("#ir"+ thisId).css("height", "375");
+
+        } else {
+            $("#ir"+ thisId).css("height", "0");
+        }
+
+
+    }
     function colorChanger ( value , id ) {
 
         thisValue = value;

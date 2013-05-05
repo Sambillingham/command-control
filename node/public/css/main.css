@@ -24,7 +24,33 @@
       background-color: #EBEBEB;
       border: 1px solid #D9D9D9;
     }
+    .player0 {
+      width: 200px;
+      height: 50px;
+    }
 
+      #ul1 {
+      margin-top: 20px;
+      padding: 40px;
+      font-size: 2em;
+      font-family: helvetica;
+
+
+    }
+
+    #ul2 {
+      margin-top: 20px;
+      padding: 40px;
+      font-size: 2em;
+      font-family: helvetica;
+
+
+    }
+    .player1 {
+
+      width: 200px;
+      height: 400px;
+    }
     .player3 {
 
       height: 350px;
@@ -54,14 +80,14 @@
     }
     .button-off {
 
-      background-color: #F02016;
+      background-color: #F75B07;
       border: none;
 
       
     }
     .button-on {
 
-      background-color: #85F246;
+      background-color: #16F79A;
       border: none;
     }
 
@@ -77,6 +103,14 @@
 }
 .arduino-ir{
   border-radius: 10px;
+  margin: 24px;
+  background-color: #9757BD;
+}
+#ir1 {
+
+
+}
+#ir2 {
 
 
 }

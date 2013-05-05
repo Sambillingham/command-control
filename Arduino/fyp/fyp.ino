@@ -52,8 +52,8 @@
     const int ultraPin1 = 6;
     const int ultraPin2 = 9;
 
-    int ultra1ArraySize = 5;
-    int ultra2ArraySize = 5;
+    int ultra1ArraySize = 9;
+    int ultra2ArraySize = 9;
 
     int ultra1Values[] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
     int ultra2Values[] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
@@ -395,7 +395,7 @@ int findAverage ( int *values, int size , int ultrasoundNumber) {
 
         totalVal = totalVal + currentArrayVal;
 
-        average = ( totalVal - ( minArrayVal + maxArrayVal ))/ 3;
+        average = ( totalVal - ( minArrayVal + maxArrayVal ))/ 7;
 
          if ( average >= 10 && average <= 22 ){
 
