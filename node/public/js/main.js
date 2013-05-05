@@ -39,6 +39,16 @@ $(function() {
                             sliderChange(value, 1);
                         });
 
+                        socket.on('ultrasound' + 1, function ( value) {
+
+                            console.log("ultrasound1: ", value);
+                        });
+
+                        socket.on('ultrasound' + 2, function ( value) {
+
+                            console.log("ultrasound2: ", value);
+                        });
+
                 
 
             });
