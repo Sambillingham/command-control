@@ -2,66 +2,97 @@ $(function() {
 
     var socket = io.connect('http://192.168.0.20:8080');
 
-            var accellValues = { x: 0, y: 0, d: 0 };
+    var buttonMap = {};
+    var pathArray = window.location.pathname.split( '/' );
+    var playerCheck = pathArray[1];
+
+    console.log(playerCheck);
 
  
             socket.on('connect', function () {
 
-                        socket.on('button' + 2, function (value) {
+                socket.emit('playerID', playerCheck);
 
-                            colorChanger(value, 2);
                         
-                        });
-                        socket.on('button' + 3, function (value) {
 
-                            colorChanger(value, 3);
+                socket.on('map', function ( mapValues) {
+
+                    
+                    console.log(buttonMap);
+
+
+                     if ( mapValues.button3 != buttonMap.button3 ) {
+
+                        colorChanger(mapValues.button3, 3);
+
+                     } else if ( mapValues.button4 != buttonMap.button4 ) {
                         
-                        });
-                        socket.on('button' + 4, function (value) {
+                        colorChanger(mapValues.button4, 4);
 
-                            colorChanger(value, 4);
+                     } else if ( mapValues.button5 != buttonMap.button5 ) {
                         
-                        });
-                        socket.on('button' + 5, function (value) {
+                        colorChanger(mapValues.button5, 5);
 
-                            colorChanger(value, 5);
+                     } else if ( mapValues.slider1 != buttonMap.slider1 ) {
                         
-                        });
-                        socket.on('button' + 6, function (value) {
+                        sliderChange(mapValues.slider1, 1);
 
-                            colorChanger(value, 6);
+                     } else if ( mapValues.ultrasound1 != buttonMap.ultrasound1 ) {
                         
-                        });
+                        ultrasonicHeight( mapValues.ultrasound1 , 1);
 
-                        socket.on('slider'+ 1, function (value) {
+                     } else if ( mapValues.ultrasound2 != buttonMap.ultrasound2 ) {
+                        
+                        ultrasonicHeight( mapValues.ultrasound2 , 2);
+                     }
 
+                     buttonMap = mapValues;
 
-                            sliderChange(value, 1);
-                        });
+                });
+                    
+                    socket.on( 'instruction' , function ( instruction ) {
 
-                        socket.on('ultrasound' + 1, function ( value) {
+                        displayInstructions(instruction);
+                    });
 
-                            ultrasonicHeight( value , 1);
-                            $("#ul" + 2).text(value);
-                        });
+                    socket.on ('names', function ( names) {
 
-                        socket.on('ultrasound' + 2, function ( value) {
+                        mapNewNames(names);
+                    });
 
-                            ultrasonicHeight( value , 2);
-                            $("#ul" + 1).text(value);
-                        });
+                    socket.on('disconect', function () {
 
+                        socket.emit('playerID', playerCheck + "d");
+
+                    });
                 
 
             });
+    
+    // function displayControls ( map ){
+
+    //         ultrasonicHeight( map.ultrasound1 , 1);
+
+    //         ultrasonicHeight( map.ultrasound2 , 2);
+
+    //         sliderChange(map.slider1, 1);
+
+    //         colorChanger(map.button2, 2);
+    //         colorChanger(map.button3, 3);
+    //         colorChanger(map.button4, 4);
+    // }
+    function displayInstructions ( inst ) {
+
+        $("#incomming").text(inst);
 
 
+    }
     function ultrasonicHeight ( value , id ) {
 
         thisValue = value;
         thisId = id;
         console.log("ultrasound", thisId, ": ", value);
-
+        $("#ul" + id).text(value);
 
 
         if ( thisValue == 1 ){
@@ -124,6 +155,16 @@ $(function() {
 
             $("#slider"+ thisId).removeClass("button-on").removeClass("button-med").addClass("button-off");
         }
+    }
+
+    function mapNewNames ( names ) {
+
+        allInputNames = names;
+
+        $("#btn3name").text(allInputNames.button3);
+        $("#btn4name").text(allInputNames.button4);
+        $("#btn5name").text(allInputNames.button5);
+
     }
 
 

@@ -89,9 +89,7 @@
 void setup()
 {
     Serial.begin(4800);
-     
-    pinMode(SwitchPin2, INPUT);
-    digitalWrite(SwitchPin2, HIGH); // turn on pullup resistor for switch 
+
     pinMode(SwitchPin3, INPUT);
     digitalWrite(SwitchPin3, HIGH); // turn on pullup resistor for switch 
     pinMode(SwitchPin4, INPUT);
@@ -115,7 +113,6 @@ void loop()
 
     cl.loop();
     
-    buttons[2] = digitalRead(SwitchPin2);
     buttons[3] = digitalRead(SwitchPin3);
     buttons[4] = digitalRead(SwitchPin4);
     buttons[5] = digitalRead(SwitchPin5);
@@ -147,7 +144,7 @@ void loop()
 
     }
 
-    for (int i = 2; i < 5; i++) {
+    for (int i = 3; i < 6; i++) {
 
         if ( buttons[i] != previousButtons[i]){
 
@@ -200,11 +197,6 @@ void loop()
         ultrasoundValue1 = findAverage(ultra1Values, ultra1ArraySize , 1);
 
         publishUltrasound ( ultrasoundValue1 , previousUltrasoundValue[1] , 1);
-        
-        // Serial.print("Ultrasound ");
-        // Serial.print(1);
-        // Serial.print(": ");
-        // Serial.println(ultrasoundValue1);
 
 
     }
@@ -235,10 +227,7 @@ void loop()
         ultrasoundValue2 = findAverage(ultra2Values, ultra2ArraySize, 2);
 
         publishUltrasound ( ultrasoundValue2 , previousUltrasoundValue[2] , 2);
-        // Serial.print("Ultrasound ");
-        // Serial.print(2);
-        // Serial.print(": ");
-        // Serial.println(ultrasoundValue2);
+    
     }
 
     /*--------------------*/
