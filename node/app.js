@@ -62,29 +62,35 @@ app.get('/controls', function (req, res) {
 
                 socket.set('nickname', id);
 
-                connectedPlayers[id] = true;
-                console.log(connectedPlayers);
+                if ( id == "player1" || id == "player2" || id == "player3" ) {
 
-                if ( id != "player1" || id != "player2" || id != "player3" ){
+                    connectedPlayers[id] = true;
+                    console.log("connected : ", connectedPlayers);
+
+                } else {
 
                     socket.disconnect();
                 }
 
             });
 
-            
-
             clients.push(socket.id);
-            console.log(clients);
+            console.log("clients: ", clients);
 
-            engageLevel();
+            socket.on('start', function () {
+
+                console.log("Start Recivied");
+                engageLevel();
+
+
+            });
 
             socket.on('disconnect', function () {
 
                 var toDC = 0;
 
                 socket.get('nickname', function (err, nickname) {
-                  
+
                     connectedPlayers[nickname] = false;
 
                 });
@@ -173,19 +179,30 @@ var thisMqttServer = mqtt.createServer(function(client) {
     client.on('error', function (err) {
 
             client.stream.end();
-        
-            util.log('error!');
+
+            console.log('error!');
 
     });
 
 }).listen(mqttPort);
 
+function mqttKeepAlive (keepAliveTimer) {
+
+    (function () {
+
+        mqqtclient.publishOnClient("1/keepAlive" , "1");
+
+
+    setTimeout(arguments.callee, keepAliveTimer);
+
+    })();
+}
 
 function mqttController (id, topic, packet) {
 
-    var incommingTopic = topic + "";
+    var incommingTopic = topic + "",
         waitingTopicPos = 0,
-        buttonType = topic.slice(0, -1);
+        buttonType = incommingTopic.slice(0, -1);
 
     console.log("ID: ", id, "TOPIC: ", topic, "PACKET: ", packet);
 
@@ -215,10 +232,13 @@ function mqttController (id, topic, packet) {
                 waitingForMap[topic] = 99;
 
                 checkPlayerAndRemove(topic);
+
+            } else {
+
+                losePoints(1);
             }
 
         }
-      
     }
 
     switch ( topic ) {
@@ -252,9 +272,7 @@ function mqttController (id, topic, packet) {
 
 function engageLevel () {
 
-    
-
-
+    console.log('Engaging Level');
     setButtonNames("Flux Control Systems" , "Missile Targeting Array", "Hyperdrive Engines", "reactor Core", "shields", "armour plating");
 
     io.sockets.emit('names', buttonNames);
@@ -266,7 +284,7 @@ function engageLevel () {
         messageReady();
 
 
-    setTimeout(arguments.callee, 5500);
+    setTimeout(arguments.callee, 10000);
 
     })();
 
@@ -275,23 +293,39 @@ function engageLevel () {
 }
 function messageReady () {
 
+        console.log("Making message...");
+
     var messageReady = selectButtons.newInstruction(),
         messageToSend = messageReady[0],
         button = messageReady[1],
         buttonType = messageReady[2],
         newState = messageReady[3].toString(),
         randomSocket = Math.floor(Math.random() * (3) + 0 );
+        randomMillis = Math.floor(Math.random() * (4500) + 3500);
 
         if (buttonType != "button" ){
 
             waitingForMap[button] = newState;
 
         }
+        console.log( "random Millis : ", randomMillis);
 
         waitingFor.push(button);
 
         io.sockets.socket(clients[randomSocket]).emit('instruction', messageToSend );
+        console.log(messageToSend);
         waitingForMapPlayers[button] = clients[randomSocket];
+
+        setTimeout( function () {
+
+
+            var waitingTopicPos = waitingFor.indexOf(button);
+            waitingFor.splice(button, 1);
+            waitingForMap[button] = 99;
+
+            io.sockets.socket(waitingForMapPlayers[button]).emit('instruction', "EMPTY STRING" );
+
+        }, randomMillis );
 
         //console.log("Array of items being watched", waitingFor);
         //console.log("new states being waited for", waitingForMap);
@@ -314,7 +348,9 @@ function checkArray ( arr, obj ) {
 }
 
 
+function losePoints ( ammount ){
 
+}
 
 function setButtonNames ( btn3 , btn4 , btn5, s1, u1, u2 ) {
 
@@ -333,5 +369,6 @@ function setInstructions ( message) {
     instructions.player3 = message;
 }
 
+mqttKeepAlive(15000);
 exports.buttonMap = buttonMap;
 exports.buttonNames = buttonNames;

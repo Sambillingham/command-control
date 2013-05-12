@@ -81,6 +81,15 @@ $(function() {
     //         colorChanger(map.button3, 3);
     //         colorChanger(map.button4, 4);
     // }
+
+    $("#start").click( function () {
+
+        console.log("Starting...");
+        socket.emit('start', 1);
+
+
+    });
+
     function displayInstructions ( inst ) {
 
         $("#incomming").text(inst);
