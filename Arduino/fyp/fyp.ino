@@ -141,45 +141,18 @@ void setup()
   
 }
 
-void loop() {   
-
-    // pinMode(ultraPin1, INPUT);
-    // pinMode(ultraPin2, INPUT);
-
-    cl.loop(); //MQTT Client loop function
-
-
-    //Player 3 buttons/switches
-    buttons[0] = digitalRead(redRockerP3);
-    buttons[1] = digitalRead(redRocker2P3);
-    buttons[2] = digitalRead(toggleSwitchP3);
-    buttons[3] = digitalRead(redRockerS1P3);
-    buttons[4] = digitalRead(redRockerS2P3);
-    //Player 2 buttons/switches
-    buttons[5] = digitalRead(toggleSwitch1P2);
-    buttons[6] = digitalRead(toggleSwitch2P2);
-    buttons[7] = digitalRead(redRockerRoundP2);
-    //Player 1 buttons/switches
-
-
-    //Player 3 Pots
-    slidePots[0] = analogRead(slidePotP3);
-    rotPots[0] = analogRead(rotPotP3);
-    //Player 2 Pots
-    slidePots[1] = analogRead(slidePot1P2);
-    slidePots[2] = analogRead(slidePot2P2);
-    rotPots[1] = analogRead(rotPot1P2);
-    rotPots[2] = analogRead(rotPot2P2);
-    //Player 1 Pots
-
-    //Serial.println(rotPots[2]);
-    
-    runSliders();       //Read slide potentiometers, asign values and publish to MQTT
-    runRotary();        //Read rotary potentiometers, asign values and publish to MQTT
-    runSwitches();      //Read states of switches, asigns values and publish to MQTT
-    //runUltrasound();    //Read values of ultrasound, publish to MQTT
+void loop() {
 
     connectionChecker();    //Checks to see if connection has dropped and trys to re-connect
+
+    cl.loop();      //MQTT Client loop function. Pub & Sub
+
+    readInputs();       //Read Inputs and assign to array varibles
+
+    runSliders();       //calculates & asigns slider potentioneter values and publishs to MQTT
+    runRotary();        //calculates & asigns rotary potentiometers values and publishs to MQTT
+    runSwitches();      //Read states of switche and publish to MQTT
+    //runUltrasound();    //Read values of ultrasound, publish to MQTT
 
 }// End Loop
 
@@ -585,6 +558,36 @@ void runUltrasound() {
 
 }
 
+void readInputs() {
+
+    //Reads and asigns inputs. Used in main loop function
+
+    // pinMode(ultraPin1, INPUT);
+    // pinMode(ultraPin2, INPUT);
+
+    //Player 3 buttons/switches
+    buttons[0] = digitalRead(redRockerP3);
+    buttons[1] = digitalRead(redRocker2P3);
+    buttons[2] = digitalRead(toggleSwitchP3);
+    buttons[3] = digitalRead(redRockerS1P3);
+    buttons[4] = digitalRead(redRockerS2P3);
+    //Player 2 buttons/switches
+    buttons[5] = digitalRead(toggleSwitch1P2);
+    buttons[6] = digitalRead(toggleSwitch2P2);
+    buttons[7] = digitalRead(redRockerRoundP2);
+    //Player 1 buttons/switches
+
+
+    //Player 3 Pots
+    slidePots[0] = analogRead(slidePotP3);
+    rotPots[0] = analogRead(rotPotP3);
+    //Player 2 Pots
+    slidePots[1] = analogRead(slidePot1P2);
+    slidePots[2] = analogRead(slidePot2P2);
+    rotPots[1] = analogRead(rotPot1P2);
+    rotPots[2] = analogRead(rotPot2P2);
+    //Player 1 Pots
+}
 void connectionChecker() {
 
     unsigned long currentTime = millis();
