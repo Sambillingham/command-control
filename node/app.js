@@ -11,8 +11,8 @@ var express = require('express'),
     var clients = [],
         clientHasMessage = { "player1" : false , "player2" : false , "player3" : false };
 
-    var buttonMap = { "button3" : 0, "button4" : 0, "button5" : 0, "slider1" : 0, "ultrasound1" : 0, "ultrasound2" : 0 };
-    var buttonNames = { "button3" : "0", "button4" : "0", "button5" : "0", "slider1" : "0", "ultrasound1" : "0", "ultrasound2" : "0" };
+    var buttonMap = { "button0" : 0, "button1" : 0, "button2" : 0, "button3" : 0, "button4" : 0, "button5" : 0, "button6" : 0, "button7" : 0,"slider0" : 0, "slider1" : 0, "slider2" : 0, "rotary0" : 0, "rotary1" : 0, "rotary2" : 0, "ultrasound1" : 0, "ultrasound2" : 0 };
+    var buttonNames = { "button0" : "0", "button1" : "0", "button2" : "0", "button3" : "0", "button4" : "0", "button5" : "0", "button6" : "0", "button7" : "0", "slider0" : "0", "slider1" : "0", "slider2" : "0", "rotary0" : "0", "rotary1" : "0", "rotary2" : "0", "ultrasound1" : "0", "ultrasound2" : "0" };
 
     var waitingFor = [],
         waitingForMap = { "button3" : 0, "button4" : 0, "button5" : 0, "slider1" : 0, "ultrasound1" : 0, "ultrasound2" : 0 },
@@ -206,7 +206,7 @@ function mqttController (id, topic, packet) {
 
     console.log("ID: ", id, "TOPIC: ", topic, "PACKET: ", packet);
 
-    io.sockets.emit(topic, packet);
+    //io.sockets.emit(topic, packet);
 
     //console.log( " incomming topic: ", incommingTopic );
     //console.log("Array of items being watched", waitingFor);
@@ -243,6 +243,15 @@ function mqttController (id, topic, packet) {
 
     switch ( topic ) {
 
+        case "button0" :
+            buttonMap.button0 = packet;
+        break;
+        case "button1" :
+            buttonMap.button1 = packet;
+        break;
+        case "button2" :
+            buttonMap.button2 = packet;
+        break;
         case "button3" :
             buttonMap.button3 = packet;
         break;
@@ -252,15 +261,36 @@ function mqttController (id, topic, packet) {
         case "button5" :
             buttonMap.button5 = packet;
         break;
+        case "button6" :
+            buttonMap.button6 = packet;
+        break;
+        case "button7" :
+            buttonMap.button7 = packet;
+        break;
+        case "slider0" :
+            buttonMap.slider0 = packet;
+        break;
         case "slider1" :
             buttonMap.slider1 = packet;
         break;
-        case "ultrasound1" :
-            buttonMap.ultrasound1 = packet;
+        case "slider2" :
+            buttonMap.slider2 = packet;
         break;
-        case "ultrasound2" :
-            buttonMap.ultrasound2 = packet;
+        case "rotary0" :
+            buttonMap.rotary0 = packet;
         break;
+        case "rotary1" :
+            buttonMap.rotary1 = packet;
+        break;
+        case "rotary2" :
+            buttonMap.rotary2 = packet;
+        break;
+        // case "ultrasound1" :
+        //     buttonMap.ultrasound1 = packet;
+        // break;
+        // case "ultrasound2" :
+        //     buttonMap.ultrasound2 = packet;
+        // break;
 
 
     }
