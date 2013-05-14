@@ -42,7 +42,7 @@
     int slidePot1P2 = A1;
     int slidePot2P2 = A2;
     int rotPot1P2 = A9;
-    int rotPot2P2 = A9;
+    int rotPot2P2 = A10;
     int toggleSwitch1P2 = 27;
     int toggleSwitch2P2 = 28;
     int redRockerRoundP2 = 29;
@@ -56,14 +56,14 @@
     int keepAliveTimer = 0;
 
     long connectionCheck = 0;
-    int connectionTimeout = 20000; //miliiseconds
+    int connectionTimeout = 30000; //miliiseconds
 
-    int buttons[] = {0,0,0,0,0,0,0, 0};
-    int previousButtons[] = {0,0,0,0,0,0,0, 0};
+    int buttons[] = {0,0,0,0,0,0,0,0};
+    int previousButtons[] = {0,0,0,0,0,0,0,0};
 
-    int slidePots[] = {0,0};
-    int currentSlidePotReading[] = {0,0};
-    int previousSlidePots[] = {0,0};
+    int slidePots[] = {0,0,0};
+    int currentSlidePotReading[] = {0,0,0};
+    int previousSlidePots[] = {0,0,0};
     
     int rotPots[] = {0,0,0};
     int currentRotPotReading[] = {0,0,0};
@@ -83,7 +83,7 @@
 
     char* slider[] = { "1/slider0", "1/slider1", "1/slider2" };
     char* rotary[] = { "1/rotary0", "1/rotary1", "1/rotary2"};
-    char* buttonTopics[] = { "1/button0", "1/button1", "1/button2", "1/button3", "1/button4", "1/button5", "1/button6"};
+    char* buttonTopics[] = { "1/button0", "1/button1", "1/button2", "1/button3", "1/button4", "1/button5", "1/button6", "1/button7", "1/button8"};
     char* ultrasoundTopics[] = { "1/ultrasound0", "1/ultrasound1", "1/ultrasound2" };
 
     int ultra1ArraySize = 9;
@@ -127,12 +127,14 @@ void setup()
 {
     Serial.begin(9600);
 
-    pinMode(redRockerP3, INPUT);
-    digitalWrite(redRockerP3, HIGH);
+    pinMode(redRockerP3, INPUT_PULLUP);
     pinMode(redRocker2P3, INPUT_PULLUP);
     pinMode(toggleSwitchP3, INPUT_PULLUP);
     pinMode(redRockerS1P3, INPUT_PULLUP);
     pinMode(redRockerS2P3, INPUT_PULLUP);
+    pinMode(toggleSwitch1P2, INPUT_PULLUP);
+    pinMode(toggleSwitch2P2, INPUT_PULLUP);
+    pinMode(redRockerRoundP2, INPUT_PULLUP);
     
     wifiConnect();
     mqttSubscribe();
@@ -154,18 +156,28 @@ void loop() {
     buttons[3] = digitalRead(redRockerS1P3);
     buttons[4] = digitalRead(redRockerS2P3);
     //Player 2 buttons/switches
+    buttons[5] = digitalRead(toggleSwitch1P2);
+    buttons[6] = digitalRead(toggleSwitch2P2);
+    buttons[7] = digitalRead(redRockerRoundP2);
+    //Player 1 buttons/switches
 
 
     //Player 3 Pots
     slidePots[0] = analogRead(slidePotP3);
     rotPots[0] = analogRead(rotPotP3);
     //Player 2 Pots
+    slidePots[1] = analogRead(slidePot1P2);
+    slidePots[2] = analogRead(slidePot2P2);
+    rotPots[1] = analogRead(rotPot1P2);
+    rotPots[2] = analogRead(rotPot2P2);
+    //Player 1 Pots
 
+    //Serial.println(rotPots[2]);
     
     runSliders();       //Read slide potentiometers, asign values and publish to MQTT
     runRotary();        //Read rotary potentiometers, asign values and publish to MQTT
     runSwitches();      //Read states of switches, asigns values and publish to MQTT
-    runUltrasound();    //Read values of ultrasound, publish to MQTT
+    //runUltrasound();    //Read values of ultrasound, publish to MQTT
 
     connectionChecker();    //Checks to see if connection has dropped and trys to re-connect
 
@@ -402,13 +414,13 @@ int findAverage ( int *values, int size , int ultrasoundNumber) {
 
 void runSliders() {
 
-    for ( int i = 0; i < 1; i++){
+    for ( int i = 0; i < 3; i++){
 
         if ( i == 0 ) {
 
             currentSlidePotReading[i] = checkSliderLargeValue(slidePots[i]);
 
-        } else {
+        } else if ( i > 0 ) {
 
             currentSlidePotReading[i] = checkSliderValue(slidePots[i]);
 
@@ -417,24 +429,6 @@ void runSliders() {
         if ( currentSlidePotReading[i] != previousSlidePots[i] ){
 
             previousSlidePots[i] = currentSlidePotReading[i];
-
-            if ( i >= 1 ) { // smaller slide pot
-
-                switch (currentSlidePotReading[i]) {
-
-                    case 3 :
-                        cl.publish(slider[i], sliderSignalHigh );
-                    break;
-                    case 2 :
-                        cl.publish(slider[i], sliderSignalMed );
-                    break;
-                    case 1 :
-                        cl.publish(slider[i], sliderSignalLow );
-                    break;
-                }
-
-
-            } else { // larger Pots
 
                 switch (currentSlidePotReading[i]) {
 
@@ -451,9 +445,6 @@ void runSliders() {
                         cl.publish(slider[i], sliderSignalLow );
                     break;
                 }
-
-            }
-
             
         } else { // if same reading
             // do nothing
@@ -464,7 +455,7 @@ void runSliders() {
 
 void runRotary() {
 
-    for (int i = 0; i < 1; i++){
+    for (int i = 0; i < 3; i++){
 
         currentRotPotReading[i] = checkRotValue(rotPots[i]);
 
@@ -504,7 +495,7 @@ void runRotary() {
 
 void runSwitches(){
 
-    for (int i = 0; i < 5; i++) {
+    for (int i = 0; i < 8; i++) {
 
         if ( buttons[i] != previousButtons[i]){
 
