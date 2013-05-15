@@ -1,7 +1,8 @@
-    var allInputTypes = ["button", "button", "button", "slider", "ultrasound" ],
-        numOfInputs = 5,
-        numOfButtons = 3,
-        numOfSliders = 1,
+    var allInputTypes = ["button", "button", "rotary", "slider" ],
+        numOfInputs = 4,
+        numOfButtons = 7,
+        numOfSliders = 3,
+        numOfRotarys = 3;
         numOfUltrasounds = 2;
 
     var app = require("./app");
@@ -24,14 +25,17 @@ function pickbutton () {
 
     switch ( type ) {
         case "button" :
-            buttonNum = Math.floor(Math.random() * (numOfButtons) + 3);
+            buttonNum = Math.floor(Math.random() * (numOfButtons) + 0);
         break;
         case "slider" :
-            buttonNum = Math.floor(Math.random() * (numOfSliders) + 1);
+            buttonNum = Math.floor(Math.random() * (numOfSliders) + 0);
         break;
-        case "ultrasound" :
-            buttonNum = Math.floor(Math.random() * (numOfUltrasounds) + 1);
+        case "rotary" :
+            buttonNum = Math.floor(Math.random() * (numOfRotarys) + 0);
         break;
+        // case "ultrasound" :
+        //     buttonNum = Math.floor(Math.random() * (numOfUltrasounds) + 0);
+        // break;
     }
 
     return [type , buttonNum];
@@ -68,7 +72,7 @@ function pickMessageType ( button , state ) {
         messageType = "dec";
     }
 
-    return [ messageType , button[0], button[1] , state ];
+    return [ messageType , button[0], button[1] ];
 }
 
 function currentName ( inputName ) {
@@ -83,11 +87,11 @@ function newState ( buttonType , state) {
 
     if ( buttonType == "button") {
 
-        if ( state === 0 ){
+        if ( state == 0 || state == "0" ){
 
             return 1;
 
-        } else if ( state == 1 ) {
+        } else if ( state == 1 || state == "0") {
 
             return 0;
         }
@@ -103,22 +107,38 @@ function newState ( buttonType , state) {
 
         return random;
 
-    } else if ( buttonType == "ultrasound") {
+    } else if ( buttonType == "rotary" ) {
 
-        random = Math.floor(Math.random() * (5) + 1 );
+        random = Math.floor(Math.random() * (7) + 1 );
 
         while ( random == state ){
 
-            random = Math.floor(Math.random() * (5) + 1 );
+            random = Math.floor(Math.random() * (7) + 1 );
         }
 
         return random;
+
+    } else {
+
+        return 0;
     }
+
+    // else if ( buttonType == "ultrasound") {
+
+    //     random = Math.floor(Math.random() * (5) + 1 );
+
+    //     while ( random == state ){
+
+    //         random = Math.floor(Math.random() * (5) + 1 );
+    //     }
+
+    //     return random;
+    // }
 }
 
 function prepareMessage( messageType , buttonType, buttonNumber , state , newState , realName) {
 
-    var messageToSend = "";
+    var messageToSend = " ";
 
     if ( messageType == "bin" ) {
 
@@ -150,7 +170,7 @@ function prepareMessage( messageType , buttonType, buttonNumber , state , newSta
 
 function newInstruction (){
 
-    var button = findButtonState(pickbutton());
+    var button = findButtonState(pickbutton()); // 0: type 1:Number 2:current state
     //console.log(button);
     var messageType = pickMessageType( button, button[2]);
     //console.log(messageType);

@@ -151,9 +151,22 @@ $(function() {
 
         allInputNames = names;
 
+        $("#btn0name").text(allInputNames.button0);
+        $("#btn1name").text(allInputNames.button1);
+        $("#btn2name").text(allInputNames.button2);
         $("#btn3name").text(allInputNames.button3);
         $("#btn4name").text(allInputNames.button4);
         $("#btn5name").text(allInputNames.button5);
+        $("#btn6name").text(allInputNames.button6);
+        $("#btn7name").text(allInputNames.button7);
+
+        $("#slider0name").text(allInputNames.slider0);
+        $("#slider1name").text(allInputNames.slider1);
+        $("#slider2name").text(allInputNames.slider2);
+
+        $("#rotary0name").text(allInputNames.rotary0);
+        $("#rotary1name").text(allInputNames.rotary1);
+        $("#rotary2name").text(allInputNames.rotary2);
 
     }
 

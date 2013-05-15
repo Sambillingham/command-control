@@ -31,24 +31,35 @@
       margin: 0 auto;
       margin-top: 20px;
       padding: 0;
-      height: 220px;
+      height: 270px;
       background-color: #EBEBEB;
       border: 1px solid #D9D9D9;
     }
 
     .button-name {
 
+    display: block;
+
       font-family:  Helvetica, Arial, sans-serif;
       letter-spacing:1pt;
       line-height: 120%;
       color: #333;
+      
+      font-size: 0.6em;
+      width: 100px;
+
+      padding-top: 10px;
       text-transform: uppercase;
       text-align: center;
-      font-size: 0.8em;
-      height: 50px;
-      padding: 15px;
-      width: 150px;
+
+     
+
     }
+     .rrS {
+
+        width: 130px;
+        padding-left: 30px;
+      }
     
     .input {
 
@@ -64,6 +75,7 @@
     .bottom-inputs {
         float: left;
         height: 100px;
+        padding-top: 20px;
     }
     .input-small-rr {
         width: 200px;
