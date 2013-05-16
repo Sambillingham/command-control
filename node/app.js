@@ -11,6 +11,11 @@ var express = require('express'),
     var clients = [],
         clientHasMessage = { "player1" : false , "player2" : false , "player3" : false };
 
+    var topicDouble = { "button0" : false, "button1" : false, "button2" : false, "button3" : false, "button4" : false, "button5" : false, "button6" : false, "button7" : false, "slider0" : false, "slider1" : false, "slider2" : false, "rotary0" : false, "rotary1" : false, "rotary2" : false, "ultrasound1" : false, "ultrasound2" : false };
+    var timeOutIds = { "button0" : 0, "button1" : 0, "button2" : 0, "button3" : 0, "button4" : 0, "button5" : 0, "button6" : 0, "button7" : 0,"slider0" : 0, "slider1" : 0, "slider2" : 0, "rotary0" : 0, "rotary1" : 0, "rotary2" : 0, "ultrasound1" : 0, "ultrasound2" : 0 };
+    
+
+
     var buttonMap = { "button0" : 0, "button1" : 0, "button2" : 0, "button3" : 0, "button4" : 0, "button5" : 0, "button6" : 0, "button7" : 0,"slider0" : 0, "slider1" : 0, "slider2" : 0, "rotary0" : 0, "rotary1" : 0, "rotary2" : 0, "ultrasound1" : 0, "ultrasound2" : 0 };
     var buttonNames = { "button0" : "0", "button1" : "0", "button2" : "0", "button3" : "0", "button4" : "0", "button5" : "0", "button6" : "0", "button7" : "0", "slider0" : "0", "slider1" : "0", "slider2" : "0", "rotary0" : "0", "rotary1" : "0", "rotary2" : "0", "ultrasound1" : "0", "ultrasound2" : "0" };
 
@@ -24,8 +29,10 @@ var express = require('express'),
 
 
      //Home made module
-    var mqqtclient = require("./mqqtclient");
-    var selectButtons = require("./selectbutton");
+    var mqqtclient = require("./mqttclient"),
+        selectButtons = require("./selectbutton");
+        //mqttsubclient = require("./mqttsubclient");
+
 
 var latestTopic = '';
 
@@ -131,17 +138,26 @@ var thisMqttServer = mqtt.createServer(function(client) {
 
     client.on('publish', function (packet) {
 
-        //console.log('Published Packet ', packet);
-
         for (var k in self.clients) {
 
                 self.clients[k].publish({topic: packet.topic, payload: packet.payload});
 
-                        var topicRemoveSlash = packet.topic.split("/"),
-                            whichAttribute =  topicRemoveSlash[1],
-                            aID = (topicRemoveSlash[0]);
+                        var splitTopic = packet.topic.split("/"),
+                            topic =  splitTopic[1],
+                            aID = splitTopic[0];
 
-                            mqttController( aID, whichAttribute, packet.payload);
+                            if (topicDouble[topic] === true) {
+
+                                if ( topic != "keepAlive" ){
+
+
+                                mqttController( aID, topic, packet.payload);
+
+                                }
+                            } else {
+                        
+                                topicDouble[topic] = true;
+                            }
         }
     });
 
@@ -206,17 +222,17 @@ function mqttController (id, topic, packet) {
         waitingTopicPos = 0,
         buttonType = incommingTopic.slice(0, -1);
 
+    topicDouble[topic] = false;
+
     console.log("ID: ", id, "TOPIC: ", topic, "PACKET: ", packet);
 
-    //io.sockets.emit(topic, packet);
-
-    //console.log( " incomming topic: ", incommingTopic );
-    //console.log("Array of items being watched", waitingFor);
+    console.log( " incomming topic: ", incommingTopic );
+    console.log("Array of items being watched", waitingFor);
 
     if ( checkArray(waitingFor, incommingTopic) === true ) {
 
-        console.log( incommingTopic, "  item was found in array");
-        console.log( buttonType);
+        console.log( incommingTopic, ":  item was found in array");
+        console.log( "Type of input is: --> ", buttonType, "  <--");
 
         if ( buttonType == "button") {
 
@@ -224,20 +240,25 @@ function mqttController (id, topic, packet) {
         // waitingFor.splice(topic, 1);
 
         checkPlayerAndRemove(topic);
+        console.log("Button was accepted");
 
         } else {
 
             if ( packet === waitingForValue[topic]) {
 
-
+                console.log("slider/rotary was accepted");
                 checkPlayerAndRemove(topic );
 
             } else {
-
+                console.log("Wrong roatry/slider value. !Rejected!");
                 losePoints(1);
             }
 
         }
+
+    } else {
+        console.log("Wrong switch. !Rejected!");
+        losePoints(1);// wrong button pressed (aka not found in waiting for array)
     }
 
     switch ( topic ) {
@@ -310,11 +331,13 @@ function engageLevel () {
 
     (function () {
 
+
+
         //if ( )
         messageReady();
+        console.log("Array of items being watched", waitingFor);
 
-
-    setTimeout(arguments.callee, 8000);
+    setTimeout(arguments.callee, 5000);
 
     })();
 
@@ -323,11 +346,11 @@ function engageLevel () {
 }
 function messageReady () {
 
-        console.log("Making message...");
+        //console.log("Making message...");
 
     var preparedMessage = selectButtons.newInstruction();
 
-        console.log(preparedMessage);
+        //console.log(preparedMessage);
 
     var messageToSend = preparedMessage[0],
         inputId = preparedMessage[1], //id of input eg button5, rotary2
@@ -337,30 +360,44 @@ function messageReady () {
         randomMillis = Math.floor(Math.random() * (4500) + 3500);
         clientSent = "client" + randomPlayer.toString();
 
-        if (buttonType != "button" ){
+        
+        //console.log( "random Millis : ", randomMillis);
+        //console.log( "client to send to :  ", clientSent);
 
-            waitingForValue[inputId] = newState;
+        //console.log("List of active clients: ", activeClients);
+
+        if ( activeClients[clientSent] != true ) {
+
+
+            if (buttonType != "button" ){
+
+                waitingForValue[inputId] = newState;
+
+            }
+
+            waitingFor.push(inputId);
+        
+            clientWaitingForInput[inputId] = randomPlayer;
+
+            //console.log("WAITING FOR THESE BUTTONS", waitingFor);
+
+            io.sockets.socket(clients[randomPlayer]).emit('instruction', messageToSend );
+            activeClients[clientSent] = true;
+
+            timeOutIds[inputId] = setTimeout( function () {
+
+                                    checkPlayerAndRemove( inputId );
+                                    console.log("Out of time no input for, ", inputId ," Recivied!!");
+
+                                }, randomMillis );
+
+            //console.log("Array of items being watched", waitingFor);
+            //console.log("new states being waited for", waitingForValue);
 
         }
-        //console.log( "random Millis : ", randomMillis);
+        
 
-        waitingFor.push(inputId);
-        activeClients[clientSent] = true;
-
-        clientWaitingForInput[inputId] = randomPlayer;
-
-        console.log(waitingFor);
-
-        io.sockets.socket(clients[randomPlayer]).emit('instruction', messageToSend );
-
-        setTimeout( function () {
-
-            checkPlayerAndRemove( inputId );
-
-        }, randomMillis );
-
-        //console.log("Array of items being watched", waitingFor);
-        //console.log("new states being waited for", waitingForValue);
+        
 
 
 
@@ -368,8 +405,9 @@ function messageReady () {
 function checkPlayerAndRemove ( input ) {
 
     var waitingTopicPos = waitingFor.indexOf(input),
-        whichClient = "client" + clientWaitingForInput[input].toString();;
+        whichClient = "client" + clientWaitingForInput[input].toString();
 
+        clearTimeout(timeOutIds[input]);
 
         io.sockets.socket(clients[clientWaitingForInput[input]]).emit('instruction', "EMPTY STRING" );
 
