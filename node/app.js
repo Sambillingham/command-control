@@ -15,8 +15,8 @@ var express = require('express'),
     var buttonNames = { "button0" : "0", "button1" : "0", "button2" : "0", "button3" : "0", "button4" : "0", "button5" : "0", "button6" : "0", "button7" : "0", "slider0" : "0", "slider1" : "0", "slider2" : "0", "rotary0" : "0", "rotary1" : "0", "rotary2" : "0", "ultrasound1" : "0", "ultrasound2" : "0" };
 
     var waitingFor = [],
-        waitingForMap = { "button3" : 0, "button4" : 0, "button5" : 0, "slider1" : 0, "ultrasound1" : 0, "ultrasound2" : 0 },
-        waitingForMapPlayers = { "button3" : 0, "button4" : 0, "button5" : 0, "slider1" : 0, "ultrasound1" : 0, "ultrasound2" : 0 };
+        waitingForMap = { "button0" : 0, "button1" : 0, "button2" : 0, "button3" : 0, "button4" : 0, "button5" : 0, "button6" : 0, "button7" : 0,"slider0" : 0, "slider1" : 0, "slider2" : 0, "rotary0" : 0, "rotary1" : 0, "rotary2" : 0, "ultrasound1" : 0, "ultrasound2" : 0 },
+        waitingForMapPlayers = { "button0" : 0, "button1" : 0, "button2" : 0, "button3" : 0, "button4" : 0, "button5" : 0, "button6" : 0, "button7" : 0,"slider0" : 0, "slider1" : 0, "slider2" : 0, "rotary0" : 0, "rotary1" : 0, "rotary2" : 0, "ultrasound1" : 0, "ultrasound2" : 0 };
 
     var connectedPlayers = { "player1" : false , "player2" : false , "player3" : false };
 
@@ -325,38 +325,38 @@ function messageReady () {
 
         console.log("Making message...");
 
-    var messageReady = selectButtons.newInstruction();
+    var preparedMessage = selectButtons.newInstruction();
 
-        console.log(messageReady);
+        console.log(preparedMessage);
 
-    var messageToSend = messageReady[0],
-        button = messageReady[1],
-        buttonType = messageReady[2],
-        newState = messageReady[3].toString(),
+    var messageToSend = preparedMessage[0],
+        input = preparedMessage[1],
+        buttonType = preparedMessage[2],
+        newState = preparedMessage[3].toString(),
         randomSocket = Math.floor(Math.random() * (3) + 0 );
         randomMillis = Math.floor(Math.random() * (4500) + 3500);
 
         if (buttonType != "button" ){
 
-            waitingForMap[button] = newState;
+            waitingForMap[input] = newState;
 
         }
         console.log( "random Millis : ", randomMillis);
 
-        waitingFor.push(button);
+        waitingFor.push(input);
 
         io.sockets.socket(clients[randomSocket]).emit('instruction', messageToSend );
         console.log(messageToSend);
-        waitingForMapPlayers[button] = clients[randomSocket];
+        waitingForMapPlayers[input] = clients[randomSocket];
 
         setTimeout( function () {
 
 
-            var waitingTopicPos = waitingFor.indexOf(button);
-            waitingFor.splice(button, 1);
-            waitingForMap[button] = 99;
+            var waitingTopicPos = waitingFor.indexOf(input);
+            waitingFor.splice(input, 1);
+            waitingForMap[input] = 99;
 
-            io.sockets.socket(waitingForMapPlayers[button]).emit('instruction', "EMPTY STRING" );
+            io.sockets.socket(waitingForMapPlayers[input]).emit('instruction', "EMPTY STRING" );
 
         }, randomMillis );
 

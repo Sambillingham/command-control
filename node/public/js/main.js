@@ -25,7 +25,7 @@ $(function() {
                 });
 
                 socket.on ('names', function ( names) {
-
+ 
                     mapNewNames(names);
                 });
 
@@ -55,6 +55,8 @@ $(function() {
 
         console.log("Starting...");
         socket.emit('start', 1);
+
+        
 
 
     });

@@ -111,6 +111,12 @@
     long UltraSoundInterval = 345;
     long UltraSoundInterval2 = 345;  
 
+    long rotaryCheckTimeOut[] = { 0, 0, 0 };
+    int rotarySendDelay = 400;
+
+    long sliderCheckTimeOut[] = { 0, 0, 0 };
+    int sliderSendDelay = 400;
+
 
     void subscriptions (char* topic, byte* payload, unsigned int length) {
 
@@ -237,6 +243,8 @@ int checkRotValue ( int rotary ) {
 
     return rotarySetting;
 
+    
+
 }
 
 int checkSliderValue ( int slider ) {
@@ -261,7 +269,6 @@ int checkSliderValue ( int slider ) {
     }
 
     return sliderSetting;
-
 }
 
 int checkSliderLargeValue ( int slider ) {
@@ -399,31 +406,37 @@ void runSliders() {
 
         }
 
-        if ( currentSlidePotReading[i] != previousSlidePots[i] ){
+        unsigned long currentTimer = millis();
 
-            previousSlidePots[i] = currentSlidePotReading[i];
+        if(currentTimer - sliderCheckTimeOut[i] > sliderSendDelay) { 
 
-                switch (currentSlidePotReading[i]) {
+            sliderCheckTimeOut[i] = currentTimer; 
 
-                    case 4 :
-                        cl.publish(slider[i], sliderSignalHigher );
-                    break;
-                    case 3 :
-                        cl.publish(slider[i], sliderSignalHigh );
-                    break;
-                    case 2 :
-                        cl.publish(slider[i], sliderSignalMed );
-                    break;
-                    case 1 :
-                        cl.publish(slider[i], sliderSignalLow );
-                    break;
-                }
-            
-        } else { // if same reading
-            // do nothing
+            if ( currentSlidePotReading[i] != previousSlidePots[i] ){
+
+                previousSlidePots[i] = currentSlidePotReading[i];
+
+                    switch (currentSlidePotReading[i]) {
+
+                        case 4 :
+                            cl.publish(slider[i], sliderSignalHigher );
+                        break;
+                        case 3 :
+                            cl.publish(slider[i], sliderSignalHigh );
+                        break;
+                        case 2 :
+                            cl.publish(slider[i], sliderSignalMed );
+                        break;
+                        case 1 :
+                            cl.publish(slider[i], sliderSignalLow );
+                        break;
+                    }
+                
+            } else { // if same reading
+                // do nothing
+            }
         }
     }
-
 }
 
 void runRotary() {
@@ -432,37 +445,46 @@ void runRotary() {
 
         currentRotPotReading[i] = checkRotValue(rotPots[i]);
 
-        if ( currentRotPotReading[i] != previousRotPots[i] ) {
+        unsigned long currentTimer = millis();
 
-            previousRotPots[i] = currentRotPotReading[i];
+        if(currentTimer - rotaryCheckTimeOut[i] > rotarySendDelay) { 
 
-                switch( currentRotPotReading[i] ) {
+            rotaryCheckTimeOut[i] = currentTimer; 
 
-                case 7 :
-                    cl.publish(rotary[i], signal7 );
-                break;
-                case 6 :
-                    cl.publish(rotary[i], signal6 );
-                break;
-                case 5 :
-                    cl.publish(rotary[i], signal5 );
-                break;
-                case 4 :
-                    cl.publish(rotary[i], signal4 );
-                break;
-                case 3 :
-                    cl.publish(rotary[i], signal3 );
-                break;
-                case 2 :
-                    cl.publish(rotary[i], signal2 );
-                break;
-                case 1 :
-                    cl.publish(rotary[i], signal1 );
-                break;
+            if ( currentRotPotReading[i] != previousRotPots[i] ) {
 
-                }
+                previousRotPots[i] = currentRotPotReading[i];
+
+                    switch( currentRotPotReading[i] ) {
+
+                    case 7 :
+                        cl.publish(rotary[i], signal7 );
+                    break;
+                    case 6 :
+                        cl.publish(rotary[i], signal6 );
+                    break;
+                    case 5 :
+                        cl.publish(rotary[i], signal5 );
+                    break;
+                    case 4 :
+                        cl.publish(rotary[i], signal4 );
+                    break;
+                    case 3 :
+                        cl.publish(rotary[i], signal3 );
+                    break;
+                    case 2 :
+                        cl.publish(rotary[i], signal2 );
+                    break;
+                    case 1 :
+                        cl.publish(rotary[i], signal1 );
+                    break;
+
+                    }
+            }
+
+        } else {
+            // do nothing
         }
-
     }
 }
 
@@ -479,14 +501,32 @@ void runSwitches(){
             Serial.print(" is set to :");
             Serial.println(buttons[i]);
 
-            if (buttons[i] == 1){
 
-              cl.publish(buttonTopics[i], onSignal );
+            if ( i <= 4 ){ // correct incorrect wiring for player 2 controls by fliping player 1s
 
-            } else if ( buttons[i] == 0 ) {
+                if (buttons[i] == 1){
 
-                  cl.publish(buttonTopics[i], offSignal );
+                    cl.publish(buttonTopics[i], offSignal );
 
+                } else if ( buttons[i] == 0 ) {
+
+                    cl.publish(buttonTopics[i], onSignal );
+
+                }
+
+
+            } else {
+
+
+                if (buttons[i] == 1){
+
+                    cl.publish(buttonTopics[i], onSignal );
+
+                } else if ( buttons[i] == 0 ) {
+
+                    cl.publish(buttonTopics[i], offSignal );
+
+                }
             }
 
           
@@ -587,6 +627,9 @@ void readInputs() {
     rotPots[1] = analogRead(rotPot1P2);
     rotPots[2] = analogRead(rotPot2P2);
     //Player 1 Pots
+
+
+    //Serial.println(slidePots[1]);
 }
 void connectionChecker() {
 
