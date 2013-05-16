@@ -15,8 +15,10 @@ var express = require('express'),
     var buttonNames = { "button0" : "0", "button1" : "0", "button2" : "0", "button3" : "0", "button4" : "0", "button5" : "0", "button6" : "0", "button7" : "0", "slider0" : "0", "slider1" : "0", "slider2" : "0", "rotary0" : "0", "rotary1" : "0", "rotary2" : "0", "ultrasound1" : "0", "ultrasound2" : "0" };
 
     var waitingFor = [],
-        waitingForMap = { "button0" : 0, "button1" : 0, "button2" : 0, "button3" : 0, "button4" : 0, "button5" : 0, "button6" : 0, "button7" : 0,"slider0" : 0, "slider1" : 0, "slider2" : 0, "rotary0" : 0, "rotary1" : 0, "rotary2" : 0, "ultrasound1" : 0, "ultrasound2" : 0 },
-        waitingForMapPlayers = { "button0" : 0, "button1" : 0, "button2" : 0, "button3" : 0, "button4" : 0, "button5" : 0, "button6" : 0, "button7" : 0,"slider0" : 0, "slider1" : 0, "slider2" : 0, "rotary0" : 0, "rotary1" : 0, "rotary2" : 0, "ultrasound1" : 0, "ultrasound2" : 0 };
+        waitingForValue = { "button0" : 99, "button1" : 99, "button2" : 99, "button3" : 99, "button4" : 99, "button5" : 99, "button6" : 99, "button7" : 99,"slider0" : 99, "slider1" : 99, "slider2" : 99, "rotary0" : 99, "rotary1" : 99, "rotary2" : 99, "ultrasound1" : 99, "ultrasound2" : 99 },
+        clientWaitingForInput = { "button0" : 99, "button1" : 99, "button2" : 99, "button3" : 99, "button4" : 99, "button5" : 99, "button6" : 99, "button7" : 99,"slider0" : 99, "slider1" : 99, "slider2" : 99, "rotary0" : 99, "rotary1" : 99, "rotary2" : 99, "ultrasound1" : 99, "ultrasound2" : 99 };
+
+    var activeClients = { "client0" : false , "client1" : false , "client2" : false };
 
     var connectedPlayers = { "player1" : false , "player2" : false , "player3" : false };
 
@@ -218,20 +220,17 @@ function mqttController (id, topic, packet) {
 
         if ( buttonType == "button") {
 
-        waitingTopicPos = waitingFor.indexOf(topic);
-        waitingFor.splice(topic, 1);
+        // waitingTopicPos = waitingFor.indexOf(topic);
+        // waitingFor.splice(topic, 1);
 
         checkPlayerAndRemove(topic);
 
         } else {
 
-            if ( packet === waitingForMap[topic]) {
+            if ( packet === waitingForValue[topic]) {
 
-                waitingTopicPos = waitingFor.indexOf(topic);
-                waitingFor.splice(topic, 1);
-                waitingForMap[topic] = 99;
 
-                checkPlayerAndRemove(topic);
+                checkPlayerAndRemove(topic );
 
             } else {
 
@@ -311,10 +310,11 @@ function engageLevel () {
 
     (function () {
 
+        //if ( )
         messageReady();
 
 
-    setTimeout(arguments.callee, 10000);
+    setTimeout(arguments.callee, 8000);
 
     })();
 
@@ -330,46 +330,55 @@ function messageReady () {
         console.log(preparedMessage);
 
     var messageToSend = preparedMessage[0],
-        input = preparedMessage[1],
+        inputId = preparedMessage[1], //id of input eg button5, rotary2
         buttonType = preparedMessage[2],
         newState = preparedMessage[3].toString(),
-        randomSocket = Math.floor(Math.random() * (3) + 0 );
+        randomPlayer = Math.floor(Math.random() * (3) + 0 );
         randomMillis = Math.floor(Math.random() * (4500) + 3500);
+        clientSent = "client" + randomPlayer.toString();
 
         if (buttonType != "button" ){
 
-            waitingForMap[input] = newState;
+            waitingForValue[inputId] = newState;
 
         }
-        console.log( "random Millis : ", randomMillis);
+        //console.log( "random Millis : ", randomMillis);
 
-        waitingFor.push(input);
+        waitingFor.push(inputId);
+        activeClients[clientSent] = true;
 
-        io.sockets.socket(clients[randomSocket]).emit('instruction', messageToSend );
-        console.log(messageToSend);
-        waitingForMapPlayers[input] = clients[randomSocket];
+        clientWaitingForInput[inputId] = randomPlayer;
+
+        console.log(waitingFor);
+
+        io.sockets.socket(clients[randomPlayer]).emit('instruction', messageToSend );
 
         setTimeout( function () {
 
-
-            var waitingTopicPos = waitingFor.indexOf(input);
-            waitingFor.splice(input, 1);
-            waitingForMap[input] = 99;
-
-            io.sockets.socket(waitingForMapPlayers[input]).emit('instruction', "EMPTY STRING" );
+            checkPlayerAndRemove( inputId );
 
         }, randomMillis );
 
         //console.log("Array of items being watched", waitingFor);
-        //console.log("new states being waited for", waitingForMap);
+        //console.log("new states being waited for", waitingForValue);
 
 
 
 }
-function checkPlayerAndRemove ( button ) {
+function checkPlayerAndRemove ( input ) {
 
-    io.sockets.socket(waitingForMapPlayers[button]).emit('instruction', "EMPTY STRING" );
+    var waitingTopicPos = waitingFor.indexOf(input),
+        whichClient = "client" + clientWaitingForInput[input].toString();;
 
+
+        io.sockets.socket(clients[clientWaitingForInput[input]]).emit('instruction', "EMPTY STRING" );
+
+        activeClients[whichClient] = false;
+
+        waitingFor.splice(waitingTopicPos, 1);
+        
+        waitingForValue[input] = 99;
+        clientWaitingForInput[input] = 99;
 }
 function checkArray ( arr, obj ) {
 

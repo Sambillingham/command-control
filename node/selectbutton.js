@@ -138,11 +138,13 @@ function newState ( buttonType , state) {
 
 function prepareMessage( messageType , buttonType, buttonNumber , state , newState , realName) {
 
-    var messageToSend = " ";
+    var messageToSend = "";
+
+    //console.log("messageType: ", messageType, "  buttonType: ", buttonType, " buttonNumber: ", buttonNumber, " state: ", state, " newState: ", newState , " realName: ", realName);
 
     if ( messageType == "bin" ) {
 
-        if ( state === 0 ){
+        if ( state === 0 || state == "0" ){
 
             messageToSend = onWord[Math.floor(Math.random() * (4) )] + " " + realName;
 
@@ -162,6 +164,9 @@ function prepareMessage( messageType , buttonType, buttonNumber , state , newSta
             messageToSend = decreaseWord[Math.floor(Math.random() * (7) )] + " " + realName + " to " + newState;
 
         }
+    } else {
+
+        messageToSend = "Error!!"
     }
 
         return messageToSend;
