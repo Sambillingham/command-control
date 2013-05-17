@@ -1,16 +1,18 @@
 var mqtt = require('mqttjs');
 
+var app = require("./app");
+
 var thisMqttClient = '',
     defaultTopic = '/default',
     defaultPayload = "I'm a payload";
 
 function runClient () {
 
-            thisMqttClient = mqtt.createClient( mqttPort, serverAddress, function (err, client) {
+            thisMqttClient = mqtt.createClient( app.mqttPort, app.serverAddress, function (err, client) {
 
                 var defaultTopic;
 
-                if(err) {
+                if ( err ) {
 
                         console.log(err , " CLIENT = Unable to connect to broker");
                         process.exit(1);

@@ -4,7 +4,8 @@ $(function() {
 
     var buttonMap = {};
     var pathArray = window.location.pathname.split( '/' );
-    var playerCheck = pathArray[1];
+    var playerCheck = pathArray[1],
+        currentInterval = 0;
 
     console.log(playerCheck);
 
@@ -21,12 +22,23 @@ $(function() {
                 
                 socket.on( 'instruction' , function ( instruction ) {
 
-                    displayInstructions(instruction);
+                    thisInstruction = instruction;
+                    
+                    console.log(thisInstruction);
+
+                    if ( thisInstruction.reset === true ) {
+
+                        window.clearInterval(currentInterval);
+                    }
+
+                    displayInstructions(thisInstruction);
                 });
 
                 socket.on ('names', function ( names) {
  
                     mapNewNames(names);
+
+
                 });
 
                 socket.on('disconect', function () {
@@ -37,19 +49,6 @@ $(function() {
                 
 
             });
-    
-    // function displayControls ( map ){
-
-    //         ultrasonicHeight( map.ultrasound1 , 1);
-
-    //         ultrasonicHeight( map.ultrasound2 , 2);
-
-    //         sliderChange(map.slider1, 1);
-
-    //         colorChanger(map.button2, 2);
-    //         colorChanger(map.button3, 3);
-    //         colorChanger(map.button4, 4);
-    // }
 
     $("#start").click( function () {
 
@@ -63,9 +62,46 @@ $(function() {
 
     function displayInstructions ( inst ) {
 
-        $("#incomming").text(inst);
+        var timerValue = Math.floor(inst.timer/ 100);
+            timerValue = timerValue/10;
 
 
+        $("#incomming").text(inst.message);
+        $(".timer").css("width", "100%");
+
+        if ( inst.reset !== true ){
+
+            runTimers(timerValue);
+
+        }
+        
+
+    }
+    function runTimers ( time ) {
+
+        var remainingTime = time,
+            barWidth = window.innerWidth;
+            pixelsInInterval = 3;
+            intervalSteps = barWidth/pixelsInInterval;
+            removeIntervalTime = Math.floor((time * 1000)/intervalSteps);
+            currentWith = 0;
+            newWidth = 0;
+
+            if ( removeIntervalTime !== 0 ){
+
+                $(".timer").css("width", barWidth);
+                console.log("timer", removeIntervalTime);
+                currentInterval = window.setInterval( moveTimerBar, removeIntervalTime );
+            }
+            
+    }
+    function moveTimerBar() {
+
+            currentWith = parseInt($(".timer").css("width"));
+            
+            newWidth = currentWith - 3;
+
+            $(".timer").css("width", newWidth);
     }
     function ultrasonicHeight ( value , id ) {
 

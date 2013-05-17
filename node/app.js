@@ -4,37 +4,35 @@ var express = require('express'),
     io = require('socket.io').listen(server, { log: false }),
     mqtt = require('mqttjs');
 
-    socketsPort = 8080,
-    mqttPort = 8085, // need to be diffrent to socketsPort
-    serverAddress = "127.0.0.1";
+    var socketsPort = 8080,
+        mqttPort = 8085, // need to be diffrent to socketsPort
+        serverAddress = "127.0.0.1";
+
+        // Export earlier for mqqt client to connect on startup
+        exports.serverAddress = serverAddress;
+        exports.mqttPort = mqttPort;
 
     var clients = [],
-        clientHasMessage = { "player1" : false , "player2" : false , "player3" : false };
-
-    var topicDouble = { "button0" : false, "button1" : false, "button2" : false, "button3" : false, "button4" : false, "button5" : false, "button6" : false, "button7" : false, "slider0" : false, "slider1" : false, "slider2" : false, "rotary0" : false, "rotary1" : false, "rotary2" : false, "ultrasound1" : false, "ultrasound2" : false };
-    var timeOutIds = { "button0" : 0, "button1" : 0, "button2" : 0, "button3" : 0, "button4" : 0, "button5" : 0, "button6" : 0, "button7" : 0,"slider0" : 0, "slider1" : 0, "slider2" : 0, "rotary0" : 0, "rotary1" : 0, "rotary2" : 0, "ultrasound1" : 0, "ultrasound2" : 0 };
-    
-
+        topicDouble = { "button0" : false, "button1" : false, "button2" : false, "button3" : false, "button4" : false, "button5" : false, "button6" : false, "button7" : false, "slider0" : false, "slider1" : false, "slider2" : false, "rotary0" : false, "rotary1" : false, "rotary2" : false, "ultrasound1" : false, "ultrasound2" : false },
+        timeOutIds = { "button0" : 0, "button1" : 0, "button2" : 0, "button3" : 0, "button4" : 0, "button5" : 0, "button6" : 0, "button7" : 0,"slider0" : 0, "slider1" : 0, "slider2" : 0, "rotary0" : 0, "rotary1" : 0, "rotary2" : 0, "ultrasound1" : 0, "ultrasound2" : 0 };
 
     var buttonMap = { "button0" : 0, "button1" : 0, "button2" : 0, "button3" : 0, "button4" : 0, "button5" : 0, "button6" : 0, "button7" : 0,"slider0" : 0, "slider1" : 0, "slider2" : 0, "rotary0" : 0, "rotary1" : 0, "rotary2" : 0, "ultrasound1" : 0, "ultrasound2" : 0 };
     var buttonNames = { "button0" : "0", "button1" : "0", "button2" : "0", "button3" : "0", "button4" : "0", "button5" : "0", "button6" : "0", "button7" : "0", "slider0" : "0", "slider1" : "0", "slider2" : "0", "rotary0" : "0", "rotary1" : "0", "rotary2" : "0", "ultrasound1" : "0", "ultrasound2" : "0" };
 
     var waitingFor = [],
         waitingForValue = { "button0" : 99, "button1" : 99, "button2" : 99, "button3" : 99, "button4" : 99, "button5" : 99, "button6" : 99, "button7" : 99,"slider0" : 99, "slider1" : 99, "slider2" : 99, "rotary0" : 99, "rotary1" : 99, "rotary2" : 99, "ultrasound1" : 99, "ultrasound2" : 99 },
-        clientWaitingForInput = { "button0" : 99, "button1" : 99, "button2" : 99, "button3" : 99, "button4" : 99, "button5" : 99, "button6" : 99, "button7" : 99,"slider0" : 99, "slider1" : 99, "slider2" : 99, "rotary0" : 99, "rotary1" : 99, "rotary2" : 99, "ultrasound1" : 99, "ultrasound2" : 99 };
+        whichcClientWanted = { "button0" : 99, "button1" : 99, "button2" : 99, "button3" : 99, "button4" : 99, "button5" : 99, "button6" : 99, "button7" : 99,"slider0" : 99, "slider1" : 99, "slider2" : 99, "rotary0" : 99, "rotary1" : 99, "rotary2" : 99, "ultrasound1" : 99, "ultrasound2" : 99 };
 
     var activeClients = { "client0" : false , "client1" : false , "client2" : false };
 
     var connectedPlayers = { "player1" : false , "player2" : false , "player3" : false };
 
+    var resetInstruction = { "message" : "" , "timer" : "" , "reset" : true };
 
-     //Home made module
+       //Modules
     var mqqtclient = require("./mqttclient"),
         selectButtons = require("./selectbutton");
         //mqttsubclient = require("./mqttsubclient");
-
-
-var latestTopic = '';
 
 server.listen(socketsPort);
 
@@ -150,10 +148,10 @@ var thisMqttServer = mqtt.createServer(function(client) {
 
                                 if ( topic != "keepAlive" ){
 
-
-                                mqttController( aID, topic, packet.payload);
+                                    mqttController( aID, topic, packet.payload);
 
                                 }
+
                             } else {
                         
                                 topicDouble[topic] = true;
@@ -363,7 +361,8 @@ function messageReady () {
         newState = preparedMessage[3].toString(),
         randomPlayer = Math.floor(Math.random() * (3) + 0 );
         randomMillis = Math.floor(Math.random() * (4150) + 3750);
-        clientSent = "client" + randomPlayer.toString();
+        clientSent = "client" + randomPlayer.toString(),
+        instruction = { "message" : messageToSend , "timer" : randomMillis, "reset" : false };
 
         
         //console.log( "random Millis : ", randomMillis);
@@ -371,7 +370,7 @@ function messageReady () {
 
         //console.log("List of active clients: ", activeClients);
 
-        if ( activeClients[clientSent] != true ) {
+        if ( activeClients[clientSent] != true ) { // Stops messages being sent if player already has a message on screen
 
 
             if (buttonType != "button" ){
@@ -382,11 +381,9 @@ function messageReady () {
 
             waitingFor.push(inputId);
         
-            clientWaitingForInput[inputId] = randomPlayer;
+            whichcClientWanted[inputId] = randomPlayer;
 
-            //console.log("WAITING FOR THESE BUTTONS", waitingFor);
-
-            io.sockets.socket(clients[randomPlayer]).emit('instruction', messageToSend );
+            io.sockets.socket(clients[randomPlayer]).emit('instruction', instruction );
             activeClients[clientSent] = true;
 
             timeOutIds[inputId] = setTimeout( function () {
@@ -400,28 +397,23 @@ function messageReady () {
             //console.log("new states being waited for", waitingForValue);
 
         }
-        
-
-        
-
-
 
 }
 function checkPlayerAndRemove ( input ) {
 
     var waitingTopicPos = waitingFor.indexOf(input),
-        whichClient = "client" + clientWaitingForInput[input].toString();
+        whichClient = "client" + whichcClientWanted[input].toString();
 
         clearTimeout(timeOutIds[input]);
 
-        io.sockets.socket(clients[clientWaitingForInput[input]]).emit('instruction', "EMPTY STRING" );
+        io.sockets.socket(clients[whichcClientWanted[input]]).emit('instruction', resetInstruction );
 
         activeClients[whichClient] = false;
 
         waitingFor.splice(waitingTopicPos, 1);
         
         waitingForValue[input] = 99;
-        clientWaitingForInput[input] = 99;
+        whichcClientWanted[input] = 99;
 }
 function checkArray ( arr, obj ) {
 
@@ -463,3 +455,4 @@ function setButtonNames ( btn0, btn1, btn2, btn3 , btn4 , btn5, btn6, btn7, sp0,
 mqttKeepAlive(15000);
 exports.buttonMap = buttonMap;
 exports.buttonNames = buttonNames;
+
