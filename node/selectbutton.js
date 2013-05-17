@@ -5,7 +5,8 @@
         numOfRotarys = 3;
         numOfUltrasounds = 2;
 
-    var app = require("./app");
+    var app = require("./app"),
+        names = require("./names");
 
     var onWord = ["Engage the", "boost the" , "Turn on the" , " Activate the"],
         offWord = ["Shut down the", "Disengage the", " turn off the", "deactivate the", " power down the"],
@@ -77,7 +78,7 @@ function pickMessageType ( button , state ) {
 
 function currentName ( inputName ) {
 
-    return app.buttonNames[inputName];
+    return names.buttonNames[inputName];
 
 }
 

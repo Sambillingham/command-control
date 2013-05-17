@@ -1,8 +1,8 @@
 var express = require('express'),
     app = express(),
     server = require('http').createServer(app),
-    io = require('socket.io').listen(server, { log: false }),
-    mqtt = require('mqttjs');
+    io = require('socket.io').listen(server, { log: false });
+    // mqtt = require('mqttjs');
 
     var socketsPort = 8080,
         mqttPort = 8085, // need to be diffrent to socketsPort
@@ -13,11 +13,10 @@ var express = require('express'),
         exports.mqttPort = mqttPort;
 
     var clients = [],
-        topicDouble = { "button0" : false, "button1" : false, "button2" : false, "button3" : false, "button4" : false, "button5" : false, "button6" : false, "button7" : false, "slider0" : false, "slider1" : false, "slider2" : false, "rotary0" : false, "rotary1" : false, "rotary2" : false, "ultrasound1" : false, "ultrasound2" : false },
+        //topicDouble = { "button0" : false, "button1" : false, "button2" : false, "button3" : false, "button4" : false, "button5" : false, "button6" : false, "button7" : false, "slider0" : false, "slider1" : false, "slider2" : false, "rotary0" : false, "rotary1" : false, "rotary2" : false, "ultrasound1" : false, "ultrasound2" : false },
         timeOutIds = { "button0" : 0, "button1" : 0, "button2" : 0, "button3" : 0, "button4" : 0, "button5" : 0, "button6" : 0, "button7" : 0,"slider0" : 0, "slider1" : 0, "slider2" : 0, "rotary0" : 0, "rotary1" : 0, "rotary2" : 0, "ultrasound1" : 0, "ultrasound2" : 0 };
 
     var buttonMap = { "button0" : 0, "button1" : 0, "button2" : 0, "button3" : 0, "button4" : 0, "button5" : 0, "button6" : 0, "button7" : 0,"slider0" : 0, "slider1" : 0, "slider2" : 0, "rotary0" : 0, "rotary1" : 0, "rotary2" : 0, "ultrasound1" : 0, "ultrasound2" : 0 };
-    var buttonNames = { "button0" : "0", "button1" : "0", "button2" : "0", "button3" : "0", "button4" : "0", "button5" : "0", "button6" : "0", "button7" : "0", "slider0" : "0", "slider1" : "0", "slider2" : "0", "rotary0" : "0", "rotary1" : "0", "rotary2" : "0", "ultrasound1" : "0", "ultrasound2" : "0" };
 
     var waitingFor = [],
         waitingForValue = { "button0" : 99, "button1" : 99, "button2" : 99, "button3" : 99, "button4" : 99, "button5" : 99, "button6" : 99, "button7" : 99,"slider0" : 99, "slider1" : 99, "slider2" : 99, "rotary0" : 99, "rotary1" : 99, "rotary2" : 99, "ultrasound1" : 99, "ultrasound2" : 99 },
@@ -31,7 +30,9 @@ var express = require('express'),
 
        //Modules
     var mqqtclient = require("./mqttclient"),
-        selectButtons = require("./selectbutton");
+        selectButtons = require("./selectbutton"),
+        names = require("./names"),
+        mqttBroker = require("./mqttbroker");
         //mqttsubclient = require("./mqttsubclient");
 
 server.listen(socketsPort);
@@ -110,98 +111,6 @@ app.get('/controls', function (req, res) {
 
       });
 
-// MQTT Server
-
-var thisMqttServer = mqtt.createServer(function(client) {
-
-    var self = this;
-
-    if (self.clients === undefined) self.clients = {};
-
-    client.on('connect', function (packet) {
-
-            console.log(packet.client, ':  - MQTT Client has Connected');
-
-                    client.connack({
-
-                            returnCode: 0
-
-                    });
-
-            client.id = packet.client;
-
-            self.clients[client.id] = client;
-
-    });
-
-    client.on('publish', function (packet) {
-
-        for (var k in self.clients) {
-
-                self.clients[k].publish({topic: packet.topic, payload: packet.payload});
-
-                        var splitTopic = packet.topic.split("/"),
-                            topic =  splitTopic[1],
-                            aID = splitTopic[0];
-
-                            if (topicDouble[topic] === true) {
-
-                                if ( topic != "keepAlive" ){
-
-                                    mqttController( aID, topic, packet.payload);
-
-                                }
-
-                            } else {
-                        
-                                topicDouble[topic] = true;
-                            }
-        }
-    });
-
-
-    client.on('subscribe', function (packet) {
-
-        var granted = [];
-
-        for (var i = 0; i < packet.subscriptions.length; i++) {
-
-                 granted.push(packet.subscriptions[i].qos);
-
-        }
-
-        client.suback({ granted: granted });
-
-    });
-
-    client.on('pingreq', function (packet) {
-
-            client.pingresp();
-
-    });
-
-    client.on('disconnect', function (packet) {
-
-            client.stream.end();
-
-    });
-
-    client.on('close', function (err) {
-
-            delete self.clients[client.id];
-
-    });
-
-    client.on('error', function (err) {
-
-            client.stream.end();
-
-            console.log('error!');
-
-    });
-
-}).listen(mqttPort);
-
 function mqttKeepAlive (keepAliveTimer) {
 
     (function () {
@@ -220,7 +129,7 @@ function mqttController (id, topic, packet) {
         waitingTopicPos = 0,
         buttonType = incommingTopic.slice(0, -1);
 
-    topicDouble[topic] = false;
+    mqttBroker.topicDouble[topic] = false;
 
     console.log("ID: ", id, "TOPIC: ", topic, "PACKET: ", packet);
 
@@ -321,17 +230,12 @@ function mqttController (id, topic, packet) {
 function engageLevel () {
 
     console.log('Engaging Level');
-    setButtonNames( "magnet enhancers", "cobalt injecter", "antimatter converter", "Flux Control Systems" , "Missile Targeting Array", "Hyperdrive Engines", "reactor Core", "shield hardeners", "armour plating", "capasitor relay system", "stasis defences", "auxilary boosters", "XJKL5", "sensor array angle");
 
-    io.sockets.emit('names', buttonNames);
-
-    
+    names.setButtonNames( "magnet enhancers", "cobalt injecter", "antimatter converter", "Flux Control Systems" , "Missile Targeting Array", "Hyperdrive Engines", "reactor Core", "shield hardeners", "armour plating", "capasitor relay system", "stasis defences", "auxilary boosters", "XJKL5", "sensor array angle");
 
     (function () {
 
 
-
-        //if ( )
         messageReady();
         console.log("Array of items being watched", waitingFor);
 
@@ -429,30 +333,8 @@ function losePoints ( ammount ){
 
 }
 
-function setButtonNames ( btn0, btn1, btn2, btn3 , btn4 , btn5, btn6, btn7, sp0, sp1, sp2, rp0, rp1, rp2, u1, u2 ) {
-
-        buttonNames.button0 = btn0;
-        buttonNames.button1 = btn1;
-        buttonNames.button2 = btn2;
-        buttonNames.button3 = btn3;
-        buttonNames.button4 = btn4;
-        buttonNames.button5 = btn5;
-        buttonNames.button6 = btn6;
-        buttonNames.button7 = btn7;
-
-        buttonNames.slider0 = sp0;
-        buttonNames.slider1 = sp1;
-        buttonNames.slider2 = sp2;
-
-        buttonNames.rotary0 = rp0;
-        buttonNames.rotary1 = rp1;
-        buttonNames.rotary2 = rp2;
-
-        //buttonNames.ultrasound1 = u1;
-        //buttonNames.ultrasound2 = u2;
-}
 
 mqttKeepAlive(15000);
 exports.buttonMap = buttonMap;
-exports.buttonNames = buttonNames;
-
+exports.io = io;
+exports.mqttController = mqttController;
