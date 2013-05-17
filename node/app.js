@@ -17,10 +17,9 @@ var express = require('express'),
     var activeClients = { "client0" : false , "client1" : false , "client2" : false };
 
     var connectedPlayers = { "player1" : false , "player2" : false , "player3" : false };
-    
+
        //Modules
-    var mqqtclient = require("./mqttclient"),
-        selectButtons = require("./selectbutton"),
+    var selectButtons = require("./selectbutton"),
         names = require("./names"),
         mqttBroker = require("./mqttbroker"),
         mqttController = require("./mqttcontroller"),
@@ -52,8 +51,6 @@ app.get('/controls', function (req, res) {
 
         res.sendfile(__dirname + '/control.html');
 });
-
-
 
     io.sockets.on('connection', function (socket) {
 
@@ -97,23 +94,9 @@ app.get('/controls', function (req, res) {
                 toDC = clients.indexOf(socket.id);
                 clients.splice(toDC, 1);
 
-
             });
 
       });
-
-function mqttKeepAlive (keepAliveTimer) {
-
-    (function () {
-
-        mqqtclient.publishOnClient("1/keepAlive" , "1");
-
-
-    setTimeout(arguments.callee, keepAliveTimer);
-
-    })();
-}
-
 
 function engageLevel () {
 
@@ -122,7 +105,6 @@ function engageLevel () {
     names.setButtonNames( "magnet enhancers", "cobalt injecter", "antimatter converter", "Flux Control Systems" , "Missile Targeting Array", "Hyperdrive Engines", "reactor Core", "shield hardeners", "armour plating", "capasitor relay system", "stasis defences", "auxilary boosters", "XJKL5", "sensor array angle");
 
     (function () {
-
 
         messageController.messageReady();
         console.log("Array of items being watched", messageController.waitingFor);
@@ -147,8 +129,6 @@ function losePoints ( ammount ){
 
 }
 
-
-mqttKeepAlive(15000);
 exports.buttonMap = buttonMap;
 exports.io = io;
 exports.mqttController = mqttController;

@@ -1,5 +1,6 @@
 
-var app = require("./app"),
+var mqqtPubClient = require("./mqttpubclient"),
+    app = require("./app"),
     messageController = require("./messagecontroller"),
     mqttBroker = require("./mqttbroker"),
     removeMessage = require("./removemessage");
@@ -106,4 +107,18 @@ function mqttController (id, topic, packet) {
     app.io.sockets.emit('map', app.buttonMap);
 }
 
+function mqttKeepAlive (keepAliveTimer) {
+
+    (function () {
+
+        mqqtPubClient.publishOnClient("1/keepAlive" , "1");
+
+
+    setTimeout(arguments.callee, keepAliveTimer);
+
+    })();
+}
+
+
+mqttKeepAlive(15000);
 exports.mqttController = mqttController;
