@@ -1,7 +1,8 @@
 
 var app = require("./app"),
     messageController = require("./messagecontroller"),
-    mqttBroker = require("./mqttbroker");
+    mqttBroker = require("./mqttbroker"),
+    removeMessage = require("./removemessage");
 
 function mqttController (id, topic, packet) {
 
@@ -23,7 +24,7 @@ function mqttController (id, topic, packet) {
 
         if ( buttonType == "button") {
 
-            app.checkPlayerAndRemove(topic);
+            removeMessage.checkPlayerAndRemove(topic);
             console.log("Button was accepted");
 
         } else {
@@ -31,7 +32,7 @@ function mqttController (id, topic, packet) {
             if ( packet === messageController.waitingForValue[topic]) {
 
                 console.log("slider/rotary was accepted");
-                app.checkPlayerAndRemove(topic );
+                removeMessage.checkPlayerAndRemove(topic );
 
             } else {
 

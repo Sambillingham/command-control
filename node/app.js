@@ -17,9 +17,7 @@ var express = require('express'),
     var activeClients = { "client0" : false , "client1" : false , "client2" : false };
 
     var connectedPlayers = { "player1" : false , "player2" : false , "player3" : false };
-
-    var resetInstruction = { "message" : "" , "timer" : "" , "reset" : true };
-
+    
        //Modules
     var mqqtclient = require("./mqttclient"),
         selectButtons = require("./selectbutton"),
@@ -133,25 +131,6 @@ function engageLevel () {
 
     })();
 
-
-
-}
-
-function checkPlayerAndRemove ( input ) {
-
-    var waitingTopicPos = messageController.waitingFor.indexOf(input),
-        whichClient = "client" + messageController.whichcClientWanted[input].toString();
-
-        clearTimeout(messageController.timeOutIds[input]);
-
-        io.sockets.socket(clients[messageController.whichcClientWanted[input]]).emit('instruction', resetInstruction );
-
-        activeClients[whichClient] = false;
-
-        messageController.waitingFor.splice(waitingTopicPos, 1);
-        
-        messageController.waitingForValue[input] = 99;
-        messageController.whichcClientWanted[input] = 99;
 }
 
 function checkArray ( arr, obj ) {
@@ -173,7 +152,6 @@ mqttKeepAlive(15000);
 exports.buttonMap = buttonMap;
 exports.io = io;
 exports.mqttController = mqttController;
-exports.checkPlayerAndRemove = checkPlayerAndRemove;
 exports.checkArray = checkArray;
 exports.losePoints = losePoints;
 exports.activeClients = activeClients;

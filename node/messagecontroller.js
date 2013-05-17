@@ -1,7 +1,8 @@
 
 var app = require("./app"),
     mqttController = require("./mqttcontroller"),
-    selectButtons = require("./selectbutton");
+    selectButtons = require("./selectbutton"),
+    removeMessage = require("./removemessage");
 
 var waitingFor = [],
     waitingForValue = { "button0" : 99, "button1" : 99, "button2" : 99, "button3" : 99, "button4" : 99, "button5" : 99, "button6" : 99, "button7" : 99,"slider0" : 99, "slider1" : 99, "slider2" : 99, "rotary0" : 99, "rotary1" : 99, "rotary2" : 99, "ultrasound1" : 99, "ultrasound2" : 99 },
@@ -46,7 +47,7 @@ function messageReady () {
 
             timeOutIds[inputId] = setTimeout( function () {
 
-                                    app.checkPlayerAndRemove( inputId );
+                                    removeMessage.checkPlayerAndRemove( inputId );
                                     console.log("Out of time no input for, ", inputId ," Recivied!!");
 
                                 }, randomMillis );
