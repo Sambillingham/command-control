@@ -23,7 +23,8 @@ var express = require('express'),
         names = require("./names"),
         mqttBroker = require("./mqttbroker"),
         mqttController = require("./mqttcontroller"),
-        messageController = require("./messagecontroller");
+        messageController = require("./messagecontroller"),
+        levelSystem = require("./levelsystem");
 
 server.listen(socketsPort);
 
@@ -51,6 +52,10 @@ app.get('/controls', function (req, res) {
 
         res.sendfile(__dirname + '/control.html');
 });
+app.get('/p1start', function (req, res) {
+
+        res.sendfile(__dirname + '/p1start.html');
+});
 
     io.sockets.on('connection', function (socket) {
 
@@ -76,7 +81,7 @@ app.get('/controls', function (req, res) {
             socket.on('start', function () {
 
                 console.log("Start Recivied");
-                engageLevel();
+                levelSystem.engageLevel();
 
 
             });
@@ -98,41 +103,9 @@ app.get('/controls', function (req, res) {
 
       });
 
-function engageLevel () {
 
-    console.log('Engaging Level');
-
-    names.setButtonNames( "magnet enhancers", "cobalt injecter", "antimatter converter", "Flux Control Systems" , "Missile Targeting Array", "Hyperdrive Engines", "reactor Core", "shield hardeners", "armour plating", "capasitor relay system", "stasis defences", "auxilary boosters", "XJKL5", "sensor array angle");
-
-    (function () {
-
-        messageController.messageReady();
-        console.log("Array of items being watched", messageController.waitingFor);
-
-    setTimeout(arguments.callee, 1000);
-
-    })();
-
-}
-
-function checkArray ( arr, obj ) {
-
-    for ( var i = 0; i < arr.length; i++ ) {
-
-        if (arr[i] == obj)return true;
-
-    }
-}
-
-
-function losePoints ( ammount ){
-
-}
 
 exports.buttonMap = buttonMap;
 exports.io = io;
-exports.mqttController = mqttController;
-exports.checkArray = checkArray;
-exports.losePoints = losePoints;
 exports.activeClients = activeClients;
 exports.clients = clients;

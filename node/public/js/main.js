@@ -41,6 +41,11 @@ $(function() {
 
                 });
 
+                socket.on ('health', function (status) {
+
+                    moveHealth( status);
+                });
+
                 socket.on('disconect', function () {
 
                     socket.emit('playerID', playerCheck + "d");
@@ -60,6 +65,29 @@ $(function() {
 
     });
 
+    function moveHealth ( health ) {
+
+        var maxHealth = health.max,
+            currentHealth = health.currentH,
+            percRemain = (currentHealth/maxHealth)*100;
+            displayPerc = percRemain.toString()+"%"
+
+            console.log(displayPerc);
+
+        $(".health").css("width", displayPerc);
+
+        if ( percRemain < 70 && percRemain >= 40 ){
+
+            $(".health").css("background-color", "#f7e12c");
+
+        } else if ( percRemain < 40 ) {
+
+            $(".health").css("background-color", "#F75B07");
+
+        } 
+
+    }
+
     function displayInstructions ( inst ) {
 
         var timerValue = Math.floor(inst.timer/ 100);
@@ -74,7 +102,6 @@ $(function() {
             runTimers(timerValue);
 
         }
-        
 
     }
     function runTimers ( time ) {

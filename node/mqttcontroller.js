@@ -3,7 +3,9 @@ var mqqtPubClient = require("./mqttpubclient"),
     app = require("./app"),
     messageController = require("./messagecontroller"),
     mqttBroker = require("./mqttbroker"),
-    removeMessage = require("./removemessage");
+    removeMessage = require("./removemessage"),
+    helper = require("./helper"),
+    pointsSystem = require("./pointssystem");
 
 function mqttController (id, topic, packet) {
 
@@ -18,7 +20,7 @@ function mqttController (id, topic, packet) {
     console.log( " incomming topic: ", incommingTopic );
     console.log("Array of items being watched", messageController.waitingFor);
 
-    if ( app.checkArray(messageController.waitingFor, incommingTopic) === true ) {
+    if ( helper.checkArray(messageController.waitingFor, incommingTopic) === true ) {
 
         console.log( incommingTopic, ":  item was found in array");
         console.log( "Type of input is: --> ", buttonType, "  <--");
@@ -38,7 +40,7 @@ function mqttController (id, topic, packet) {
             } else {
 
                 console.log("Wrong roatry/slider value. !Rejected!");
-                app.losePoints(1);
+                pointsSystem.losePoints(1);
             }
 
         }
@@ -46,7 +48,7 @@ function mqttController (id, topic, packet) {
     } else {
 
         console.log("Wrong switch. !Rejected!");
-        app.losePoints(1);// wrong button pressed (aka not found in waiting for array)
+        pointsSystem.losePoints(1);// wrong button pressed (aka not found in waiting for array)
     
     }
 
