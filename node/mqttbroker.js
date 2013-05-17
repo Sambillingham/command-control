@@ -1,9 +1,10 @@
 var app = require("./app"),
-    mqtt = require('mqttjs');
+    mqtt = require('mqttjs'),
+    mqttController = require("./mqttcontroller");
 
 var topicDouble = { "button0" : false, "button1" : false, "button2" : false, "button3" : false, "button4" : false, "button5" : false, "button6" : false, "button7" : false, "slider0" : false, "slider1" : false, "slider2" : false, "rotary0" : false, "rotary1" : false, "rotary2" : false, "ultrasound1" : false, "ultrasound2" : false };
 
-var thisMqttServer = mqtt.createServer(function(client) {
+var thisMqttServer = mqtt.createServer(function (client) {
 
     var self = this;
 
@@ -39,7 +40,7 @@ var thisMqttServer = mqtt.createServer(function(client) {
 
                                 if ( topic != "keepAlive" ){
 
-                                    app.mqttController( aID, topic, packet.payload);
+                                    mqttController.mqttController( aID, topic, packet.payload);
 
                                 }
 
