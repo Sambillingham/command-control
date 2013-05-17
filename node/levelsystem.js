@@ -54,7 +54,7 @@ function stopLevel () {
 function endGame () {
 	console.log(stats);
 	stopLevel();
-	app.io.sockets.emit('end-game', true);
+	app.io.sockets.emit('end-game', stats);
 
 }
 

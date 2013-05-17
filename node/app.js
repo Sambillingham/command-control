@@ -71,8 +71,7 @@ app.get('/end', function (req, res) {
                     connectedPlayers[id] = true;
                     console.log("connected : ", connectedPlayers);
 
-                    clients.push(socket.id);
-                    console.log("clients: ", clients);
+                    
 
                     if ( connectedPlayers.player1 == true && connectedPlayers.player2 == true && connectedPlayers.player3 == true ){
 
@@ -81,14 +80,13 @@ app.get('/end', function (req, res) {
 
                 } else {
 
-                    nonPlayingClients.push(socket.id);
-                    
-                    console.log("clients: ", nonPlayingClients);
-                    //socket.disconnect();
+                    socket.disconnect();
                 }
 
             });
             
+            clients.push(socket.id);
+            console.log("clients: ", clients);
 
             socket.on('start', function () {
 

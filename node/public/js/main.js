@@ -46,12 +46,12 @@ $(function() {
                     moveHealth( status);
                 });
 
-                socket.on ('end-game', function (end) {
+                socket.on ('end-game', function (stats) {
 
-                    if ( end === true ){
+                    
 
                         window.location = "/end";
-                    }
+                    
                 });
 
                 socket.on('disconect', function () {
