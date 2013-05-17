@@ -11,12 +11,11 @@ var express = require('express'),
         exports.serverAddress = serverAddress;
         exports.mqttPort = mqttPort;
 
-    var clients = [];
-    var buttonMap = { "button0" : 0, "button1" : 0, "button2" : 0, "button3" : 0, "button4" : 0, "button5" : 0, "button6" : 0, "button7" : 0,"slider0" : 0, "slider1" : 0, "slider2" : 0, "rotary0" : 0, "rotary1" : 0, "rotary2" : 0, "ultrasound1" : 0, "ultrasound2" : 0 };
-
-    var activeClients = { "client0" : false , "client1" : false , "client2" : false };
-
-    var connectedPlayers = { "player1" : false , "player2" : false , "player3" : false };
+    var clients = [],
+        nonPlayingClients = [],
+        buttonMap = { "button0" : 0, "button1" : 0, "button2" : 0, "button3" : 0, "button4" : 0, "button5" : 0, "button6" : 0, "button7" : 0,"slider0" : 0, "slider1" : 0, "slider2" : 0, "rotary0" : 0, "rotary1" : 0, "rotary2" : 0, "ultrasound1" : 0, "ultrasound2" : 0 },
+        activeClients = { "client0" : false , "client1" : false , "client2" : false },
+        connectedPlayers = { "player1" : false , "player2" : false , "player3" : false };
 
        //Modules
     var selectButtons = require("./selectbutton"),
@@ -56,6 +55,10 @@ app.get('/p1start', function (req, res) {
 
         res.sendfile(__dirname + '/p1start.html');
 });
+app.get('/end', function (req, res) {
+
+        res.sendfile(__dirname + '/end.html');
+});
 
     io.sockets.on('connection', function (socket) {
 
@@ -68,22 +71,37 @@ app.get('/p1start', function (req, res) {
                     connectedPlayers[id] = true;
                     console.log("connected : ", connectedPlayers);
 
+                    clients.push(socket.id);
+                    console.log("clients: ", clients);
+
+                    if ( connectedPlayers.player1 == true && connectedPlayers.player2 == true && connectedPlayers.player3 == true ){
+
+                        levelSystem.startGame();
+                    }
+
                 } else {
 
-                    socket.disconnect();
+                    nonPlayingClients.push(socket.id);
+                    
+                    console.log("clients: ", nonPlayingClients);
+                    //socket.disconnect();
                 }
 
             });
-
-            clients.push(socket.id);
-            console.log("clients: ", clients);
+            
 
             socket.on('start', function () {
 
                 console.log("Start Recivied");
-                levelSystem.engageLevel();
+                levelSystem.startGame();
 
 
+            });
+
+            socket.on('stop', function () {
+
+                console.log("STOPPED! LEVEL");
+                levelSystem.stopLevel();
             });
 
             socket.on('disconnect', function () {

@@ -10,6 +10,11 @@ function losePoints ( ammount ) {
 	shipHealth.currentH = shipHealth.currentH - lostPoints;
 
 	app.io.sockets.emit('health', shipHealth);
+
+	if ( shipHealth.currentH <= 0){
+
+		levelSystem.endGame();
+	}
 }
 
 exports.losePoints = losePoints;

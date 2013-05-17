@@ -5,7 +5,8 @@ var mqqtPubClient = require("./mqttpubclient"),
     mqttBroker = require("./mqttbroker"),
     removeMessage = require("./removemessage"),
     helper = require("./helper"),
-    pointsSystem = require("./pointssystem");
+    pointsSystem = require("./pointssystem"),
+    levelSystem = require("./levelsystem");
 
 function mqttController (id, topic, packet) {
 
@@ -29,6 +30,7 @@ function mqttController (id, topic, packet) {
 
             removeMessage.checkPlayerAndRemove(topic);
             console.log("Button was accepted");
+            levelSystem.stats.switches = levelSystem.stats.switches + 1;
 
         } else {
 
@@ -37,19 +39,43 @@ function mqttController (id, topic, packet) {
                 console.log("slider/rotary was accepted");
                 removeMessage.checkPlayerAndRemove(topic );
 
+                if ( (topic.substring(0, topic.length -1) == "slider") ){
+
+                    levelSystem.stats.sliders = levelSystem.stats.sliders + 1;
+
+                } else if ((topic.substring(0, topic.length -1) == "rotary")){
+
+                    levelSystem.stats.rotarys = levelSystem.stats.rotarys + 1;
+                }
+
+
             } else {
 
-                console.log("Wrong roatry/slider value. !Rejected!");
-                pointsSystem.losePoints(1);
+                if ( levelSystem.level.active === true ){
+
+                    console.log("Wrong roatry/slider value. !Rejected!");
+                    pointsSystem.losePoints(1);
+
+                } else {
+
+                    console.log("INPUT PRESSED - but level not active");
+                }
             }
 
         }
 
     } else {
 
-        console.log("Wrong switch. !Rejected!");
-        pointsSystem.losePoints(1);// wrong button pressed (aka not found in waiting for array)
-    
+        if ( levelSystem.level.active === true ){
+
+            console.log("Wrong switch. !Rejected!");
+            pointsSystem.losePoints(1);// wrong button pressed (aka not found in waiting for array)
+        
+        } else {
+
+            console.log("INPUT PRESSED - but level not active");
+
+        }
     }
 
     switch ( topic ) {

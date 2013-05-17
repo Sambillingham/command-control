@@ -4,12 +4,14 @@ var app = require("./app"),
     selectButtons = require("./selectbutton"),
     removeMessage = require("./removemessage"),
     helper = require("./helper"),
-    pointsSystem = require("./pointssystem");
+    pointsSystem = require("./pointssystem"),
+    levelSystem = require("./levelsystem");
 
 var waitingFor = [],
     waitingForValue = { "button0" : 99, "button1" : 99, "button2" : 99, "button3" : 99, "button4" : 99, "button5" : 99, "button6" : 99, "button7" : 99,"slider0" : 99, "slider1" : 99, "slider2" : 99, "rotary0" : 99, "rotary1" : 99, "rotary2" : 99, "ultrasound1" : 99, "ultrasound2" : 99 },
     whichcClientWanted = { "button0" : 99, "button1" : 99, "button2" : 99, "button3" : 99, "button4" : 99, "button5" : 99, "button6" : 99, "button7" : 99,"slider0" : 99, "slider1" : 99, "slider2" : 99, "rotary0" : 99, "rotary1" : 99, "rotary2" : 99, "ultrasound1" : 99, "ultrasound2" : 99 },
-    timeOutIds = { "button0" : 0, "button1" : 0, "button2" : 0, "button3" : 0, "button4" : 0, "button5" : 0, "button6" : 0, "button7" : 0,"slider0" : 0, "slider1" : 0, "slider2" : 0, "rotary0" : 0, "rotary1" : 0, "rotary2" : 0, "ultrasound1" : 0, "ultrasound2" : 0 };
+    timeOutIds = { "button0" : 0, "button1" : 0, "button2" : 0, "button3" : 0, "button4" : 0, "button5" : 0, "button6" : 0, "button7" : 0,"slider0" : 0, "slider1" : 0, "slider2" : 0, "rotary0" : 0, "rotary1" : 0, "rotary2" : 0, "ultrasound1" : 0, "ultrasound2" : 0 },
+    messages = {"sent": 0};
 
 
 function messageReady () {
@@ -46,6 +48,8 @@ function messageReady () {
 
             app.io.sockets.socket(app.clients[randomPlayer]).emit('instruction', instruction ); // emits message to the specified player
             app.activeClients[clientSent] = true; // ensures we know that player currently has a message
+            messages.sent = messages.sent + 1;    // add one to the number of sent messages
+            console.log("Num of messages sent", messages.sent);
 
             timeOutIds[inputId] = setTimeout( function () {
 
@@ -64,3 +68,4 @@ exports.waitingForValue = waitingForValue;
 exports.whichcClientWanted = whichcClientWanted;
 exports.timeOutIds = timeOutIds;
 exports.messageReady = messageReady;
+exports.messages = messages;

@@ -46,6 +46,14 @@ $(function() {
                     moveHealth( status);
                 });
 
+                socket.on ('end-game', function (end) {
+
+                    if ( end === true ){
+
+                        window.location = "/end";
+                    }
+                });
+
                 socket.on('disconect', function () {
 
                     socket.emit('playerID', playerCheck + "d");
@@ -60,10 +68,19 @@ $(function() {
         console.log("Starting...");
         socket.emit('start', 1);
 
-        
+    });
+    $("#stop").click( function () {
 
+        console.log("stopping...");
+        socket.emit('stop', 1);
 
     });
+
+    $("#levels").text();
+    $("#switches").text();
+    $("#sliders").text();
+    $("#rotarys").text();
+
 
     function moveHealth ( health ) {
 
