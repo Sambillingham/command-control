@@ -337,7 +337,7 @@ function engageLevel () {
         messageReady();
         console.log("Array of items being watched", waitingFor);
 
-    setTimeout(arguments.callee, 5000);
+    setTimeout(arguments.callee, 1000);
 
     })();
 
@@ -350,6 +350,11 @@ function messageReady () {
 
     var preparedMessage = selectButtons.newInstruction();
 
+        while ( checkArray( waitingFor , preparedMessage[1]) === true ) {
+
+            preparedMessage = selectButtons.newInstruction();
+
+        }
         //console.log(preparedMessage);
 
     var messageToSend = preparedMessage[0],
@@ -357,7 +362,7 @@ function messageReady () {
         buttonType = preparedMessage[2],
         newState = preparedMessage[3].toString(),
         randomPlayer = Math.floor(Math.random() * (3) + 0 );
-        randomMillis = Math.floor(Math.random() * (4500) + 3500);
+        randomMillis = Math.floor(Math.random() * (4150) + 3750);
         clientSent = "client" + randomPlayer.toString();
 
         
@@ -453,13 +458,6 @@ function setButtonNames ( btn0, btn1, btn2, btn3 , btn4 , btn5, btn6, btn7, sp0,
 
         //buttonNames.ultrasound1 = u1;
         //buttonNames.ultrasound2 = u2;
-}
-
-function setInstructions ( message) {
-
-    instructions.player1 = message;
-    instructions.player2 = message;
-    instructions.player3 = message;
 }
 
 mqttKeepAlive(15000);
