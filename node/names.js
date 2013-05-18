@@ -22,9 +22,8 @@ function setButtonNames () {
             , buttonNames.button5, buttonNames.button6, buttonNames.button7, buttonNames.rotary0 , buttonNames.rotary1
             , buttonNames.rotary2, buttonNames.slider0, buttonNames.slider1, buttonNames.slider2);
 
-
-        console.log("After Push", buttonOptions);
     }
+    
     firstCheck = false;
 
         for ( i = 0 ; i < 8; i++) {

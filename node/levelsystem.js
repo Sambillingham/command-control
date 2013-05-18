@@ -7,7 +7,7 @@ var app = require("./app"),
     var levelRunning = 0,
         currentInstNum = 0,
         level = { "active" : false },
-        stats = { "levelsCompleted": 0 , "switches" : 0, "sliders" : 0, "rotarys" : 0 },
+        stats = { "levelsCompleted": 0 , "pots" : 0,  "switches" : 0 },
         levelSpeed = 900;
 
 function startGame () {
@@ -18,8 +18,8 @@ function startGame () {
 
 function engageLevel ( levelNum ) {
 
-    var lowerBound = 4 + ( 30 * (stats.levelsCompleted/10));
-        upperBound = 4 + (40 * (stats.levelsCompleted/10));
+    var lowerBound = 23 + ( 30 * (stats.levelsCompleted/10));
+        upperBound = 33 + (40 * (stats.levelsCompleted/10));
 
     numOfInstruct = helper.findRandom(lowerBound,upperBound);
 
@@ -85,7 +85,7 @@ function endGame () {
     pointsSystem.resetShip();
     console.log(stats);
     stopLevel();
-    app.io.sockets.emit('end-game', stats);
+    app.io.sockets.emit('end-game', true);
 
 }
 

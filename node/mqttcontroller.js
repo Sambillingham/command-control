@@ -39,16 +39,8 @@ function mqttController (id, topic, packet) {
                 console.log("slider/rotary was accepted");
                 removeMessage.checkPlayerAndRemove(topic );
 
-                if ( (topic.substring(0, topic.length -1) == "slider") ){
-
-                    levelSystem.stats.sliders = levelSystem.stats.sliders + 1;
-
-                } else if ((topic.substring(0, topic.length -1) == "rotary")){
-
-                    levelSystem.stats.rotarys = levelSystem.stats.rotarys + 1;
-                }
-
-
+                levelSystem.stats.pots = levelSystem.stats.pots + 1;
+                
             } else {
 
                 if ( levelSystem.level.active === true ){

@@ -64,14 +64,13 @@ app.get('/end', function (req, res) {
 
             socket.on('playerID', function (id) {
 
-                socket.set('nickname', id);
-
                 if ( id == "player1" || id == "player2" || id == "player3" ) {
 
                     connectedPlayers[id] = true;
                     console.log("connected : ", connectedPlayers);
 
-                    
+                    clients.push(socket.id);
+                    console.log("clients: ", clients);
 
                     if ( connectedPlayers.player1 == true && connectedPlayers.player2 == true && connectedPlayers.player3 == true ){
 
@@ -80,13 +79,19 @@ app.get('/end', function (req, res) {
 
                 } else {
 
-                    socket.disconnect();
+                    //socket.disconnect();
+                    nonPlayingClients.push(socket.id);
+                    console.log("NON PLAYING CLIENTS : ", nonPlayingClients);
+
+                    if ( id == "end" ) {
+
+                        socket.emit('stats', levelSystem.stats);
+                    }
                 }
 
+                
+
             });
-            
-            clients.push(socket.id);
-            console.log("clients: ", clients);
 
             socket.on('start', function () {
 

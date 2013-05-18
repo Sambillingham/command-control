@@ -22,19 +22,22 @@ function messageReady () {
         while ( helper.checkArray( waitingFor , preparedMessage[1]) === true ) {
 
             preparedMessage = selectButtons.newInstruction();
+            console.log("duplicated instruction chosen re picking...");
 
         }
 
-    var messageToSend = preparedMessage[0],
-        inputId = preparedMessage[1], //id of input eg button5, rotary2
-        buttonType = preparedMessage[2],
-        newState = preparedMessage[3].toString(),
-        randomPlayer = Math.floor(Math.random() * (3) + 0 );
-        randomMillis = Math.floor(Math.random() * (4150) + 3750);
-        clientSent = "client" + randomPlayer.toString(),
-        instruction = { "message" : messageToSend , "timer" : randomMillis, "reset" : false };
+         var messageToSend = preparedMessage[0],
+                inputId = preparedMessage[1], //id of input eg button5, rotary2
+                buttonType = preparedMessage[2],
+                newState = preparedMessage[3].toString(),
+                randomPlayer = Math.floor(Math.random() * (3) + 0 );
+                randomMillis = Math.floor(Math.random() * (4150) + 3750),
+                clientSent = "client" + randomPlayer.toString(),
+                instruction = { "message" : messageToSend , "timer" : randomMillis, "reset" : false };
 
-        if ( app.activeClients[clientSent] != true ) { // Stops messages being sent if player already has a message on screen
+
+
+        if ( app.activeClients[clientSent] !== true ) { // Stops messages being sent if player already has a message on screen
 
 
             if (buttonType != "button" ){
@@ -59,6 +62,9 @@ function messageReady () {
 
                                 }, randomMillis );
 
+        } else {
+
+            console.log("No message was sent this cycle, client already has a message");
         }
 
 }

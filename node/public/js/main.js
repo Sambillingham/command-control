@@ -26,10 +26,10 @@ $(function() {
                     
                     console.log(thisInstruction);
 
-                    if ( thisInstruction.reset === true ) {
+                    // if ( thisInstruction.reset === true ) {
 
-                        window.clearInterval(currentInterval);
-                    }
+                    //     window.clearInterval(currentInterval);
+                    // }
 
                     displayInstructions(thisInstruction);
                 });
@@ -55,7 +55,16 @@ $(function() {
                     
 
                         window.location = "/end";
-                    
+                        
+                });
+
+                socket.on('stats', function ( stats ) {
+
+                        console.log(stats);
+                        
+                        $("#levels").text(stats.levelsCompleted);
+                        $("#switches").text(stats.switches);
+                        $("#pots").text(stats.pots);
                 });
 
                 socket.on('disconect', function () {
@@ -79,11 +88,6 @@ $(function() {
         socket.emit('stop', 1);
 
     });
-
-    $("#levels").text();
-    $("#switches").text();
-    $("#sliders").text();
-    $("#rotarys").text();
 
     function newLevel ( level ) {
 
@@ -122,8 +126,8 @@ $(function() {
 
     function displayInstructions ( inst ) {
 
-        var timerValue = Math.floor(inst.timer/ 100);
-            timerValue = timerValue/10;
+        // var timerValue = Math.floor(inst.timer/ 100);
+        //     timerValue = timerValue/10;
 
 
         $("#incomming").text(inst.message);
@@ -131,8 +135,11 @@ $(function() {
 
         if ( inst.reset !== true ){
 
-            runTimers(timerValue);
+            runTimers(inst.timer);
 
+        } else {
+
+            window.clearInterval(currentInterval);
         }
 
     }
@@ -142,16 +149,14 @@ $(function() {
             barWidth = window.innerWidth;
             pixelsInInterval = 3;
             intervalSteps = barWidth/pixelsInInterval;
-            removeIntervalTime = Math.floor((time * 1000)/intervalSteps);
+            removeIntervalTime = Math.floor((remainingTime/intervalSteps));
             currentWith = 0;
             newWidth = 0;
 
-            if ( removeIntervalTime !== 0 ){
+            //$(".timer").css("width", barWidth);
+            console.log("timer", removeIntervalTime);
+            currentInterval = window.setInterval( moveTimerBar, removeIntervalTime );
 
-                $(".timer").css("width", barWidth);
-                console.log("timer", removeIntervalTime);
-                currentInterval = window.setInterval( moveTimerBar, removeIntervalTime );
-            }
             
     }
     function moveTimerBar() {
