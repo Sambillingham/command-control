@@ -40,6 +40,10 @@ $(function() {
 
 
                 });
+                socket.on('new-level', function (level ) {
+
+                    newLevel(level);
+                });
 
                 socket.on ('health', function (status) {
 
@@ -81,6 +85,17 @@ $(function() {
     $("#sliders").text();
     $("#rotarys").text();
 
+    function newLevel ( level ) {
+
+        $(".level").addClass("show-banner");
+        $("#level-num").text(level);
+
+        setTimeout( function() {
+
+            $(".level").removeClass("show-banner");
+        }, 4000);
+
+    }
 
     function moveHealth ( health ) {
 
