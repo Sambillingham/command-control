@@ -1,6 +1,6 @@
     var allInputTypes = ["button", "button", "rotary", "slider" ],
         numOfInputs = 4,
-        numOfButtons = 7,
+        numOfButtons = 8,
         numOfSliders = 3,
         numOfRotarys = 3;
         numOfUltrasounds = 2;

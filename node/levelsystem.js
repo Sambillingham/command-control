@@ -18,8 +18,8 @@ function startGame () {
 
 function engageLevel ( levelNum ) {
 
-    var lowerBound = 24 + ( 30 * (stats.levelsCompleted/10));
-        upperBound = 34 + (40 * (stats.levelsCompleted/10));
+    var lowerBound = 4 + ( 30 * (stats.levelsCompleted/10));
+        upperBound = 4 + (40 * (stats.levelsCompleted/10));
 
     numOfInstruct = helper.findRandom(lowerBound,upperBound);
 
@@ -28,7 +28,7 @@ function engageLevel ( levelNum ) {
 
     level.active = true;
 
-    names.setButtonNames( "magnet enhancers", "cobalt injecter", "antimatter converter", "Flux Control Systems" , "Missile Targeting Array", "Hyperdrive Engines", "reactor Core", "shield hardeners", "armour plating", "capasitor relay system", "stasis defences", "auxilary boosters", "XJKL5", "sensor array angle");
+    names.setButtonNames();
 
     setTimeout( function () {
 
@@ -68,6 +68,9 @@ function nextLevel (completedLevel) {
     var nextLevel = completedLevel + 1;
         healthIncrease = (completedLevel/10)*30;
 
+
+        messageController.messageTime.range = messageController.messageTime.range - ((messageController.messageTime.range/100)*4);
+        messageController.messageTime.min = messageController.messageTime.min - ((messageController.messageTime.min/100)*2);
         levelSpeed = levelSpeed - ((levelSpeed/100)*7)
         pointsSystem.gainPoints(healthIncrease);
 
