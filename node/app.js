@@ -66,20 +66,18 @@ app.get('/end', function (req, res) {
 
                 if ( id == "player1" || id == "player2" || id == "player3" ) {
 
+                    clients.push(socket.id);
+                    console.log("clients: ", clients);
                     connectedPlayers[id] = true;
                     console.log("connected : ", connectedPlayers);
 
-                    clients.push(socket.id);
-                    console.log("clients: ", clients);
-
                     if ( connectedPlayers.player1 == true && connectedPlayers.player2 == true && connectedPlayers.player3 == true ){
 
-                        levelSystem.startGame();
+                        //levelSystem.startGame();
                     }
 
                 } else {
 
-                    //socket.disconnect();
                     nonPlayingClients.push(socket.id);
                     console.log("NON PLAYING CLIENTS : ", nonPlayingClients);
 
@@ -87,9 +85,7 @@ app.get('/end', function (req, res) {
 
                         socket.emit('stats', levelSystem.stats);
                     }
-                }
-
-                
+                }               
 
             });
 
@@ -123,8 +119,6 @@ app.get('/end', function (req, res) {
             });
 
       });
-
-
 
 exports.buttonMap = buttonMap;
 exports.io = io;

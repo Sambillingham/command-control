@@ -14,8 +14,6 @@ var buttonNames = { "button0" : "0", "button1" : "0", "button2" : "0", "button3"
 
 function setButtonNames () {
 
-    console.log(buttonOptions);
-
     if ( firstCheck !== true ) {
 
         buttonOptions.push(buttonNames.button0, buttonNames.button1, buttonNames.button2, buttonNames.button3, buttonNames.button4

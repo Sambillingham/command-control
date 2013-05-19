@@ -20,18 +20,23 @@ $(function() {
 
                 });
                 
-                socket.on( 'instruction' , function ( instruction ) {
+                socket.on( 'instruction' , function ( instr ) {
 
-                    thisInstruction = instruction;
-                    
-                    console.log(thisInstruction);
+                    if ( instr.reset === true ){
 
-                    // if ( thisInstruction.reset === true ) {
+                        window.clearInterval(currentInterval);
 
-                    //     window.clearInterval(currentInterval);
-                    // }
+                        $("#incomming").text("");
+                        $(".timer").css("width", "100%");
 
-                    displayInstructions(thisInstruction);
+                    } else {
+
+
+                        runTimers(instr.timer);
+                        $("#incomming").text(instr.message);
+
+                    }
+                    $(".timer").css("width", "100%");
                 });
 
                 socket.on ('names', function ( names) {
@@ -97,7 +102,7 @@ $(function() {
         setTimeout( function() {
 
             $(".level").removeClass("show-banner");
-        }, 4000);
+        }, 4300);
 
     }
 
@@ -124,37 +129,18 @@ $(function() {
 
     }
 
-    function displayInstructions ( inst ) {
-
-        // var timerValue = Math.floor(inst.timer/ 100);
-        //     timerValue = timerValue/10;
-
-
-        $("#incomming").text(inst.message);
-        $(".timer").css("width", "100%");
-
-        if ( inst.reset !== true ){
-
-            runTimers(inst.timer);
-
-        } else {
-
-            window.clearInterval(currentInterval);
-        }
-
-    }
     function runTimers ( time ) {
 
-        var remainingTime = time,
-            barWidth = window.innerWidth;
-            pixelsInInterval = 3;
-            intervalSteps = barWidth/pixelsInInterval;
-            removeIntervalTime = Math.floor((remainingTime/intervalSteps));
-            currentWith = 0;
+        console.log(time);
+
+        var barWidth = window.innerWidth,
+            pixelsInInterval = 3,
+            intervalSteps = barWidth/pixelsInInterval,
+            removeIntervalTime = Math.floor((time/intervalSteps)),
+            currentWith = 0,
             newWidth = 0;
 
-            //$(".timer").css("width", barWidth);
-            console.log("timer", removeIntervalTime);
+            console.log("timer interval", removeIntervalTime);
             currentInterval = window.setInterval( moveTimerBar, removeIntervalTime );
 
             
@@ -162,7 +148,7 @@ $(function() {
     function moveTimerBar() {
 
             currentWith = parseInt($(".timer").css("width"));
-            
+
             newWidth = currentWith - 3;
 
             $(".timer").css("width", newWidth);
