@@ -6,11 +6,6 @@
     char* onSignal = "1";
     char* offSignal = "0";
 
-    char* sliderSignalLow = "1";
-    char* sliderSignalMed = "2";
-    char* sliderSignalHigh = "3";
-    char* sliderSignalHigher = "4";
-
     char* signal1 = "1";
     char* signal2 = "2";
     char* signal3 = "3";
@@ -48,10 +43,22 @@
     int redRockerRoundP2 = 29;
 
     //PLAYER 1 CONTROLS
-    int redRocker3P3 = 30;
-    int redRocker4P3 = 31;
+    int redRocker1P1 = 30;
+    int redRocker2P1 = 31;
+    int toggleSwitch1P1 = 32;
+    int toggleSwitch2P1 = 33;
+    int redRockerS1P1 = 34;
+    int slidePotP1 = A3;
+    int rotPotP1 = A11;
+
+    //Extra Controls
     const int ultraPin1 = 6;
     const int ultraPin2 = 7;
+    int redButton = 35;
+    int missileSwitch = 36;
+    int keySwitch = 37;
+
+    //End Contros
 
     int keepAliveTimer = 0;
 
@@ -81,10 +88,10 @@
     char* connectedCheck = "1/connected1";
     char* keepAliveTopic ="1/keepAlive";
 
-    char* slider[] = { "1/slider0", "1/slider1", "1/slider2" };
-    char* rotary[] = { "1/rotary0", "1/rotary1", "1/rotary2"};
-    char* buttonTopics[] = { "1/button0", "1/button1", "1/button2", "1/button3", "1/button4", "1/button5", "1/button6", "1/button7", "1/button8"};
-    char* ultrasoundTopics[] = { "1/ultrasound0", "1/ultrasound1", "1/ultrasound2" };
+    char* slider[] = { "1/slider00", "1/slider01", "1/slider02", "1/slider03" };
+    char* rotary[] = { "1/rotary00", "1/rotary01", "1/rotary02", "1/rotary03" };
+    char* buttonTopics[] = { "1/button00", "1/button01", "1/button02", "1/button03", "1/button04", "1/button05", "1/button06", "1/button07", "1/button08", "1/button09", "1/button10", "1/button11", "1/button12" };
+    char* ultrasoundTopics[] = { "1/ultrasound0", "1/ultrasound1" };
 
     int ultra1ArraySize = 9;
     int ultra2ArraySize = 9;
@@ -141,6 +148,14 @@ void setup()
     pinMode(toggleSwitch1P2, INPUT_PULLUP);
     pinMode(toggleSwitch2P2, INPUT_PULLUP);
     pinMode(redRockerRoundP2, INPUT_PULLUP);
+
+    // pinMode(redRocker1P1, INPUT_PULLUP);
+    // pinMode(redRocker2P1, INPUT_PULLUP);
+    // pinMode(toggleSwitch1P1, INPUT_PULLUP);
+    // pinMode(toggleSwitch2P2, INPUT_PULLUP);
+    // pinMode(redRockerS1P1, INPUT_PULLUP);
+
+
     
     wifiConnect();
     mqttSubscribe();
@@ -419,16 +434,16 @@ void runSliders() {
                     switch (currentSlidePotReading[i]) {
 
                         case 4 :
-                            cl.publish(slider[i], sliderSignalHigher );
+                            cl.publish(slider[i], signal4 );
                         break;
                         case 3 :
-                            cl.publish(slider[i], sliderSignalHigh );
+                            cl.publish(slider[i], signal3 );
                         break;
                         case 2 :
-                            cl.publish(slider[i], sliderSignalMed );
+                            cl.publish(slider[i], signal2 );
                         break;
                         case 1 :
-                            cl.publish(slider[i], sliderSignalLow );
+                            cl.publish(slider[i], signal1 );
                         break;
                     }
                 
@@ -616,7 +631,11 @@ void readInputs() {
     buttons[6] = digitalRead(toggleSwitch2P2);
     buttons[7] = digitalRead(redRockerRoundP2);
     //Player 1 buttons/switches
-
+    // buttons[8] = digitalRead(redRocker1P1);
+    // buttons[9] = digitalRead(redRocker2P1);
+    // buttons[10] = digitalRead(toggleSwitch1P1);
+    // buttons[11] = digitalRead(toggleSwitch2P1);
+    // buttons[12] = digitalRead(redRockerS1P1);
 
     //Player 3 Pots
     slidePots[0] = analogRead(slidePotP3);
@@ -627,10 +646,11 @@ void readInputs() {
     rotPots[1] = analogRead(rotPot1P2);
     rotPots[2] = analogRead(rotPot2P2);
     //Player 1 Pots
+    // slidePots[3] = analogRead(slidePotP1);
+    // rotPots[3] = analogRead(rotPotP1);
 
-
-    //Serial.println(slidePots[1]);
 }
+
 void connectionChecker() {
 
     unsigned long currentTime = millis();

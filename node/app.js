@@ -59,6 +59,14 @@ app.get('/end', function (req, res) {
 
         res.sendfile(__dirname + '/end.html');
 });
+app.get('/test', function (req, res) {
+
+        res.sendfile(__dirname + '/test.html');
+});
+app.get('/p3-r', function (req, res) {
+
+        res.sendfile(__dirname + '/p3-r.html');
+});
 
     io.sockets.on('connection', function (socket) {
 

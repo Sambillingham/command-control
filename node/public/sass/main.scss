@@ -331,3 +331,44 @@
      top: 0px;
      left: 0px;
     }
+
+
+    /*------------------- Re-Design ------------*/
+
+    .pannel {
+
+      width: 480px;
+      height: 320px;
+      margin: 0 auto;
+      background-image: url(/img/bg-honey.png);
+      color: #f9c535;
+
+      a {
+
+        color: #f9c535;
+      }
+
+      .b-y-line {
+        height: 5px;
+        background: url(/img/line.png)
+      }
+      .blck-incoming {
+
+        background-color: #000000;
+      }
+      .message {
+        color: #e01e25;
+        background-color: #000000;
+        height: 20px;
+
+        h1 {
+
+          color: #e01e25;
+        }
+      }
+    }
+
+
+
+
+
