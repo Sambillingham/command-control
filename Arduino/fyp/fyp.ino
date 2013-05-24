@@ -92,7 +92,7 @@
     char* rotary[] = { "1/rotary0", "1/rotary1", "1/rotary2", "1/rotary3" };
     char* buttonTopics[] = { "1/rocker0", "1/rocker1", "1/toggle0", "1/rocker2", "1/rocker3", "1/toggle1", "1/toggle2", "1/rocker4", "1/rocker5", "1/rocker6", "1/toggle3", "1/toggle4", "1/rocker7" };
     char* ultrasoundTopics[] = { "1/ultrasound0" };
-    char* extraTopics[] = { "keySwitch0", "redButton0", "missileSwitch0"}; 
+    char* extraTopics[] = { "1/keySwitch0", "1/redButton0", "1/missileSwitch0"}; 
 
     int ultra1ArraySize = 9;
     int ultra2ArraySize = 9;
