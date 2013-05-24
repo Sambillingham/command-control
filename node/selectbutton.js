@@ -1,7 +1,7 @@
     var allInputTypes = ["rocker", "rocker", "toggle", "rotary", "slider" ],
         numOfInputs = 5,
-        numOfRockers = 8,
-        numOfToggles = 5,
+        numOfRockers = 5,
+        numOfToggles = 3,
         numOfSliders = 3,
         numOfRotarys = 3;
         numOfUltrasounds = 2;
@@ -9,7 +9,7 @@
     var app = require("./app"),
         names = require("./names");
 
-    var onWord = ["Engage the", "boost the" , "Turn on the" , " Activate the"],
+    var onWord = ["Engage the" , "Turn on the" , " Activate the"],
         offWord = ["Shut down the", "Disengage the", " turn off the", "deactivate the" ],
         increaseWord = ["Turn up the", " raise the", "increase the" , "boost the" , " Overload the"],
         decreaseWord= [ "Decrease the", "Pull down the", "Lower the ", "Reduce the ", "bring down the"];
@@ -145,13 +145,13 @@ function prepareMessage( messageType , buttonType, buttonNumber , state , newSta
 
     var messageToSend = "";
 
-    //console.log("messageType: ", messageType, "  buttonType: ", buttonType, " buttonNumber: ", buttonNumber, " state: ", state, " newState: ", newState , " realName: ", realName);
+    console.log("messageType: ", messageType, "  buttonType: ", buttonType, " buttonNumber: ", buttonNumber, " state: ", state, " newState: ", newState , " realName: ", realName);
 
     if ( messageType == "bin" ) {
 
         if ( state === 0 || state == "0" ){
 
-            messageToSend = onWord[Math.floor(Math.random() * (4) )] + " " + realName;
+            messageToSend = onWord[Math.floor(Math.random() * (3) )] + " " + realName;
 
         } else if ( state == 1 ){
 
@@ -162,11 +162,11 @@ function prepareMessage( messageType , buttonType, buttonNumber , state , newSta
 
         if ( newState > state ) {
 
-            messageToSend = increaseWord[Math.floor(Math.random() * (7) )] + " " + realName + " to " + newState;
+            messageToSend = increaseWord[Math.floor(Math.random() * (5) )] + " " + realName + " to " + newState;
 
         } else if ( newState < state ){
 
-            messageToSend = decreaseWord[Math.floor(Math.random() * (7) )] + " " + realName + " to " + newState;
+            messageToSend = decreaseWord[Math.floor(Math.random() * (5) )] + " " + realName + " to " + newState;
 
         }
     } else {
