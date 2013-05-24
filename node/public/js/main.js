@@ -2,7 +2,13 @@ $(function() {
 
     var socket = io.connect('http://192.168.0.20:8080');
 
-    var buttonMap = {};
+    var buttonMap = { "rocker0" : undefined , "rocker1" : undefined, "rocker2" : undefined, "rocker3" : undefined, "rocker4" : undefined,
+                    "rocker5" : undefined, "rocker6" : undefined, "rocker7" : undefined, "toggle0" : undefined, "toggle1" : undefined,
+                    "toggle2" : undefined, "toggle3" : undefined, "toggle4" : undefined, "slider0" : undefined, "slider1" : undefined,
+                    "slider2" : undefined, "slider3" : undefined, "rotary0" : undefined, "rotary1" : undefined, "rotary2" : undefined,
+                    "rotary3" : undefined, "ultrasound0" : undefined, "keySwitch0" : undefined, "redButton0" : undefined,
+                    "missileSwitch0" : undefined };
+
     var pathArray = window.location.pathname.split( '/' );
     var playerCheck = pathArray[1],
         currentInterval = 0;
@@ -16,7 +22,7 @@ $(function() {
 
                 socket.on('map', function ( mapValues) {
 
-                    buttonMapChecker( mapValues);    
+                    buttonMapChecker(mapValues);   
 
                 });
                 
@@ -239,14 +245,14 @@ $(function() {
 
         allInputNames = names;
 
-        $("#btn0name").text(allInputNames.button0);
-        $("#btn1name").text(allInputNames.button1);
-        $("#btn2name").text(allInputNames.button2);
-        $("#btn3name").text(allInputNames.button3);
-        $("#btn4name").text(allInputNames.button4);
-        $("#btn5name").text(allInputNames.button5);
-        $("#btn6name").text(allInputNames.button6);
-        $("#btn7name").text(allInputNames.button7);
+        $("#btn0name").text(allInputNames.rocker0);
+        $("#btn1name").text(allInputNames.rocker1);
+        $("#btn2name").text(allInputNames.toggle0);
+        $("#btn3name").text(allInputNames.rocker2);
+        $("#btn4name").text(allInputNames.rocker3);
+        $("#btn5name").text(allInputNames.toggle1);
+        $("#btn6name").text(allInputNames.toggle2);
+        $("#btn7name").text(allInputNames.rocker4);
 
         $("#slider0name").text(allInputNames.slider0);
         $("#slider1name").text(allInputNames.slider1);
@@ -262,37 +268,37 @@ $(function() {
 
         console.log(mapValues);
 
-        if ( mapValues.button0 != buttonMap.button0 ) {
+        if ( mapValues.rocker0 != buttonMap.rocker0 ) {
 
-            colorChanger(mapValues.button0, 0);
+            colorChanger(mapValues.rocker0, 0);
 
-         } else if ( mapValues.button1 != buttonMap.button1 ) {
+         } else if ( mapValues.rocker1 != buttonMap.rocker1 ) {
             
-            colorChanger(mapValues.button1, 1);
+            colorChanger(mapValues.rocker1, 1);
 
-         } else if ( mapValues.button2 != buttonMap.button2 ) {
+         } else if ( mapValues.toggle0 != buttonMap.toggle0 ) {
             
-            colorChanger(mapValues.button2, 2);
+            colorChanger(mapValues.toggle0, 2);
 
-         } else if ( mapValues.button3 != buttonMap.button3 ) {
+         } else if ( mapValues.rocker2 != buttonMap.rocker2 ) {
             
-            colorChanger(mapValues.button3, 3);
+            colorChanger(mapValues.rocker2, 3);
 
-         } else if ( mapValues.button4 != buttonMap.button4 ) {
+         } else if ( mapValues.rocker3 != buttonMap.rocker3 ) {
             
-            colorChanger(mapValues.button4, 4);
+            colorChanger(mapValues.rocker3, 4);
 
-         } else if ( mapValues.button5 != buttonMap.button5 ) {
+         } else if ( mapValues.toggle1 != buttonMap.toggle1 ) {
             
-            colorChanger(mapValues.button5, 5);
+            colorChanger(mapValues.toggle1, 5);
 
-         } else if ( mapValues.button6 != buttonMap.button6 ) {
+         } else if ( mapValues.toggle2 != buttonMap.toggle2 ) {
             
-            colorChanger(mapValues.button6, 6);
+            colorChanger(mapValues.toggle2, 6);
 
-         } else if ( mapValues.button7 != buttonMap.button7 ) {
+         } else if ( mapValues.rocker4 != buttonMap.rocker4 ) {
             
-            colorChanger(mapValues.button7, 7);
+            colorChanger(mapValues.rocker4, 7);
 
          } else if ( mapValues.slider0 != buttonMap.slider0 ) {
             

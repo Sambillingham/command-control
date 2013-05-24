@@ -8,9 +8,18 @@ var app = require("./app"),
     levelSystem = require("./levelsystem");
 
 var waitingFor = [],
-    waitingForValue = { "button0" : 99, "button1" : 99, "button2" : 99, "button3" : 99, "button4" : 99, "button5" : 99, "button6" : 99, "button7" : 99,"slider0" : 99, "slider1" : 99, "slider2" : 99, "rotary0" : 99, "rotary1" : 99, "rotary2" : 99, "ultrasound1" : 99, "ultrasound2" : 99 },
-    whichClientWanted = { "button0" : 99, "button1" : 99, "button2" : 99, "button3" : 99, "button4" : 99, "button5" : 99, "button6" : 99, "button7" : 99,"slider0" : 99, "slider1" : 99, "slider2" : 99, "rotary0" : 99, "rotary1" : 99, "rotary2" : 99, "ultrasound1" : 99, "ultrasound2" : 99 },
-    timeOutIds = { "button0" : 0, "button1" : 0, "button2" : 0, "button3" : 0, "button4" : 0, "button5" : 0, "button6" : 0, "button7" : 0,"slider0" : 0, "slider1" : 0, "slider2" : 0, "rotary0" : 0, "rotary1" : 0, "rotary2" : 0, "ultrasound1" : 0, "ultrasound2" : 0 },
+    waitingForValue = { "rocker0" : 99 , "rocker1" : 99, "rocker2" : 99, "rocker3" : 99, "rocker4" : 99, "rocker5" : 99, "rocker6" : 99,
+                    "rocker7" : 99, "toggle0" : 99, "toggle1" : 99, "toggle2" : 99, "toggle3" : 99, "toggle4" : 99, "slider0" : 99,
+                    "slider1" : 99, "slider2" : 99, "slider3" : 99, "rotary0" : 99, "rotary1" : 99, "rotary2" : 99, "rotary3" : 99,
+                    "ultrasound0" : 99, "keySwitch0" : 99, "redButton0" : 99, "missileSwitch0" : 99 },
+    whichClientWanted = { "rocker0" : 99 , "rocker1" : 99, "rocker2" : 99, "rocker3" : 99, "rocker4" : 99, "rocker5" : 99, "rocker6" : 99,
+                    "rocker7" : 99, "toggle0" : 99, "toggle1" : 99, "toggle2" : 99, "toggle3" : 99, "toggle4" : 99, "slider0" : 99,
+                    "slider1" : 99, "slider2" : 99, "slider3" : 99, "rotary0" : 99, "rotary1" : 99, "rotary2" : 99, "rotary3" : 99,
+                    "ultrasound0" : 99, "keySwitch0" : 99, "redButton0" : 99, "missileSwitch0" : 99 },
+    timeOutIds = { "rocker0" : 0 , "rocker1" : 0, "rocker2" : 0, "rocker3" : 0, "rocker4" : 0, "rocker5" : 0, "rocker6" : 0,
+                    "rocker7" : 0, "toggle0" : 0, "toggle1" : 0, "toggle2" : 0, "toggle3" : 0, "toggle4" : 0, "slider0" : 0,
+                    "slider1" : 0, "slider2" : 0, "slider3" : 0, "rotary0" : 0, "rotary1" : 0, "rotary2" : 0, "rotary3" : 0,
+                    "ultrasound0" : 0, "keySwitch0" : 0, "redButton0" : 0, "missileSwitch0" : 0 },
     messages = {"sent": 0},
     messageTime = { "min" : 3750 , "range" : 4000 };
 
@@ -45,7 +54,7 @@ function messageReady () {
                 randomPlayer = Math.floor(Math.random() * (app.clients.length) + 0 );
             }
 
-            var randomMillis = Math.floor(Math.random() * (4150) + 3750),
+            var randomMillis = Math.floor(Math.random() * (5150) + 4750),
                 instruction = { "message" : messageToSend , "timer" : randomMillis, "reset" : false };
 
             whichClientWanted[inputId] = app.clients[randomPlayer]; // saves which player recived the message for that input
@@ -53,7 +62,7 @@ function messageReady () {
             app.clients.splice((app.clients.indexOf(app.clients[randomPlayer])),1);
             waitingFor.push(inputId);// add input to the waitingFor Array
             
-            if (buttonType != "button" ){
+            if (buttonType != "toggle" || buttonType != "rocker" ){
 
                 waitingForValue[inputId] = newState;
 

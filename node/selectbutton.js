@@ -1,6 +1,7 @@
-    var allInputTypes = ["button", "button", "rotary", "slider" ],
-        numOfInputs = 4,
-        numOfButtons = 8,
+    var allInputTypes = ["rocker", "rocker", "toggle", "rotary", "slider" ],
+        numOfInputs = 5,
+        numOfRockers = 8,
+        numOfToggles = 5,
         numOfSliders = 3,
         numOfRotarys = 3;
         numOfUltrasounds = 2;
@@ -9,9 +10,9 @@
         names = require("./names");
 
     var onWord = ["Engage the", "boost the" , "Turn on the" , " Activate the"],
-        offWord = ["Shut down the", "Disengage the", " turn off the", "deactivate the", " power down the"],
-        increaseWord = ["Turn the", " raise the", "increase the" , "boost the" , "hammer the", " Overload the", "Artificially accelerate the"],
-        decreaseWord= [ "decrease the", " pull down the", " lower the ", " Quickly reduce the ", "dump the ", " release the ", "bring down the"];
+        offWord = ["Shut down the", "Disengage the", " turn off the", "deactivate the" ],
+        increaseWord = ["Turn up the", " raise the", "increase the" , "boost the" , " Overload the"],
+        decreaseWord= [ "Decrease the", "Pull down the", "Lower the ", "Reduce the ", "bring down the"];
    
 
 function pickbutton () {
@@ -25,8 +26,11 @@ function pickbutton () {
     type = allInputTypes[ranNum];
 
     switch ( type ) {
-        case "button" :
-            buttonNum = Math.floor(Math.random() * (numOfButtons) + 0);
+        case "rocker" :
+            buttonNum = Math.floor(Math.random() * (numOfRockers) + 0);
+        break;
+        case "toggle" :
+            buttonNum = Math.floor(Math.random() * (numOfToggles) + 0 );
         break;
         case "slider" :
             buttonNum = Math.floor(Math.random() * (numOfSliders) + 0);
@@ -64,7 +68,7 @@ function pickMessageType ( button , state ) {
     var type = button[0];
     var messageType = "";
 
-    if ( type == "button" ) {
+    if ( type == "rocker" || type == "toggle") {
 
         messageType = "bin";
 
@@ -86,13 +90,13 @@ function newState ( buttonType , state) {
 
     var random = 0;
 
-    if ( buttonType == "button") {
+    if ( buttonType == "toggle" || buttonType == "rocker" ) {
 
         if ( state == 0 || state == "0" ){
 
             return 1;
 
-        } else if ( state == 1 || state == "0") {
+        } else if ( state == 1 || state == "1") {
 
             return 0;
         }
@@ -167,7 +171,7 @@ function prepareMessage( messageType , buttonType, buttonNumber , state , newSta
         }
     } else {
 
-        messageToSend = "Error!!"
+        messageToSend = "Error!! creating message "
     }
 
         return messageToSend;
