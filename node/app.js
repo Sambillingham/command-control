@@ -13,7 +13,10 @@ var express = require('express'),
 
     var clients = [],
         nonPlayingClients = [],
-        buttonMap = { "button0" : 0, "button1" : 0, "button2" : 0, "button3" : 0, "button4" : 0, "button5" : 0, "button6" : 0, "button7" : 0,"slider0" : 0, "slider1" : 0, "slider2" : 0, "rotary0" : 0, "rotary1" : 0, "rotary2" : 0, "ultrasound1" : 0, "ultrasound2" : 0 },
+        buttonMap = { "rocker0" : 0 , "rocker1" : 0, "rocker2" : 0, "rocker3" : 0, "rocker4" : 0, "rocker5" : 0, "rocker6" : 0,
+                    "rocker7" : 0, "toggle0" : 0, "toggle1" : 0, "toggle2" : 0, "toggle3" : 0, "toggle4" : 0, "slider0" : 0,
+                    "slider1" : 0, "slider2" : 0, "slider3" : 0, "rotary0" : 0, "rotary1" : 0, "rotary2" : 0, "rotary3" : 0,
+                    "ultrasound0" : 0, "keySwitch0" : 0, "redButton0" : 0, "missileSwitch0" : 0 },
         activeClients = { "client0" : false , "client1" : false , "client2" : false },
         connectedPlayers = { "player1" : false , "player2" : false , "player3" : false };
 

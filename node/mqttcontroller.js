@@ -26,7 +26,7 @@ function mqttController (id, topic, packet) {
         console.log( incommingTopic, ":  item was found in array");
         console.log( "Type of input is: --> ", buttonType, "  <--");
 
-        if ( buttonType == "button") {
+        if ( buttonType == "toggle" || buttonType == "rocker") {
 
             removeMessage.checkPlayerAndRemove(topic);
             console.log("Button was accepted");
@@ -72,30 +72,6 @@ function mqttController (id, topic, packet) {
 
     switch ( topic ) {
 
-        case "button0" :
-            app.buttonMap.button0 = packet;
-        break;
-        case "button1" :
-            app.buttonMap.button1 = packet;
-        break;
-        case "button2" :
-            app.buttonMap.button2 = packet;
-        break;
-        case "button3" :
-            app.buttonMap.button3 = packet;
-        break;
-        case "button4" :
-            app.buttonMap.button4 = packet;
-        break;
-        case "button5" :
-            app.buttonMap.button5 = packet;
-        break;
-        case "button6" :
-            app.buttonMap.button6 = packet;
-        break;
-        case "button7" :
-            app.buttonMap.button7 = packet;
-        break;
         case "slider0" :
             app.buttonMap.slider0 = packet;
         break;
@@ -104,6 +80,9 @@ function mqttController (id, topic, packet) {
         break;
         case "slider2" :
             app.buttonMap.slider2 = packet;
+        break;
+        case "slider3" :
+            app.buttonMap.slider3 = packet;
         break;
         case "rotary0" :
             app.buttonMap.rotary0 = packet;
@@ -114,12 +93,60 @@ function mqttController (id, topic, packet) {
         case "rotary2" :
             app.buttonMap.rotary2 = packet;
         break;
-        // case "ultrasound1" :
-        //     app.buttonMap.ultrasound1 = packet;
-        // break;
-        // case "ultrasound2" :
-        //     app.buttonMap.ultrasound2 = packet;
-        // break;
+        case "rotary3" :
+            app.buttonMap.rotary3 = packet;
+        break;
+        case "rocker0" :
+            app.buttonMap.rocker0 = packet;
+        break;
+        case "rocker1" :
+            app.buttonMap.rocker1 = packet;
+        break;
+        case "rocker2" :
+            app.buttonMap.rocker2 = packet;
+        break;
+        case "rocker3" :
+            app.buttonMap.rocker3 = packet;
+        break;
+        case "rocker4" :
+            app.buttonMap.rocker4 = packet;
+        break;
+        case "rocker5" :
+            app.buttonMap.rocker5 = packet;
+        break;
+        case "rocker6" :
+            app.buttonMap.rocker6 = packet;
+        break;
+        case "rocker7" :
+            app.buttonMap.rocker7 = packet;
+        break;
+        case "toggle0" :
+            app.buttonMap.toggle0 = packet;
+        break;
+        case "toggle1" :
+            app.buttonMap.toggle1 = packet;
+        break;
+        case "toggle2" :
+            app.buttonMap.toggle2 = packet;
+        break;
+        case "toggle3" :
+            app.buttonMap.toggle2 = packet;
+        break;
+        case "toggle4" :
+            app.buttonMap.toggle4 = packet;
+        break;
+        case "keySwitch0" :
+            app.buttonMap.keySwitch0 = packet;
+        break;
+        case "redButton0" :
+            app.buttonMap.redButton0 = packet;
+        break;
+        case "missileSwitch0" :
+            app.buttonMap.missileSwitch0 = packet;
+        break;
+        case "ultrasound0" :
+            app.buttonMap.ultrasound0 = packet;
+        break;
 
 
     }
