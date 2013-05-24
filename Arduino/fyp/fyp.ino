@@ -88,10 +88,11 @@
     char* connectedCheck = "1/connected1";
     char* keepAliveTopic ="1/keepAlive";
 
-    char* slider[] = { "1/slider00", "1/slider01", "1/slider02", "1/slider03" };
-    char* rotary[] = { "1/rotary00", "1/rotary01", "1/rotary02", "1/rotary03" };
-    char* buttonTopics[] = { "1/button00", "1/button01", "1/button02", "1/button03", "1/button04", "1/button05", "1/button06", "1/button07", "1/button08", "1/button09", "1/button10", "1/button11", "1/button12" };
-    char* ultrasoundTopics[] = { "1/ultrasound0", "1/ultrasound1" };
+    char* slider[] = { "1/slider0", "1/slider1", "1/slider2", "1/slider3" };
+    char* rotary[] = { "1/rotary0", "1/rotary1", "1/rotary2", "1/rotary3" };
+    char* buttonTopics[] = { "1/rocker0", "1/rocker1", "1/toggle0", "1/rocker2", "1/rocker3", "1/toggle1", "1/toggle2", "1/rocker4", "1/rocker5", "1/rocker6", "1/toggle3", "1/toggle4", "1/rocker7" };
+    char* ultrasoundTopics[] = { "1/ultrasound0" };
+    char* extraTopics[] = { "keySwitch0", "redButton0", "missileSwitch0"}; 
 
     int ultra1ArraySize = 9;
     int ultra2ArraySize = 9;

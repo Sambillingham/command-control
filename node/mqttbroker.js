@@ -2,7 +2,15 @@ var app = require("./app"),
     mqtt = require('mqttjs'),
     mqttController = require("./mqttcontroller");
 
-var topicDouble = { "button0" : false, "button1" : false, "button2" : false, "button3" : false, "button4" : false, "button5" : false, "button6" : false, "button7" : false, "slider0" : false, "slider1" : false, "slider2" : false, "rotary0" : false, "rotary1" : false, "rotary2" : false, "ultrasound1" : false, "ultrasound2" : false };
+var topicDouble = { "slider0" : false, "slider1" : false, "slider2" : false, "slider3" : false, "rotary0" : false, "rotary1" : false, "rotary2" : false, "rotary3" : false,  "ultrasound1" : false, "ultrasound2" : false };
+
+
+char* slider[] = { "1/slider0", "1/slider1", "1/slider2", "1/slider3" };
+    char* rotary[] = { "1/rotary0", "1/rotary1", "1/rotary2", "1/rotary3" };
+    char* buttonTopics[] = { "1/rocker0", "1/rocker1", "1/toggle0", "1/rocker2", "1/rocker3", "1/toggle1", "1/toggle2", "1/rocker4", "1/rocker5", "1/rocker6", "1/toggle3", "1/toggle4", "1/rocker7" };
+    char* ultrasoundTopics[] = { "1/ultrasound0" };
+    char* extraTopics[] = { "keySwitch0", "redButton0", "missileSwitch0"}; 
+
 
 var thisMqttServer = mqtt.createServer(function (client) {
 
