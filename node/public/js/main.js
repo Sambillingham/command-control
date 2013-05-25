@@ -253,14 +253,21 @@ $(function() {
         $("#btn5name").text(allInputNames.toggle1);
         $("#btn6name").text(allInputNames.toggle2);
         $("#btn7name").text(allInputNames.rocker4);
+        $("#btn8name").text(allInputNames.toggle3);
+        $("#btn9name").text(allInputNames.rocker5);
+        $("#btn10name").text(allInputNames.rocker6);
+        $("#btn11name").text(allInputNames.toggle4);
+        $("#btn12name").text(allInputNames.rocker7);
 
         $("#slider0name").text(allInputNames.slider0);
         $("#slider1name").text(allInputNames.slider1);
         $("#slider2name").text(allInputNames.slider2);
+        $("#slider3name").text(allInputNames.slider3);
 
         $("#rotary0name").text(allInputNames.rotary0);
         $("#rotary1name").text(allInputNames.rotary1);
         $("#rotary2name").text(allInputNames.rotary2);
+        $("#rotary3name").text(allInputNames.rotary3);
 
     }
 

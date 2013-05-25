@@ -71,7 +71,7 @@ function setButtonNames () {
     
     firstCheck = true;
 
-        for ( i = 0 ; i < 8; i++) {
+        for ( i = 0 ; i < 13; i++) {
 
             randomButtonNum = helper.findRandom(0,buttonOptions.length);
             randomButtonName = buttonOptions[randomButtonNum];
@@ -81,7 +81,7 @@ function setButtonNames () {
             
         }
 
-        for ( i = 0 ; i < 3; i++) {
+        for ( i = 0 ; i < 4; i++) {
 
             randomButtonNum = helper.findRandom(0,buttonOptions.length);
             //console.log( "random number", randomButtonNum);
@@ -97,7 +97,7 @@ function setButtonNames () {
             
         }
 
-        for ( i = 0 ; i < 3; i++) {
+        for ( i = 0 ; i < 4; i++) {
 
             randomButtonNum = helper.findRandom(0,buttonOptions.length);
             randomButtonName = buttonOptions[randomButtonNum];
@@ -117,21 +117,21 @@ function setButtonNames () {
         buttonNames.toggle2 = switches[6];
         buttonNames.rocker4 = switches[7];
 
-        // buttonNames.rocker5 = switches[8];
-        // buttonNames.rocker6 = switches[9];
-        // buttonNames.toggle3 = switches[10];
-        // buttonNames.toggle4 = switches[11];
-        // buttonNames.rocker7 = switches[12];
+        buttonNames.rocker5 = switches[8];
+        buttonNames.rocker6 = switches[9];
+        buttonNames.toggle3 = switches[10];
+        buttonNames.toggle4 = switches[11];
+        buttonNames.rocker7 = switches[12];
 
         buttonNames.slider0 = rotarys[0];
         buttonNames.slider1 = rotarys[1];
         buttonNames.slider2 = rotarys[2];
-        //buttonNames.slider2 = rotarys[3];
+        buttonNames.slider3 = rotarys[3];
 
         buttonNames.rotary0 = sliders[0];
         buttonNames.rotary1 = sliders[1];
         buttonNames.rotary2 = sliders[2];
-        //buttonNames.rotary2 = sliders[3];
+        buttonNames.rotary3 = sliders[3];
 
         app.io.sockets.emit('names', buttonNames);
 }
