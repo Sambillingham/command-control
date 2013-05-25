@@ -130,7 +130,7 @@ function mqttController (id, topic, packet) {
             app.buttonMap.toggle2 = packet;
         break;
         case "toggle3" :
-            app.buttonMap.toggle2 = packet;
+            app.buttonMap.toggle3 = packet;
         break;
         case "toggle4" :
             app.buttonMap.toggle4 = packet;

@@ -300,6 +300,26 @@ $(function() {
             
             colorChanger(mapValues.rocker4, 7);
 
+         } else if ( mapValues.toggle3 != buttonMap.toggle3 ) {
+            
+            colorChanger(mapValues.toggle3, 8);
+
+         } else if ( mapValues.rocker5 != buttonMap.rocker5 ) {
+            
+            colorChanger(mapValues.rocker5, 9);
+
+         } else if ( mapValues.rocker6 != buttonMap.rocker6 ) {
+            
+            colorChanger(mapValues.rocker6, 10);
+
+         } else if ( mapValues.toggle4 != buttonMap.toggle4 ) {
+            
+            colorChanger(mapValues.toggle4, 11);
+
+         } else if ( mapValues.rocker7 != buttonMap.rocker7 ) {
+            
+            colorChanger(mapValues.rocker7, 12);
+
          } else if ( mapValues.slider0 != buttonMap.slider0 ) {
             
             sliderChange(mapValues.slider0, 0);
@@ -312,7 +332,11 @@ $(function() {
             
             sliderChange(mapValues.slider2, 2);
 
-         } else if ( mapValues.rotary0 != buttonMap.rotary0 ) {
+         } else if ( mapValues.slider3 != buttonMap.slider3 ) {
+            
+            sliderChange(mapValues.slider3, 3);
+
+         }else if ( mapValues.rotary0 != buttonMap.rotary0 ) {
             
             rotaryChange(mapValues.rotary0, 0);
 
@@ -323,6 +347,10 @@ $(function() {
          } else if ( mapValues.rotary2 != buttonMap.rotary2 ) {
             
             rotaryChange(mapValues.rotary2, 2);
+
+         } else if ( mapValues.rotary3 != buttonMap.rotary3 ) {
+            
+            rotaryChange(mapValues.rotary3, 3);
 
          } 
 
