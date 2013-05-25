@@ -18,8 +18,8 @@ function mqttController (id, topic, packet) {
 
     console.log("ID: ", id, "TOPIC: ", topic, "PACKET: ", packet);
 
-    console.log( " incomming topic: ", incommingTopic );
-    console.log("Array of items being watched", messageController.waitingFor);
+    //console.log( " incomming topic: ", incommingTopic );
+    //console.log("Array of items being watched", messageController.waitingFor);
 
     if ( helper.checkArray(messageController.waitingFor, incommingTopic) === true ) {
 
