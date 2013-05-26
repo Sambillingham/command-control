@@ -1,9 +1,9 @@
     var allInputTypes = ["rocker", "rocker", "toggle", "rotary", "slider" ],
         numOfInputs = 5,
-        numOfRockers = 5,
-        numOfToggles = 3,
-        numOfSliders = 3,
-        numOfRotarys = 3;
+        numOfRockers = 8,
+        numOfToggles = 5,
+        numOfSliders = 4,
+        numOfRotarys = 4;
         numOfUltrasounds = 2;
 
     var app = require("./app"),

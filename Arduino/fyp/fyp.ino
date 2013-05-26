@@ -410,7 +410,7 @@ int findAverage ( int *values, int size , int ultrasoundNumber) {
 
 void runSliders() {
 
-    for ( int i = 3; i < 4; i++){
+    for ( int i = 0; i < 4; i++){
 
         if ( i == 0 || i == 3) {
 
@@ -457,7 +457,7 @@ void runSliders() {
 
 void runRotary() {
 
-    for (int i = 3; i < 4; i++){
+    for (int i = 0; i < 4; i++){
 
         currentRotPotReading[i] = checkRotValue(rotPots[i]);
 
@@ -506,12 +506,7 @@ void runRotary() {
 
 void runSwitches(){
 
-    for (int i = 8; i < 13 ; i++) {
-
-        // Serial.print("loop num: ");
-        // Serial.print(i);
-        // Serial.print("button val");
-        // Serial.println(buttons[i]);
+    for (int i = 0; i < 13 ; i++) {
 
         if ( buttons[i] != previousButtons[i]){
 
@@ -521,7 +516,6 @@ void runSwitches(){
             Serial.print(i);
             Serial.print(" is set to :");
             Serial.println(buttons[i]);
-
 
             if ( i <= 4 ){ // correct incorrect wiring for player 2 controls by fliping player 1s
 
@@ -627,15 +621,15 @@ void readInputs() {
     // pinMode(ultraPin2, INPUT);
 
     //Player 3 buttons/switches
-    // buttons[0] = digitalRead(redRockerP3);
-    // buttons[1] = digitalRead(redRocker2P3);
-    // buttons[2] = digitalRead(toggleSwitchP3);
-    // buttons[3] = digitalRead(redRockerS1P3);
-    // buttons[4] = digitalRead(redRockerS2P3);
+    buttons[0] = digitalRead(redRockerP3);
+    buttons[1] = digitalRead(redRocker2P3);
+    buttons[2] = digitalRead(toggleSwitchP3);
+    buttons[3] = digitalRead(redRockerS1P3);
+    buttons[4] = digitalRead(redRockerS2P3);
     // //Player 2 buttons/switches
-    // buttons[5] = digitalRead(toggleSwitch1P2);
-    // buttons[6] = digitalRead(toggleSwitch2P2);
-    // buttons[7] = digitalRead(redRockerRoundP2);
+    buttons[5] = digitalRead(toggleSwitch1P2);
+    buttons[6] = digitalRead(toggleSwitch2P2);
+    buttons[7] = digitalRead(redRockerRoundP2);
     //Player 1 buttons/switches
     buttons[8] = digitalRead(redRocker1P1);
     buttons[9] = digitalRead(redRocker2P1);
@@ -644,13 +638,13 @@ void readInputs() {
     buttons[12] = digitalRead(redRockerS1P1);
 
     //Player 3 Pots
-    // slidePots[0] = analogRead(slidePotP3);
-    // rotPots[0] = analogRead(rotPotP3);
+    slidePots[0] = analogRead(slidePotP3);
+    rotPots[0] = analogRead(rotPotP3);
     // //Player 2 Pots
-    // slidePots[1] = analogRead(slidePot1P2);
-    // slidePots[2] = analogRead(slidePot2P2);
-    // rotPots[1] = analogRead(rotPot1P2);
-    // rotPots[2] = analogRead(rotPot2P2);
+    slidePots[1] = analogRead(slidePot1P2);
+    slidePots[2] = analogRead(slidePot2P2);
+    rotPots[1] = analogRead(rotPot1P2);
+    rotPots[2] = analogRead(rotPot2P2);
     // //Player 1 Pots
     slidePots[3] = analogRead(slidePotP1);
     rotPots[3] = analogRead(rotPotP1);
