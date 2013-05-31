@@ -94,7 +94,7 @@
     }
     .input-slider-l {
 
-        width: 350px;
+        width: 340px;
     }
     .input-slider-s {
 
@@ -143,9 +143,6 @@
         margin: 0 auto;
         margin-top: 10px;
         margin-bottom: 10px;
-        border: 1px solid #d8d8d8;
-
-
 
         @include transition-property(all);
         @include transition-duration(150ms);
@@ -155,20 +152,28 @@
     .rrBig {
 
         width: 70px;
-        height: 70px;
+        height: 85px;
+        background: url(/img/redRocker-off.png);
 
     }
+    .greenRocker {
+        width: 70px;
+        height: 85px;
+        background: url(/img/greenRocker-off.png);
 
+    }
     .toggle {
 
         width: 40px;
-        height: 70px;
+        height: 85px;
+        background: url(/img/toggle-off.png);
 
     }
     .rrSmall {
 
         width: 90px;
-        height: 25px;
+        height: 35px;
+        background: url(/img/smallRedRocker-off.png);
 
     }
     .rrRound {
@@ -181,8 +186,7 @@
 
         width: 50px;
         height: 50px;
-
-        border-radius: 50px;
+        background: url(/img/redRotary-1.png);
     }
     .rotary-num {
 
@@ -228,6 +232,8 @@
 
         width: 300px;
         height: 50px;
+
+        background: url(/img/largeSlider-1.png);
     }
     .sliderSmall {
 
