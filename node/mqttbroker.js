@@ -81,6 +81,7 @@ var thisMqttServer = mqtt.createServer(function (client) {
     client.on('disconnect', function (packet) {
 
             client.stream.end();
+            console.log("MQTT Client disconnected - ", packet.client);
 
     });
 

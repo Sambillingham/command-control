@@ -66,7 +66,7 @@ function stopLevel () {
 function nextLevel (completedLevel) {
 
     var nextLevel = completedLevel + 1;
-        healthIncrease = (completedLevel/10)*30;
+        healthIncrease = (completedLevel/5)*30;
 
 
         messageController.messageTime.range = messageController.messageTime.range - ((messageController.messageTime.range/100)*4);

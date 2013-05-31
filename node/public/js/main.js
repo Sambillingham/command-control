@@ -1,6 +1,7 @@
 $(function() {
 
-    var socket = io.connect('http://192.168.0.20:8080');
+    var socket = io.connect('http://192.168.0.20:8080');     // DEVELOPMENT
+    //var socket = io.connect('http://192.168.1.2:8080');      // PRODUCTION
 
     var buttonMap = { "rocker0" : undefined , "rocker1" : undefined, "rocker2" : undefined, "rocker3" : undefined, "rocker4" : undefined,
                     "rocker5" : undefined, "rocker6" : undefined, "rocker7" : undefined, "toggle0" : undefined, "toggle1" : undefined,
@@ -210,27 +211,51 @@ $(function() {
             }
     }
 
-    function sliderChange ( value, id ) {
+    function imageChanger ( value, id) {
+
+        thisId = id;
+        thisValue = value;
+
+        switch (thisId) {
+
+            case 0 :
+
+                if ( thisValue == 1 ) {
+                  
+                  $("#button" + thisId).css("background", "url(/img/redRocker-on.png)");
+
+
+                } else {
+
+                    $("#button" + thisId).css("background", "url(/img/redRocker-off.png)");
+
+                }
+
+            break;
+            case 1 :
+
+                if ( thisValue == 1 ) {
+              
+                    $("#button" + thisId).css("background", "url(/img/greenRocker-on.png)");
+
+
+                } else {
+
+                    $("#button" + thisId).css("background", "url(/img/greenRocker-off.png)");
+
+                }
+            break;
+
+
+        }
+    }
+    function sliderChangeLarge ( value, id ) {
 
         thisValue = value;
         thisId = id;
 
-        if ( thisValue == 4 ){
-
-            $("#slider"+ thisId).removeClass("button-off").removeClass("button-val-2").removeClass("button-val-3").addClass("button-on");
-
-        } else if ( thisValue == 3 ){
-
-            $("#slider"+ thisId).removeClass("button-on").removeClass("button-off").removeClass("button-val-2").addClass("button-val-3");
-
-        } else if ( thisValue == 2) {
-
-            $("#slider"+ thisId).removeClass("button-on").removeClass("button-val-3").removeClass("button-off").addClass("button-val-2");
-
-        } else if ( thisValue == 1 ) {
-
-            $("#slider"+ thisId).removeClass("button-on").removeClass("button-val-2").removeClass("button-val-3").addClass("button-off");
-        }
+        $("#slider"+ thisId).css("background", "url(/img/largeSlider-" + thisValue + ".png)");
+        
     }
 
     function rotaryChange ( value, id ) {
@@ -239,6 +264,8 @@ $(function() {
         thisId = id;
 
         $("#rotary" + thisId + "num").text(thisValue);
+        $("#rotary" + thisId).css("background", "url(/img/redRotary-" + thisValue + ".png)");
+
     }
 
     function mapNewNames ( names ) {
@@ -277,11 +304,11 @@ $(function() {
 
         if ( mapValues.rocker0 != buttonMap.rocker0 ) {
 
-            colorChanger(mapValues.rocker0, 0);
+            imageChanger(mapValues.rocker0, 0);
 
          } else if ( mapValues.rocker1 != buttonMap.rocker1 ) {
             
-            colorChanger(mapValues.rocker1, 1);
+            imageChanger(mapValues.rocker1, 1);
 
          } else if ( mapValues.toggle0 != buttonMap.toggle0 ) {
             
@@ -329,7 +356,7 @@ $(function() {
 
          } else if ( mapValues.slider0 != buttonMap.slider0 ) {
             
-            sliderChange(mapValues.slider0, 0);
+            sliderChangeLarge(mapValues.slider0, 0);
 
          } else if ( mapValues.slider1 != buttonMap.slider1 ) {
             
@@ -341,7 +368,7 @@ $(function() {
 
          } else if ( mapValues.slider3 != buttonMap.slider3 ) {
             
-            sliderChange(mapValues.slider3, 3);
+            sliderChangeLarge(mapValues.slider3, 3);
 
          }else if ( mapValues.rotary0 != buttonMap.rotary0 ) {
             

@@ -155,6 +155,8 @@
         height: 85px;
         background: url(/img/redRocker-off.png);
 
+
+
     }
     .greenRocker {
         width: 70px;
@@ -174,6 +176,8 @@
         width: 90px;
         height: 35px;
         background: url(/img/smallRedRocker-off.png);
+        
+
 
     }
     .rrRound {
@@ -186,7 +190,7 @@
 
         width: 50px;
         height: 50px;
-        background: url(/img/redRotary-1.png);
+        //background: url(/img/redRotary-1.png);
     }
     .rotary-num {
 
@@ -262,11 +266,10 @@
     }
     .timer {
 
-      color: #ccc;
       display: block;
       width: 100%;
-      height: 15px;
-      background-color: #33334d;
+      height: 8px;
+      background-color: #e9a821;
     }
 
     .health {

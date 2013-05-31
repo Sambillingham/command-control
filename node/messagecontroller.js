@@ -21,7 +21,7 @@ var waitingFor = [],
                     "slider1" : 0, "slider2" : 0, "slider3" : 0, "rotary0" : 0, "rotary1" : 0, "rotary2" : 0, "rotary3" : 0,
                     "ultrasound0" : 0, "keySwitch0" : 0, "redButton0" : 0, "missileSwitch0" : 0 },
     messages = {"sent": 0},
-    messageTime = { "min" : 3750 , "range" : 4000 };
+    messageTime = { "min" : 5150 , "range" : 4750 };
 
 
 function messageReady () {
@@ -54,7 +54,7 @@ function messageReady () {
                 randomPlayer = Math.floor(Math.random() * (app.clients.length) + 0 );
             }
 
-            var randomMillis = Math.floor(Math.random() * (5150) + 4750),
+            var randomMillis = Math.floor(Math.random() * (messageTime.min) + messageTime.range),
                 instruction = { "message" : messageToSend , "timer" : randomMillis, "reset" : false };
 
             whichClientWanted[inputId] = app.clients[randomPlayer]; // saves which player recived the message for that input
