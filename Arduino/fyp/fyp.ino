@@ -125,6 +125,8 @@
     long sliderCheckTimeOut[] = { 0, 0, 0 , 0};
     int sliderSendDelay = 400;
 
+    boolean initialStart = true;
+
 
     void subscriptions (char* topic, byte* payload, unsigned int length) {
 
@@ -169,12 +171,29 @@ void loop() {
 
     cl.loop();      //MQTT Client loop function. Pub & Sub
 
-    readInputs();       //Read Inputs and assign to array varibles
+    if ( initialStart == true ){
 
+        readInputs();       //Read Inputs and assign to array varibles
+        delay(1000);
+        runSliders();       //calculates & asigns slider potentioneter values and publishs to MQTT
+        delay(1000);
+        runRotary();        //calculates & asigns rotary potentiometers values and publishs to MQTT
+        delay(1000);
+        runSwitches();      //Read states of switche and publish to MQTT
+        delay(1000);
+        //runUltrasound();    //Read values of ultrasound, publish to MQTT
+
+        initialStart = false;
+        
+    } else {
+
+    readInputs();       //Read Inputs and assign to array varibles
     runSliders();       //calculates & asigns slider potentioneter values and publishs to MQTT
     runRotary();        //calculates & asigns rotary potentiometers values and publishs to MQTT
     runSwitches();      //Read states of switche and publish to MQTT
     //runUltrasound();    //Read values of ultrasound, publish to MQTT
+
+    }
 
 }// End Loop
 
