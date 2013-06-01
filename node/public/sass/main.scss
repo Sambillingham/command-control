@@ -9,8 +9,8 @@
 
 @font-face {
     font-family: 'liberatorregular';
-    src: url('/fonts/liberator-webfont.eot');
-    src: url('/fonts/liberator-webfont.eot?#iefix') format('embedded-opentype'),
+    src: //url('/fonts/liberator-webfont.eot') format('eot'),
+    //src: url('/fonts/liberator-webfont.eot?#iefix') format('embedded-opentype'),
          url('/fonts/liberator-webfont.woff') format('woff'),
          url('/fonts/liberator-webfont.ttf') format('truetype'),
          url('/fonts/liberator-webfont.svg#liberatorregular') format('svg');
@@ -19,28 +19,30 @@
 
 }
 
-    body {
 
-        font-family:  Helvetica, Arial, sans-serif;
+$text-r: #e01e25;
+$text-y: #f9c535;
+
+    body {
+  
+        font-family: 'liberatorregular', Helvetica, Arial, sans-serif;
+
+        color: $text-r;
     }
 
   h1 {
-      font-family:  Helvetica, Arial, sans-serif;
       letter-spacing:2pt;
       line-height: 120%;
-      color: #333;
       text-transform: uppercase;
       text-align: center;
       font-size: 1em;
       padding-top: 10px;
     }
+
     p {
-      font-family: helvetica;
         text-transform: uppercase;
         letter-spacing: 2pt;
         text-align: center;
-
-        color: #999;
         text-decoration: none;
     }
     .container {
@@ -65,13 +67,13 @@
 
       font-family:  Helvetica, Arial, sans-serif;
       letter-spacing:1pt;
-      line-height: 120%;
+      line-height: 130%;
       color: #333;
       
       font-size: 0.6em;
-      width: 100px;
+      width: 90px;
 
-      padding-top: 10px;
+      padding-top: 5px;
       text-transform: uppercase;
       text-align: center;
 
@@ -93,11 +95,12 @@
 
         float: left;
         width: 80px;
+        height: 70px;
     }
 
     .top-inputs {
 
-        height: 110px;
+        height: 90px;
         float: left;
     }
     .bottom-inputs {
@@ -107,6 +110,7 @@
     }
     .input-small-rr {
         width: 180px;
+        height: 70px;
 
     }
     .input-slider-l {
@@ -352,6 +356,7 @@
 
     }
     .ready:hover {
+
         background-color: #F75B97;
     }
     a:link {
@@ -361,34 +366,83 @@
 
     }
 
-    .level{
+    .level,
+    .end-level{
      
-     width: 100%;
-     height: 50px;
-     background-color: #999;
-      position: absolute;
+        width: 480px;
+        height: 58px;
+        background-color: #333;
+        position: absolute;
      
-     left: -9999px;
-     top: -9999px;
+        left: -9999px;
+        top: -9999px;
 
-     p {
-
-      color: #333;
-      padding-top: 30px;
-     }
-
-     #count-down {
-
-      padding: 20px;
-      font-size: 3em;
-     }
+        p {
+            padding-top: 30px;
+        }
     }
-    .show-banner {
+    #count-down {
 
-     top: 0px;
-     left: 0px;
+        padding: 20px;
     }
 
+    .connection-name {
+
+        padding-top: 40px;
+    }
+
+    .warp-button {
+
+        margin-top: 50px;
+        padding: 20px;
+        margin: 0 auto;
+        width: 100px;
+        height: 20px;
+        color: $text-r;
+        background: #333;
+    }
+    .starting-screen,
+    .connection-screen 
+     {
+        width: 480px;
+        height: 320px;
+        background-image: url(/img/bg-honey.png);
+        position: absolute;
+        left: -9999px;
+        top: -9999px;
+
+        .push-line {
+
+            margin-top: 50px;
+        }
+        .starting-messages {
+
+            padding: 10px 0 10px 0;
+            p {
+
+                padding: 15px 50px;
+                color: $text-r;
+                line-height: 160%;
+
+            }
+        }
+
+    }
+    .show {
+
+        top: 0px;
+        left: 0px;
+    }
+    .end-game {
+
+        p {
+            padding-top: 10px; 
+        }
+    }
+    .smaller-name {
+
+        width: 65px;
+    }
 
     /*------------------- Re-Design ------------*/
 
@@ -401,7 +455,6 @@
       color: #f9c535;
 
       a {
-        font-family: 'liberatorregular';
         color: #f9c535;
         letter-spacing: 1px;
       }
@@ -415,7 +468,6 @@
         background-color: #000000;
       }
       .message {
-        font-family: 'liberatorregular';
         letter-spacing: 2px;
         color: #e01e25;
         background-color: #000000;
@@ -429,6 +481,18 @@
     }
 
 
+ .link-home {
 
+        display: block;
+        margin: 0 auto;
+        margin-top: 40px;
+        padding: 10px;
+        width: 170px;
+        height: 20px;
+        color: $text-r;
+        background: #333;
+        text-transform: uppercase;
+
+    }
 
 

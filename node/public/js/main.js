@@ -64,9 +64,20 @@ $(function() {
 
                 socket.on ('end-game', function (stats) {
 
-                    
+                        switch (playerCheck) {
 
-                        window.location = "/end";
+                        case "player1" :
+                        window.location = "/end1";
+                        break;
+                        case "player2" :
+                        window.location = "/end2";
+                        break;
+                        case "player3" :
+                        window.location = "/end3";
+                        break;    
+                        }
+
+                        
                         
                 });
 
@@ -103,13 +114,16 @@ $(function() {
 
     function newLevel ( level ) {
 
-        $(".level").addClass("show-banner");
+
+        $(".connection-screen").removeClass("show");
+
+        $(".level").addClass("show");
         $("#level-num").text(level);
 
         setTimeout( function() {
 
-            $(".level").removeClass("show-banner");
-        }, 4300);
+            $(".level").removeClass("show");
+        }, 9500);
 
     }
 
