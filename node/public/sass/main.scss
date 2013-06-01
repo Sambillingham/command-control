@@ -99,6 +99,8 @@
     .input-slider-s {
 
         height: 200px;
+        width: 65px;
+        padding-right: 15px;
     }
     .start{
         height: 30px;
@@ -182,15 +184,20 @@
     }
     .rrRound {
 
-        width: 40px;
-        height: 40px;
-        border-radius: 50%;
+        width: 60px;
+        height: 60px;
     }
     .rotary {
 
         width: 50px;
         height: 50px;
         //background: url(/img/redRotary-1.png);
+    }
+    .silver-rotary {
+
+        width: 65px;
+        height: 65px;
+        background: url(/img/silver-Rotary-7.png);
     }
     .rotary-num {
 
@@ -241,8 +248,10 @@
     }
     .sliderSmall {
 
-        width: 30px;
-        height: 150px;
+        width: 50px;
+        height: 200px;
+        background: url(/img/smallSlider-1.png);
+
     }
 
     .f-right {

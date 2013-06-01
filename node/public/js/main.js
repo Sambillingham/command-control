@@ -219,6 +219,7 @@ $(function() {
         switch (thisId) {
 
             case 0 :
+            case 9 :
 
                 if ( thisValue == 1 ) {
                   
@@ -233,6 +234,7 @@ $(function() {
 
             break;
             case 1 :
+            case 12 :
 
                 if ( thisValue == 1 ) {
               
@@ -242,6 +244,49 @@ $(function() {
                 } else {
 
                     $("#button" + thisId).css("background", "url(/img/greenRocker-off.png)");
+
+                }
+            break;
+            case 2 :
+            case 5 :
+            case 6 :
+            case 11 :
+
+                if ( thisValue == 1 ) {
+              
+                    $("#button" + thisId).css("background", "url(/img/toggle-on.png)");
+
+
+                } else {
+
+                    $("#button" + thisId).css("background", "url(/img/toggle-off.png)");
+
+                }
+            break;
+            case 3 :
+            case 4 :
+
+                if ( thisValue == 1 ) {
+              
+                    $("#button" + thisId).css("background", "url(/img/smallRedRocker-on.png)");
+
+
+                } else {
+
+                    $("#button" + thisId).css("background", "url(/img/smallRedRocker-off.png)");
+
+                }
+            break;
+            case 7 :
+
+                if ( thisValue == 1 ) {
+              
+                    $("#button" + thisId).css("background", "url(/img/roundRedRocker-on.png)");
+
+
+                } else {
+
+                    $("#button" + thisId).css("background", "url(/img/roundRedRocker-off.png)");
 
                 }
             break;
@@ -257,14 +302,32 @@ $(function() {
         $("#slider"+ thisId).css("background", "url(/img/largeSlider-" + thisValue + ".png)");
         
     }
+    function sliderChangeSmall( value, id ) {
 
-    function rotaryChange ( value, id ) {
+        thisValue = value;
+        thisId = id;
+
+        $("#slider"+ thisId).css("background", "url(/img/smallSlider-" + thisValue + ".png)");
+        
+    }
+
+    function rotaryChangeRed ( value, id ) {
 
         thisValue = value;
         thisId = id;
 
         $("#rotary" + thisId + "num").text(thisValue);
         $("#rotary" + thisId).css("background", "url(/img/redRotary-" + thisValue + ".png)");
+
+    }
+
+    function rotaryChangeSilver ( value, id ) {
+
+        thisValue = value;
+        thisId = id;
+
+        $("#rotary" + thisId + "num").text(thisValue);
+        $("#rotary" + thisId).css("background", "url(/img/silver-Rotary-" + thisValue + ".png)");
 
     }
 
@@ -312,27 +375,27 @@ $(function() {
 
          } else if ( mapValues.toggle0 != buttonMap.toggle0 ) {
             
-            colorChanger(mapValues.toggle0, 2);
+            imageChanger(mapValues.toggle0, 2);
 
          } else if ( mapValues.rocker2 != buttonMap.rocker2 ) {
             
-            colorChanger(mapValues.rocker2, 3);
+            imageChanger(mapValues.rocker2, 3);
 
          } else if ( mapValues.rocker3 != buttonMap.rocker3 ) {
             
-            colorChanger(mapValues.rocker3, 4);
+            imageChanger(mapValues.rocker3, 4);
 
          } else if ( mapValues.toggle1 != buttonMap.toggle1 ) {
             
-            colorChanger(mapValues.toggle1, 5);
+            imageChanger(mapValues.toggle1, 5);
 
          } else if ( mapValues.toggle2 != buttonMap.toggle2 ) {
             
-            colorChanger(mapValues.toggle2, 6);
+            imageChanger(mapValues.toggle2, 6);
 
          } else if ( mapValues.rocker4 != buttonMap.rocker4 ) {
             
-            colorChanger(mapValues.rocker4, 7);
+            imageChanger(mapValues.rocker4, 7);
 
          } else if ( mapValues.toggle3 != buttonMap.toggle3 ) {
             
@@ -360,11 +423,11 @@ $(function() {
 
          } else if ( mapValues.slider1 != buttonMap.slider1 ) {
             
-            sliderChange(mapValues.slider1, 1);
+            sliderChangeSmall(mapValues.slider1, 1);
 
          } else if ( mapValues.slider2 != buttonMap.slider2 ) {
             
-            sliderChange(mapValues.slider2, 2);
+            sliderChangeSmall(mapValues.slider2, 2);
 
          } else if ( mapValues.slider3 != buttonMap.slider3 ) {
             
@@ -372,15 +435,15 @@ $(function() {
 
          }else if ( mapValues.rotary0 != buttonMap.rotary0 ) {
             
-            rotaryChange(mapValues.rotary0, 0);
+            rotaryChangeRed(mapValues.rotary0, 0);
 
          } else if ( mapValues.rotary1 != buttonMap.rotary1 ) {
             
-            rotaryChange(mapValues.rotary1, 1);
+            rotaryChangeSilver(mapValues.rotary1, 1);
 
          } else if ( mapValues.rotary2 != buttonMap.rotary2 ) {
             
-            rotaryChange(mapValues.rotary2, 2);
+            rotaryChangeSilver(mapValues.rotary2, 2);
 
          } else if ( mapValues.rotary3 != buttonMap.rotary3 ) {
             
