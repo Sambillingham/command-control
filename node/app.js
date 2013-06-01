@@ -58,17 +58,17 @@ app.get('/p1start', function (req, res) {
 
         res.sendfile(__dirname + '/p1start.html');
 });
-app.get('/end', function (req, res) {
+app.get('/end1', function (req, res) {
 
-        res.sendfile(__dirname + '/end.html');
+        res.sendfile(__dirname + '/end1.html');
 });
-app.get('/test', function (req, res) {
+app.get('/end2', function (req, res) {
 
-        res.sendfile(__dirname + '/test.html');
+        res.sendfile(__dirname + '/end2.html');
 });
-app.get('/p3-r', function (req, res) {
+app.get('/end3', function (req, res) {
 
-        res.sendfile(__dirname + '/p3-r.html');
+        res.sendfile(__dirname + '/end3.html');
 });
 
     io.sockets.on('connection', function (socket) {
@@ -92,7 +92,7 @@ app.get('/p3-r', function (req, res) {
                     nonPlayingClients.push(socket.id);
                     console.log("NON PLAYING CLIENTS : ", nonPlayingClients);
 
-                    if ( id == "end" ) {
+                    if ( id == "end1" || id == "end2" || id =="end3") {
 
                         socket.emit('stats', levelSystem.stats);
                     }

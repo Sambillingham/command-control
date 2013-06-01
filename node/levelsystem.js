@@ -53,7 +53,7 @@ function engageLevel ( levelNum ) {
         })();
 
 
-    }, 5000);  
+    }, 10000);  
 
 }
 function stopLevel () {
