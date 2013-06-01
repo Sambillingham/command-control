@@ -290,6 +290,31 @@ $(function() {
 
                 }
             break;
+            case 8 :
+
+                if ( thisValue == 1) {
+
+                    $("#button" + thisId).css("background", "url(/img/black-toggle-on.png)");
+
+
+                } else {
+
+                    $("#button" + thisId).css("background", "url(/img/black-toggle-off.png)");
+
+                }
+            break;
+            case 10 : 
+
+                if ( thisValue == 1 ) {
+              
+                    $("#button" + thisId).css("background", "url(/img/smallRedRockerVertical-on.png)");
+
+
+                } else {
+
+                    $("#button" + thisId).css("background", "url(/img/smallRedRockerVertical-off.png)");
+
+                }
 
 
         }
@@ -399,23 +424,23 @@ $(function() {
 
          } else if ( mapValues.toggle3 != buttonMap.toggle3 ) {
             
-            colorChanger(mapValues.toggle3, 8);
+            imageChanger(mapValues.toggle3, 8);
 
          } else if ( mapValues.rocker5 != buttonMap.rocker5 ) {
             
-            colorChanger(mapValues.rocker5, 9);
+            imageChanger(mapValues.rocker5, 9);
 
          } else if ( mapValues.rocker6 != buttonMap.rocker6 ) {
             
-            colorChanger(mapValues.rocker6, 10);
+            imageChanger(mapValues.rocker6, 10);
 
          } else if ( mapValues.toggle4 != buttonMap.toggle4 ) {
             
-            colorChanger(mapValues.toggle4, 11);
+            imageChanger(mapValues.toggle4, 11);
 
          } else if ( mapValues.rocker7 != buttonMap.rocker7 ) {
             
-            colorChanger(mapValues.rocker7, 12);
+            imageChanger(mapValues.rocker7, 12);
 
          } else if ( mapValues.slider0 != buttonMap.slider0 ) {
             

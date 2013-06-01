@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html lang="en">
 	<head>
-			<title>Command Control : 2</title>
+			<title>Command Control : 1</title>
 			<meta charset="utf-8">
 			<meta name="description" content="">
 			<meta name="author" content="Sam Billingham">
@@ -13,67 +13,75 @@
 	<body>
 		
 
-		<div class="health"></div>
-		<h1 id="incomming" class="message"> incoming message... </h1>
+		<!-- <div class="health"></div> -->
 		
+
+		<div class="pannel">
+			<div class="b-y-line"></div>
+			<div class="black-incoming">
+
+			<h1 id="incomming" class="message"> receiving... </h1>
+			</div>
+			<div class="b-y-line"></div>
 			
 
 
 			<div id="timer" class="timer">  </div>
-
-
-			<div class="player1 controls">
 			
-			
-			<div class="input">
-				<a id="btn8name" class="button-name"> button 8 </a>
-				<div id="button8" class="arduino-buttons toggle"></div>
-			</div>
+			<div class="top-inputs">
 
-			<div class="input input-slider-l">
-				<a id="slider3name" class="button-name"> Slider 3 </a>
-				<div id="slider3" class="arduino-buttons sliderLarge"></div>
-			</div>
-			
-			<div class="input">
-				<a id="btn9name" class="button-name"> button 9 </a>
-				<div id="button9" class="arduino-buttons rrBig"></div>
-			</div>
+				<div class="input">
+					<a id="btn8name" class="button-name"> button 8 </a>
+					<div id="button8" class="arduino-buttons toggle b-toggle"></div>
+				</div>
 
-			<div class="input">
-				<a id="btn10name" class="button-name"> button 10 </a>
-				<div id="button10" class="arduino-buttons rrBig"></div>
-			</div>
-
-			
-
-			<div class="input ">
-				<a id="btn12name" class="button-name rrS"> button 12 </a>
-				<div id="button12" class="arduino-buttons rrBig"></div>
-			</div>
-
-			<div class="input">
-				<a id="btn11name" class="button-name rrS"> button 11 </a>
-				<div id="button11" class="arduino-buttons toggle"></div>
-			</div>
-			
-
-			<div class="input">
-				<a id="rotary3name" class="button-name"> Rotary 3 </a>
-				<div id="rotary3" class="arduino-buttons rotary">
-					<a id="rotary3num" class="rotary-num"></a>
+				<div class="input input-slider-l">
+					<a id="slider3name" class="button-name"> Slider 3 </a>
+					<div id="slider3" class="arduino-buttons sliderLarge"></div>
 				</div>
 			</div>
+				
+				<div class="input-s">
+					<a id="rotary3name" class="button-name"> Rotary 3 </a>
+					<div id="rotary3" class="arduino-buttons b-rotary">
+						<a id="rotary3num" class="rotary-num"></a>
+					</div>
+				</div>
 
-			<div class="level">
+				<div class="input">
+					<a id="btn9name" class="button-name"> button 9 </a>
+					<div id="button9" class="arduino-buttons rrBig"></div>
+				</div>
+
+				<div class="input">
+					<a id="btn10name" class="button-name"> button 10 </a>
+					<div id="button10" class="arduino-buttons rrVertical"></div>
+				</div>
+
+				
+
+				<div class="input ">
+					<a id="btn12name" class="button-name rrS"> button 12 </a>
+					<div id="button12" class="arduino-buttons greenRocker"></div>
+				</div>
+
+				<div class="input">
+					<a id="btn11name" class="button-name rrS"> button 11 </a>
+					<div id="button11" class="arduino-buttons toggle"></div>
+				</div>
+				
+
+				
+				
+				
+
+				<div class="level">
 
 
-			<p> Warping to sector   <span id="level-num"></span></p>
+				<p> Warping to sector   <span id="level-num"></span></p>
 
 
-			</div>
-
-		</div>
+				</div>
 
 			<div id="start" class="start"> Start</div>
 			<div id="stop" class="start stop"> Stop</div>
