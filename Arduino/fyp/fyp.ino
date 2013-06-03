@@ -77,8 +77,8 @@
     int previousRotPots[] = {0,0,0,0};
 
     //wifly
-    byte ip[] = { 192, 168, 0, 20 }; // DEVELOPMENT
-    //byte ip[] = { 192, 168, 1, 2 }; // PRODUCTION
+    //byte ip[] = { 192, 168, 0, 20 }; // DEVELOPMENT
+    byte ip[] = { 192, 168, 1, 2 }; // PRODUCTION
     WiFlyClient fypClient;
     PubSubClient cl(ip, 8085, subscriptions, fypClient);
 

@@ -391,15 +391,20 @@ $text-y: #f9c535;
         padding-top: 40px;
     }
 
-    .warp-button {
+    .warp-button,
+    .start-error {
 
         margin-top: 50px;
         padding: 20px;
         margin: 0 auto;
-        width: 100px;
         height: 20px;
         color: $text-r;
         background: #333;
+    }
+
+    .start-error {
+
+        width: 240px;
     }
     .starting-screen,
     .connection-screen 

@@ -18,8 +18,8 @@ function startGame () {
 
 function engageLevel ( levelNum ) {
 
-    var lowerBound = 23 + ( 30 * (stats.levelsCompleted/10));
-        upperBound = 33 + (40 * (stats.levelsCompleted/10));
+    var lowerBound = 53 + ( 50 * (stats.levelsCompleted/10));
+        upperBound = 63 + (60 * (stats.levelsCompleted/10));
 
     numOfInstruct = helper.findRandom(lowerBound,upperBound);
 
@@ -66,7 +66,7 @@ function stopLevel () {
 function nextLevel (completedLevel) {
 
     var nextLevel = completedLevel + 1;
-        healthIncrease = (completedLevel/5)*30;
+        healthIncrease = (completedLevel/2)*30;
 
 
         messageController.messageTime.range = messageController.messageTime.range - ((messageController.messageTime.range/100)*4);

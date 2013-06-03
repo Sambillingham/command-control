@@ -90,6 +90,21 @@ $(function() {
                         $("#pots").text(stats.pots);
                 });
 
+                socket.on('no-start', function ( value ) {
+
+                    if ( value === true ) {
+
+                        $(".start-error").text("Not all Players are connected - reconnect");
+                    }
+
+                    setTimeout( function () {
+
+                        $(".start-error").text("");
+
+                    }, 3000);
+
+                });
+
                 socket.on('disconect', function () {
 
                     socket.emit('playerID', playerCheck + "d");

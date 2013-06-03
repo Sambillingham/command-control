@@ -54,7 +54,7 @@ function messageReady () {
                 randomPlayer = Math.floor(Math.random() * (app.clients.length) + 0 );
             }
 
-            var randomMillis = Math.floor(Math.random() * (messageTime.min) + 4750),
+            var randomMillis = Math.floor(Math.random() * (10000) + 8750),
                 instruction = { "message" : messageToSend , "timer" : randomMillis, "reset" : false };
 
             whichClientWanted[inputId] = app.clients[randomPlayer]; // saves which player recived the message for that input

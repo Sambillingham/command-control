@@ -30,6 +30,7 @@ var express = require('express'),
 
 server.listen(socketsPort);
 
+
 app.configure(function() {
 
         app.use(express.static(__dirname + '/public'));
@@ -75,35 +76,40 @@ app.get('/end3', function (req, res) {
 
             socket.on('playerID', function (id) {
 
-                if ( id == "player1" || id == "player2" || id == "player3" ) {
+                if ( id == "player1" || id == "player2" || id == "player3" ) {      // IF socket that connects is on a player screen
 
-                    clients.push(socket.id);
+                    clients.push(socket.id);        // Add csocket that just connected to list of players
                     console.log("clients: ", clients);
-                    connectedPlayers[id] = true;
+                    connectedPlayers[id] = true;        // set the player that connected to true
                     console.log("connected : ", connectedPlayers);
 
-                    if ( connectedPlayers.player1 == true && connectedPlayers.player2 == true && connectedPlayers.player3 == true ){
+                } else {        // Not on player screen but will still need a socket connection
 
-                        //levelSystem.startGame();
-                    }
-
-                } else {
-
-                    nonPlayingClients.push(socket.id);
+                    nonPlayingClients.push(socket.id);      // Adds socket to alternate list
                     console.log("NON PLAYING CLIENTS : ", nonPlayingClients);
 
                     if ( id == "end1" || id == "end2" || id =="end3") {
 
-                        socket.emit('stats', levelSystem.stats);
+                        socket.emit('stats', levelSystem.stats);        // If the sreen is after a game is finished emit stats
+
                     }
                 }               
 
             });
 
-            socket.on('start', function () {
+            socket.on('start', function () {        //Player requests to start game
 
                 console.log("Start Recivied");
-                levelSystem.startGame();
+
+                if ( connectedPlayers.player1 == true && connectedPlayers.player2 == true && connectedPlayers.player3 == true ) {
+
+
+                        levelSystem.startGame();
+
+                } else {
+
+                    socket.emit('no-start', true );
+                }
 
 
             });
