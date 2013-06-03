@@ -9,8 +9,8 @@
 
 @font-face {
     font-family: 'liberatorregular';
-    src: //url('/fonts/liberator-webfont.eot') format('eot'),
-    //src: url('/fonts/liberator-webfont.eot?#iefix') format('embedded-opentype'),
+    src: url('/fonts/liberator-webfont.eot') format('eot');
+    src: url('/fonts/liberator-webfont.eot?#iefix') format('embedded-opentype'),
          url('/fonts/liberator-webfont.woff') format('woff'),
          url('/fonts/liberator-webfont.ttf') format('truetype'),
          url('/fonts/liberator-webfont.svg#liberatorregular') format('svg');
