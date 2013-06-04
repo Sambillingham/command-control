@@ -394,12 +394,11 @@ $text-y: #f9c535;
     .warp-button,
     .start-error {
 
-        margin-top: 50px;
-        padding: 20px;
+        margin-top: 30px;
+        padding: 10px;
         margin: 0 auto;
         height: 20px;
         color: $text-r;
-        background: #333;
     }
 
     .start-error {
@@ -407,8 +406,8 @@ $text-y: #f9c535;
         width: 240px;
     }
     .starting-screen,
-    .connection-screen 
-     {
+    .connection-screen {
+        
         width: 480px;
         height: 320px;
         background-image: url(/img/bg-honey.png);
@@ -422,11 +421,24 @@ $text-y: #f9c535;
         }
         .starting-messages {
 
-            padding: 10px 0 10px 0;
+            padding: 20px 0 20px 0;
+
             p {
 
-                padding: 15px 50px;
+                padding: 20px 50px;
                 color: $text-r;
+                line-height: 160%;
+
+            }
+        }
+        .controllers {
+
+            height: 20px;
+            p {
+
+                font-size: 0.8em;
+                padding: 5px 50px;
+                color: #a1ed1d;
                 line-height: 160%;
 
             }
@@ -499,5 +511,21 @@ $text-y: #f9c535;
         text-transform: uppercase;
 
     }
+.p2-bottom {
 
+    padding-top: 50px;
+}
 
+.red-rotary-name {
+
+    width: 80px;
+}
+.small-slider-name {
+
+    width: 80;
+}
+
+.push-right {
+
+    padding-left: 10px;
+}

@@ -1,8 +1,8 @@
 var app = require("./app"),
 	levelSystem = require("./levelsystem");
 
-var shipHealth = { "max" : 30 , "currentH": 30 },
-	maxIncreaseAmmount = 18;
+var shipHealth = { "max" : 50 , "currentH": 50 },
+	maxIncreaseAmmount = 22;
 
 function losePoints ( ammount ) {
 
@@ -37,6 +37,7 @@ function resetShip () {
 
 	shipHealth.currentH = shipHealth.max;
 }
+
 exports.losePoints = losePoints;
 exports.gainPoints = gainPoints;
 exports.resetShip = resetShip;

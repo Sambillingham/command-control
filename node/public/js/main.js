@@ -1,7 +1,7 @@
 $(function() {
 
-    var socket = io.connect('http://192.168.0.20:8080');     // DEVELOPMENT
-    //var socket = io.connect('http://192.168.1.2:8080');      // PRODUCTION
+    //var socket = io.connect('http://192.168.0.20:8080');     // DEVELOPMENT
+    var socket = io.connect('http://192.168.1.2:8080');      // PRODUCTION
 
     var buttonMap = { "rocker0" : undefined , "rocker1" : undefined, "rocker2" : undefined, "rocker3" : undefined, "rocker4" : undefined,
                     "rocker5" : undefined, "rocker6" : undefined, "rocker7" : undefined, "toggle0" : undefined, "toggle1" : undefined,
@@ -23,7 +23,8 @@ $(function() {
 
                 socket.on('map', function ( mapValues) {
 
-                    buttonMapChecker(mapValues);   
+                    buttonMapChecker(mapValues);
+                    showArduinoConnection();  
 
                 });
                 
@@ -120,26 +121,59 @@ $(function() {
         socket.emit('start', 1);
 
     });
-    $("#stop").click( function () {
+    // $("#stop").click( function () {
 
-        console.log("stopping...");
-        socket.emit('stop', 1);
+    //     console.log("stopping...");
+    //     socket.emit('stop', 1);
 
-    });
+    // });
 
     function newLevel ( level ) {
 
 
         $(".connection-screen").removeClass("show");
 
-        $(".level").addClass("show");
-        $("#level-num").text(level);
+        if (level === 1 ) {
 
-        setTimeout( function() {
+            $(".starting-screen").addClass("show");
 
-            $(".level").removeClass("show");
-        }, 9500);
+            setTimeout( function () {
 
+                $(".starting-screen").removeClass("show");
+                $(".level").addClass("show");
+                $("#level-num").text(level);
+
+                setTimeout( function() {
+
+                    $(".level").removeClass("show");
+
+                }, 9500);
+
+            }, 10000 );
+
+        } else {
+
+             $(".level").addClass("show");
+            $("#level-num").text(level);
+
+            setTimeout( function() {
+
+                    $(".level").removeClass("show");
+
+            }, 9500);
+        }
+
+    }
+
+    function showArduinoConnection () {
+
+        $(".arduino-connection").text("Ship controls are are Active!");
+
+        setTimeout( function () {
+
+            $(".arduino-connection").text("");
+
+        }, 5000);
     }
 
     function moveHealth ( health ) {

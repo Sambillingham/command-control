@@ -18,8 +18,8 @@ function startGame () {
 
 function engageLevel ( levelNum ) {
 
-    var lowerBound = 53 + ( 50 * (stats.levelsCompleted/10));
-        upperBound = 63 + (60 * (stats.levelsCompleted/10));
+    var lowerBound = 7 + ( 50 * (stats.levelsCompleted/10));
+        upperBound = 17 + (60 * (stats.levelsCompleted/10));
 
     numOfInstruct = helper.findRandom(lowerBound,upperBound);
 
@@ -42,7 +42,7 @@ function engageLevel ( levelNum ) {
 
         levelRunning = setTimeout(arguments.callee, levelSpeed);
 
-        if ((messageController.messages.sent  - 3) >= numOfInstruct ){
+        if ((messageController.messages.sent  + 3 ) >= numOfInstruct ){
 
             console.log(">>>> LEVEL ", levelNum," COMPLETED <<<<");
             stopLevel();
@@ -53,7 +53,7 @@ function engageLevel ( levelNum ) {
         })();
 
 
-    }, 10000);  
+    }, levelDelay() );  
 
 }
 function stopLevel () {
@@ -80,15 +80,28 @@ function nextLevel (completedLevel) {
 function endGame () {
 
     levelSpeed = 900;
-    messageController.messageTime.range = 4000;
-    messageController.messageTime.min = 3750;
+    // messageController.messageTime.range = 4000;
+    // messageController.messageTime.min = 3750;
     pointsSystem.resetShip();
     console.log(stats);
     stopLevel();
     app.io.sockets.emit('end-game', true);
-
+    stats.levelsCompleted = 0;
+    stats.pots = 0;
+    stats.switches = 0;
 }
 
+function levelDelay () {
+
+    if ( stats.levelsCompleted >= 1) {
+
+        return 10000;
+
+    } else {
+
+        return 20000;
+    }
+}
 
 exports.startGame = startGame;
 exports.stopLevel = stopLevel;

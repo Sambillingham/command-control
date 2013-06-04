@@ -55,10 +55,6 @@ app.get('/controls', function (req, res) {
 
         res.sendfile(__dirname + '/control.html');
 });
-app.get('/p1start', function (req, res) {
-
-        res.sendfile(__dirname + '/p1start.html');
-});
 app.get('/end1', function (req, res) {
 
         res.sendfile(__dirname + '/end1.html');
