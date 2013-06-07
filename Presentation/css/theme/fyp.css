@@ -32,7 +32,7 @@ body {
   background-color: #f0f1eb; }
 
 .reveal {
-  font-family: "liberatorregular", sans-serif;
+  font-family: "liberatorregular", helvetica, sans-serif;
   font-size: 24px;
   font-weight: 200;
   letter-spacing: -0.02em;
@@ -103,10 +103,12 @@ body {
  .reveal p {
 
     margin-bottom: 10px;
+    margin-top: 20px;
    
     font-family: 'proxima_nova_rgregular', Helvetica, Arial, sans-serif;
-    font-size: 0.7em;
-     line-height: 120%;
+    font-size: 0.9em;
+     line-height: 160%;
+     color: #333;
 
  }
 
@@ -115,7 +117,9 @@ body {
     text-align: center;
     list-style: none;
     font-family: 'proxima_nova_rgregular', Helvetica, Arial, sans-serif;
-    font-size: 0.6em;
+    font-size: 0.8em;
+    text-transform: uppercase;
+    letter-spacing: 3pt;
      line-height: 120%;
 
  }

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="900px" height="600px" viewBox="0 0 900 600" enable-background="new 0 0 900 600" xml:space="preserve">
+<rect x="411" y="25" fill="#3ABFBB" width="153" height="61"/>
+<rect x="487" y="25" fill="#2FAFA9" width="77" height="61"/>
+<rect x="142" y="305" fill="#406ABF" width="153" height="61"/>
+<rect x="142" y="305" fill="#5A80CC" width="76" height="61"/>
+<text transform="matrix(1 0 0 1 151 342)" fill="#EFEFEF" font-family="'Liberator'" font-size="18.1473" letter-spacing="1">Arduino Mega</text>
+<rect x="30" y="417" fill="#C9CED6" width="153" height="61"/>
+<rect x="142" y="515" fill="#C9CED6" width="153" height="61"/>
+<rect x="254" y="417" fill="#C9CED6" width="153" height="61"/>
+<rect x="106" y="417" fill="#B9BEC6" width="77" height="61"/>
+<rect x="329" y="417" fill="#B9BEC6" width="77" height="61"/>
+<rect x="218" y="515" fill="#B9BEC6" width="77" height="61"/>
+<text transform="matrix(1 0 0 1 41 455)" fill="#F4F4F4" font-family="'Liberator'" font-size="18.1473" letter-spacing="1">Controller 1</text>
+<text transform="matrix(1 0 0 1 262.5 455.5)" fill="#F4F4F4" font-family="'Liberator'" font-size="18.1473" letter-spacing="1">Controller 3</text>
+<text transform="matrix(1 0 0 1 151 554)" fill="#F4F4F4" font-family="'Liberator'" font-size="18.1473" letter-spacing="1">Controller 2</text>
+<rect x="141" y="227" fill="#BC3F39" width="153" height="61"/>
+<rect x="141" y="227" fill="#C64F4F" width="76" height="61"/>
+<text transform="matrix(1 0 0 1 148.5 264)" fill="#EFEFEF" font-family="'Liberator'" font-size="18.1473" letter-spacing="1">Wi-Fly Shield</text>
+<rect x="222" y="105" fill="#3ABFBB" width="153" height="61"/>
+<rect x="298" y="105" fill="#2FAFA9" width="77" height="61"/>
+<rect x="411" y="105" fill="#3ABFBB" width="153" height="61"/>
+<rect x="487" y="105" fill="#2FAFA9" width="77" height="61"/>
+<rect x="600" y="105" fill="#3ABFBB" width="153" height="61"/>
+<rect x="676" y="105" fill="#2FAFA9" width="77" height="61"/>
+<text transform="matrix(1 0 0 1 227.5 141)" fill="#F2F2F2" font-family="'Liberator'" font-size="20" letter-spacing="2">MQTT BROKEr</text>
+<text transform="matrix(1 0 0 1 425 142)" fill="#F2F2F2" font-family="'Liberator'" font-size="20" letter-spacing="2">GAME LOGIC</text>
+<text transform="matrix(1 0 0 1 627.6064 131.5)"><tspan x="0" y="0" fill="#F2F2F2" font-family="'Liberator'" font-size="20" letter-spacing="2">SOCKETS</tspan><tspan x="6.664" y="24" fill="#F2F2F2" font-family="'Liberator'" font-size="20" letter-spacing="2">SERVER</tspan></text>
+<rect x="213" y="366" fill="#C9CED6" width="9" height="153"/>
+<rect x="217" y="366" fill="#B9BEC6" width="5" height="153"/>
+<rect x="160" y="366" fill="#C9CED6" width="9" height="51"/>
+<rect x="164" y="366" fill="#B9BEC6" width="5" height="51"/>
+<rect x="273" y="366" fill="#C9CED6" width="9" height="51"/>
+<rect x="277" y="366" fill="#B9BEC6" width="5" height="51"/>
+<rect x="214" y="288" fill="#406ABF" width="9" height="20"/>
+<rect x="214" y="288" fill="#5A80CC" width="4" height="20"/>
+<rect x="247" y="166" fill="#BC3F39" width="14" height="61"/>
+<rect x="247" y="166" fill="#C64F4F" width="7" height="61"/>
+<rect x="374" y="125" fill="#3ABFBB" width="37" height="14"/>
+<rect x="374" y="133" fill="#2FAFA9" width="37" height="6"/>
+<rect x="564" y="125" fill="#3ABFBB" width="37" height="14"/>
+<rect x="563" y="133" fill="#2FAFA9" width="37" height="6"/>
+<rect x="486" y="274" fill="#E2BD56" width="153" height="61"/>
+<rect x="600" y="391" fill="#E2BD56" width="153" height="61"/>
+<rect x="714" y="274" fill="#E2BD56" width="153" height="61"/>
+<rect x="564" y="274" fill="#D8B150" width="75" height="61"/>
+<text transform="matrix(1 0 0 1 515.5 311.5)" fill="#F2F2F2" font-family="'Liberator'" font-size="20" letter-spacing="2">SCREEN 1</text>
+<rect x="791" y="274" fill="#D8B150" width="75" height="61"/>
+<rect x="677" y="391" fill="#D8B150" width="75" height="61"/>
+<text transform="matrix(1 0 0 1 743.5 308.5)" fill="#F2F2F2" font-family="'Liberator'" font-size="20" letter-spacing="2">SCREEN 3</text>
+<text transform="matrix(1 0 0 1 629.5 429.5)" fill="#F2F2F2" font-family="'Liberator'" font-size="20" letter-spacing="2">SCREEN 2</text>
+<rect x="673" y="166" fill="#E2BD56" width="9" height="226"/>
+<rect x="678" y="166" fill="#D8B150" width="4" height="226"/>
+<rect x="612" y="166" fill="#E2BD56" width="9" height="108"/>
+<rect x="617" y="166" fill="#D8B150" width="4" height="108"/>
+<rect x="730" y="166" fill="#E2BD56" width="9" height="108"/>
+<rect x="735" y="166" fill="#D8B150" width="4" height="108"/>
+<text transform="matrix(1 0 0 1 747.0879 209)"><tspan x="0" y="0" fill="#D8B150" font-family="'Liberator'" font-size="15" letter-spacing="1">WEB SOCKETS/</tspan><tspan x="1.94" y="18" fill="#D8B150" font-family="'Liberator'" font-size="15" letter-spacing="1">LONG POLLING</tspan></text>
+<text transform="matrix(1 0 0 1 112.2124 202.5)" fill="#BC3F39" font-family="'Liberator'" font-size="15" letter-spacing="1">MQTT PACKETS</text>
+<text transform="matrix(1 0 0 1 421.0005 61.3032)" fill="#EAEAEA" font-family="'Liberator'" font-size="20" letter-spacing="2">Node.js App</text>
+</svg>
