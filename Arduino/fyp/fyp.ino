@@ -1,7 +1,9 @@
     #include <SPI.h>
     #include <WiFly.h>
     #include <PubSubClient.h>
+    #include <Ethernet.h>
     #include "wifi_credentials.h"
+
 
     char* onSignal = "1";
     char* offSignal = "0";
@@ -78,9 +80,17 @@
 
     //wifly
     //byte ip[] = { 192, 168, 0, 20 }; // DEVELOPMENT
-    byte ip[] = { 192, 168, 1, 2 }; // PRODUCTION
-    WiFlyClient fypClient;
-    PubSubClient cl(ip, 8085, subscriptions, fypClient);
+     byte ip[] = { 178, 79, 132, 119 }; // PRODUCTION  /178.79.132.119
+    // WiFlyClient fypClient;
+
+
+    //Ethernet
+    byte mac[] = { 0x90, 0xA2, 0xDA, 0x00, 0x54, 0x8C };
+
+    EthernetClient client;
+
+    //PubSubClient cl(ip, 8080, subscriptions, fypClient);
+     PubSubClient cl(ip, 8080, subscriptions, client);
 
     //Topics to subscribe to
     char* nodeTopic = "5/node";
@@ -161,7 +171,16 @@ void setup()
 
 
     
-    wifiConnect();
+    //wifiConnect();
+    Ethernet.begin(mac);
+
+    if (Ethernet.begin(mac) == 0) {
+    Serial.println("Failed to configure Ethernet using DHCP");
+    // no point in carrying on, so do nothing forevermore:
+    for(;;)
+      ;
+      }
+
     mqttSubscribe();
   
 }
@@ -200,27 +219,27 @@ void loop() {
 
 //BEGIN FUNCTIONS
 
-void wifiConnect() {
+// void wifiConnect() {
   
-  WiFly.begin();
-  Serial.println("WiFly Connecting...");
-  delay(5000);
+//   WiFly.begin();
+//   Serial.println("WiFly Connecting...");
+//   delay(5000);
          
-    if (!WiFly.join(ssid, passphrase)) {
+//     if (!WiFly.join(ssid, passphrase)) {
     
-      Serial.println("Connection failed.");
+//       Serial.println("Connection failed.");
     
-      while (1) {
+//       while (1) {
 
-        Serial.println("hanging...");
-      // Hang on failure.
-      } 
-  }
+//         Serial.println("hanging...");
+//       // Hang on failure.
+//       } 
+//   }
   
-  Serial.println("Connected to WiFi!");
-  delay(5000);
+//   Serial.println("Connected to WiFi!");
+//   delay(5000);
 
-}
+// }
 
 void mqttSubscribe(){
   
@@ -689,13 +708,13 @@ void connectionChecker() {
 
         }
         
-        if (fypClient.connected() == false ) {
+        // if (fypClient.connected() == false ) {
 
-            Serial.println("Disconnected from WiFi..");
-            Serial.println("Trying to re-connect...");
-            wifiConnect();
+        //     Serial.println("Disconnected from WiFi..");
+        //     Serial.println("Trying to re-connect...");
+        //     wifiConnect();
 
-        }
+        // }
 
 
     }
