@@ -32,12 +32,12 @@
     int toggleSwitchP3 = 24;
     int redRockerS1P3 = 25;
     int redRockerS2P3 = 26;
-    int slidePotP3 = A0;
+    int slidePotP3 = A12;
     int rotPotP3 = A8;
 
     //PLAYER 2 CONTROLS
-    int slidePot1P2 = A1;
-    int slidePot2P2 = A2;
+    int slidePot1P2 = A13;
+    int slidePot2P2 = A14;
     int rotPot1P2 = A9;
     int rotPot2P2 = A10;
     int toggleSwitch1P2 = 27;
@@ -50,15 +50,15 @@
     int toggleSwitch1P1 = 32;
     int toggleSwitch2P1 = 33;
     int redRockerS1P1 = 34;
-    int slidePotP1 = A3;
+    int slidePotP1 = A15;
     int rotPotP1 = A11;
 
     //Extra Controls
     const int ultraPin1 = 6;
     const int ultraPin2 = 8;
-    int redButton = 35;
+    int redButton = 40;
     int missileSwitch = 36;
-    int keySwitch = 37;
+    int keySwitch = 39;
 
     //End Contros
 
@@ -66,6 +66,9 @@
 
     long connectionCheck = 0;
     int connectionTimeout = 30000; //miliiseconds
+
+    long keyTimeCheck = 0;
+    int keyTimeout = 5000;
 
     int buttons[] = {0,0,0,0,0,0,0,0,0,0,0,0,0};
     int previousButtons[] = {0,0,0,0,0,0,0,0,0,0,0,0,0};
@@ -78,9 +81,15 @@
     int currentRotPotReading[] = {0,0,0,0};
     int previousRotPots[] = {0,0,0,0};
 
+    int pushyValue = 0;
+    int keyValue = 0;
+
+    int previousPushyValue = 0;
+    int secondKeyValue = 0;
+
     //wifly
     //byte ip[] = { 192, 168, 0, 20 }; // DEVELOPMENT
-     byte ip[] = { 178, 79, 132, 119 }; // PRODUCTION  /178.79.132.119
+     byte ip[] = { 178, 79, 132, 119 }; // PRODUCTION  
     // WiFlyClient fypClient;
 
 
@@ -104,6 +113,8 @@
     char* buttonTopics[] = { "1/rocker0", "1/rocker1", "1/toggle0", "1/rocker2", "1/rocker3", "1/toggle1", "1/toggle2", "1/rocker4", "1/rocker5", "1/rocker7", "1/toggle3",  "1/toggle4", "1/rocker6" };
     char* ultrasoundTopics[] = { "1/ultrasound0" };
     char* extraTopics[] = { "1/keySwitch0", "1/redButton0", "1/missileSwitch0"}; 
+
+    int redStartValue = 0;
 
     int ultra1ArraySize = 9;
     int ultra2ArraySize = 9;
@@ -137,6 +148,7 @@
     int sliderSendDelay = 400;
 
     boolean initialStart = true;
+    boolean checkingKey = false;
 
 
     void subscriptions (char* topic, byte* payload, unsigned int length) {
@@ -169,6 +181,8 @@ void setup()
     pinMode(toggleSwitch2P1, INPUT_PULLUP);
     pinMode(redRockerS1P1, INPUT_PULLUP);
 
+    pinMode(redButton, INPUT_PULLUP);
+    pinMode(keySwitch, INPUT_PULLUP);
 
     
     //wifiConnect();
@@ -191,6 +205,7 @@ void loop() {
 
     cl.loop();      //MQTT Client loop function. Pub & Sub
 
+
     if ( initialStart == true ){
 
         readInputs();       //Read Inputs and assign to array varibles
@@ -202,6 +217,8 @@ void loop() {
         runSwitches();      //Read states of switche and publish to MQTT
         delay(1000);
         //runUltrasound();    //Read values of ultrasound, publish to MQTT
+        startButton();
+        resetKey ();
 
         initialStart = false;
         
@@ -212,6 +229,8 @@ void loop() {
     runRotary();        //calculates & asigns rotary potentiometers values and publishs to MQTT
     runSwitches();      //Read states of switche and publish to MQTT
     //runUltrasound();    //Read values of ultrasound, publish to MQTT
+    startButton();
+    resetKey ( );
 
     }
 
@@ -258,6 +277,70 @@ void mqttSubscribe(){
 
 
 }
+
+void startButton () {
+
+    pushyValue = digitalRead(redButton);
+
+
+     if (pushyValue == LOW) {
+
+        Serial.println("Push on");
+        
+        cl.publish(extraTopics[1], onSignal ); 
+
+    }  else if (pushyValue == HIGH)  {
+
+        //Serial.println("Push off");
+    }
+    
+}
+
+void resetKey () {
+
+    keyValue = digitalRead(keySwitch);
+
+
+    if ( keyValue == LOW ) {
+
+
+            unsigned long currentTime = millis();
+
+
+            if (currentTime - keyTimeCheck > keyTimeout ) {
+
+                keyTimeCheck = currentTime;
+
+                secondKeyValue = digitalRead(keySwitch);
+
+                if (secondKeyValue == LOW && keyValue == LOW ) {
+
+                    Serial.println("Key on");
+                    checkingKey = true;
+                }
+
+            }
+        
+        
+    }  else if (keyValue == HIGH)  {
+
+        Serial.println("Key off");
+
+        if ( checkingKey == true ) {
+
+            Serial.println("you have just reset your arduino");
+
+            checkingKey = false;
+
+        } else {
+
+            checkingKey = false;
+        }
+    }
+    
+}
+
+//void(* resetFunc) (void) = 0; //declare reset function @ address 0
 
 int checkRotValue ( int rotary ) {
 
