@@ -136,5 +136,60 @@ function setButtonNames () {
         app.io.sockets.emit('names', buttonNames);
 }
 
+function resetNames (currentLevel) {
+
+    firstCheck = false;
+    secondCheck = false;
+    thirdCheck = false;
+
+    if (currentLevel === 1) {
+
+        buttonOptions.push(buttonNames.rocker0, buttonNames.rocker1, buttonNames.rocker2, buttonNames.rocker3, buttonNames.rocker4,
+                            buttonNames.rocker5, buttonNames.rocker6, buttonNames.rocker7, buttonNames.toggle0, buttonNames.toggle2,
+                            buttonNames.toggle3, buttonNames.toggle4, buttonNames.slider0, buttonNames.slider1, buttonNames.slider2,
+                            buttonNames.slider3, buttonNames.rotary0, buttonNames.rotary1, buttonNames.rotary2, buttonNames.rotary3);
+
+        
+
+
+    } else if ( currentLevel === 2 ) {
+
+        for(i = 0 ; i <= primaryStorage.length ; i++ ){
+
+                buttonOptions.push(primaryStorage[i]);
+            }
+
+        primaryStorage.splice(0, primaryStorage.length);
+
+        buttonOptions.push(buttonNames.rocker0, buttonNames.rocker1, buttonNames.rocker2, buttonNames.rocker3, buttonNames.rocker4,
+                        buttonNames.rocker5, buttonNames.rocker6, buttonNames.rocker7, buttonNames.toggle0, buttonNames.toggle2,
+                        buttonNames.toggle3, buttonNames.toggle4, buttonNames.slider0, buttonNames.slider1, buttonNames.slider2,
+                        buttonNames.slider3, buttonNames.rotary0, buttonNames.rotary1, buttonNames.rotary2, buttonNames.rotary3);
+
+
+    } else if ( currentLevel >= 3) {
+
+         for(i = 0 ; i <= secondaryStorage.length ; i++ ){
+
+                    buttonOptions.push(secondaryStorage[i]);
+                }
+
+                secondaryStorage.splice(0, secondaryStorage.length);
+
+        for(i = 0 ; i <= primaryStorage.length ; i++ ){
+
+                buttonOptions.push(primaryStorage[i]);
+            }
+
+        primaryStorage.splice(0, primaryStorage.length);
+
+        buttonOptions.push(buttonNames.rocker0, buttonNames.rocker1, buttonNames.rocker2, buttonNames.rocker3, buttonNames.rocker4,
+                        buttonNames.rocker5, buttonNames.rocker6, buttonNames.rocker7, buttonNames.toggle0, buttonNames.toggle2,
+                        buttonNames.toggle3, buttonNames.toggle4, buttonNames.slider0, buttonNames.slider1, buttonNames.slider2,
+                        buttonNames.slider3, buttonNames.rotary0, buttonNames.rotary1, buttonNames.rotary2, buttonNames.rotary3);
+    }
+}
+
 exports.buttonNames = buttonNames;
 exports.setButtonNames = setButtonNames;
+exports.resetNames = resetNames;

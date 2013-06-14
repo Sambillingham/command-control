@@ -163,7 +163,9 @@
 }
 //Arduino setup
 void setup()
-{
+{   
+    digitalWrite(44, HIGH); //We need to set it HIGH immediately on boot
+    pinMode(44, OUTPUT); 
     Serial.begin(9600);
 
     pinMode(redRockerP3, INPUT_PULLUP);
@@ -330,6 +332,8 @@ void resetKey () {
 
             Serial.println("you have just reset your arduino");
 
+            digitalWrite(44, LOW);
+            
             checkingKey = false;
 
         } else {

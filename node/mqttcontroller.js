@@ -68,6 +68,7 @@ function mqttController (id, topic, packet) {
 
                 if ( levelSystem.level.active === true ) {
 
+                    levelSystem.stopLevel();
                     levelSystem.fakeEnd();
                     app.io.sockets.emit('game-reset', true);
 
@@ -83,6 +84,8 @@ function mqttController (id, topic, packet) {
                         }, 5000 );
 
                 } else {
+
+                    levelSystem.stopLevel();
 
                     app.io.sockets.emit('game-reset', true);
 
@@ -112,6 +115,10 @@ function mqttController (id, topic, packet) {
             
 
 
+        } else if ( incommingTopic == "health6" || incommingTopic == "health5" || incommingTopic == "health4" || incommingTopic == "health3" || incommingTopic == "health2" || incommingTopic == "health1 ") {
+
+            console.log(incommingTopic);
+            
         } else if ( levelSystem.level.active === true ){
 
             console.log("Wrong switch. !Rejected!");

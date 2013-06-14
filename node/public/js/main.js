@@ -16,6 +16,15 @@ $(function() {
 
     console.log(playerCheck);
 
+    if ( playerCheck == "player2" ){
+
+        $("html, body").animate({ scrollTop: 1 }, "fast");
+
+    } else {
+
+        $("html, body").animate({ scrollTop: 50 }, "fast");
+    }
+    
 
             socket.on('connect', function () {
 
@@ -89,10 +98,19 @@ $(function() {
                         case "player1" :
                         window.location = "/player1";
                         break;
+                        case "end1" :
+                        window.location = "/player1";
+                        break;
                         case "player2" :
                         window.location = "/player2";
                         break;
+                        case "end2" :
+                        window.location = "/player2";
+                        break;
                         case "player3" :
+                        window.location = "/player3";
+                        break;   
+                        case "end3" :
                         window.location = "/player3";
                         break;   
                         }
@@ -144,6 +162,28 @@ $(function() {
     //     socket.emit('stop', 1);
 
     // });
+
+    if (playerCheck == "end1" || playerCheck == "end2" || playerCheck == "end3"  ) {
+
+        setTimeout( function () {
+
+                switch (playerCheck) {
+
+                        
+                        case "end1" :
+                        window.location = "/player1";
+                        break;
+                        case "end2" :
+                        window.location = "/player2";
+                        break;  
+                        case "end3" :
+                        window.location = "/player3";
+                        break;   
+                }
+
+                
+        }, 20000);
+    }
 
     function newLevel ( level ) {
 

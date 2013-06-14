@@ -1,0 +1,1 @@
+$(function(){var e={init:function(){console.log("free stuff")},thisOnething:function(){console.log("annother thing")}}});

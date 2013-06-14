@@ -18,8 +18,8 @@ function startGame () {
 
 function engageLevel ( levelNum ) {
 
-    var lowerBound = 7 + ( 50 * (stats.levelsCompleted/10));
-        upperBound = 17 + (60 * (stats.levelsCompleted/10));
+    var lowerBound = 27 + ( 50 * (stats.levelsCompleted/10));
+        upperBound = 37 + (60 * (stats.levelsCompleted/10));
 
     numOfInstruct = helper.findRandom(lowerBound,upperBound);
 
@@ -39,6 +39,11 @@ function engageLevel ( levelNum ) {
 
         console.log ( "Number of instructions in level : ", numOfInstruct);
         console.log("Number of instructions sent : ", messageController.messages.sent);
+
+        if ( levelRunning != null || levelRunning != undefined ) {
+
+            clearTimeout(levelRunning);
+        }
 
         levelRunning = setTimeout(arguments.callee, levelSpeed);
 
@@ -81,12 +86,14 @@ function nextLevel (completedLevel) {
 
 function endGame () {
 
+    names.resetNames(stats.levelsCompleted + 1);
+    stopLevel();
     levelSpeed = 900;
     // messageController.messageTime.range = 4000;
     // messageController.messageTime.min = 3750;
     pointsSystem.resetShip();
     console.log(stats);
-    stopLevel();
+    
     app.io.sockets.emit('end-game', true);
     // stats.levelsCompleted = 0;
     // stats.pots = 0;
@@ -95,6 +102,7 @@ function endGame () {
 
 function fakeEnd () {
 
+    names.resetNames(stats.levelsCompleted + 1);
     pointsSystem.resetShip();
     stopLevel();
 
