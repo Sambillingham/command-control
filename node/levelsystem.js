@@ -77,6 +77,8 @@ function nextLevel (completedLevel) {
         engageLevel(nextLevel);
 }
 
+
+
 function endGame () {
 
     levelSpeed = 900;
@@ -86,9 +88,16 @@ function endGame () {
     console.log(stats);
     stopLevel();
     app.io.sockets.emit('end-game', true);
-    stats.levelsCompleted = 0;
-    stats.pots = 0;
-    stats.switches = 0;
+    // stats.levelsCompleted = 0;
+    // stats.pots = 0;
+    // stats.switches = 0;
+}
+
+function fakeEnd () {
+
+    pointsSystem.resetShip();
+    stopLevel();
+
 }
 
 function levelDelay () {
@@ -109,3 +118,4 @@ exports.endGame = endGame;
 exports.level = level;
 exports.currentInstNum = currentInstNum;
 exports.stats = stats;
+exports.fakeEnd = fakeEnd;

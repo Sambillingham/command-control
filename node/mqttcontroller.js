@@ -8,6 +8,8 @@ var mqqtPubClient = require("./mqttpubclient"),
     pointsSystem = require("./pointssystem"),
     levelSystem = require("./levelsystem");
 
+    var resetRequest = false;
+
 function mqttController (id, topic, packet) {
 
     var incommingTopic = topic + "",
@@ -58,7 +60,59 @@ function mqttController (id, topic, packet) {
 
     } else {
 
-        if ( levelSystem.level.active === true ){
+        if ( incommingTopic == "redButton0") {
+
+            if ( resetRequest === false ){
+
+                resetRequest = true;
+
+                if ( levelSystem.level.active === true ) {
+
+                    levelSystem.fakeEnd();
+                    app.io.sockets.emit('game-reset', true);
+
+                        setTimeout( function () {
+
+                            console.log('NEW GAME STARTED');
+                            levelSystem.stats.levelsCompleted = 0;
+                            levelSystem.stats.pots = 0;
+                            levelSystem.stats.switches = 0;
+                            levelSystem.startGame();
+                            resetRequest = false;
+
+                        }, 5000 );
+
+                } else {
+
+                    app.io.sockets.emit('game-reset', true);
+
+                        setTimeout( function () {
+
+                            console.log('NEW GAME STARTED');
+                            levelSystem.stats.levelsCompleted = 0;
+                            levelSystem.stats.pots = 0;
+                            levelSystem.stats.switches = 0;
+                            levelSystem.startGame();
+                            resetRequest = false;
+
+                    }, 5000 );
+
+                }
+
+
+            } else {
+
+                setTimeout( function () {
+
+                    resetRequest = false;
+
+                }, 2000);
+            }
+
+            
+
+
+        } else if ( levelSystem.level.active === true ){
 
             console.log("Wrong switch. !Rejected!");
             pointsSystem.losePoints(1);// wrong button pressed (aka not found in waiting for array)

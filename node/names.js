@@ -17,7 +17,7 @@ var buttonNames = { "rocker0" : "0" , "rocker1" : "0", "rocker2" : "0", "rocker3
                     "beeping canal", "polymill", " zero ray control ", "inertia dampeners", "Overdrives", "magnet enhancers", "cobalt injecter",
                     "antimatter converter", "Flux Control Systems" , "Missile Targeting Array", "Hyperdrive Engines", "reactor Core",
                     "shield hardeners", "armour plating", "capasitor relay system", "stasis defences", "auxilary boosters", "XJKL5",
-                    "sensor array angle", "USB drives"],
+                    "sensor array angle", "USB drives", "vulpt controller", ],
     switches = [],
     rotarys = [],
     sliders = [],

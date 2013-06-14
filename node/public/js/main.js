@@ -1,7 +1,7 @@
 $(function() {
 
     //var socket = io.connect('http://192.168.0.20:8080');     // DEVELOPMENT
-    var socket = io.connect('http://192.168.1.2:8080');      // PRODUCTION
+    var socket = io.connect('commandcontrol.sambillingham.com');      // PRODUCTION
 
     var buttonMap = { "rocker0" : undefined , "rocker1" : undefined, "rocker2" : undefined, "rocker3" : undefined, "rocker4" : undefined,
                     "rocker5" : undefined, "rocker6" : undefined, "rocker7" : undefined, "toggle0" : undefined, "toggle1" : undefined,
@@ -80,6 +80,23 @@ $(function() {
 
                         
                         
+                });
+
+                socket.on('game-reset', function (data) {
+
+                    switch (playerCheck) {
+
+                        case "player1" :
+                        window.location = "/player1";
+                        break;
+                        case "player2" :
+                        window.location = "/player2";
+                        break;
+                        case "player3" :
+                        window.location = "/player3";
+                        break;   
+                        }
+
                 });
 
                 socket.on('stats', function ( stats ) {

@@ -3,8 +3,8 @@ var express = require('express'),
     server = require('http').createServer(app),
     io = require('socket.io').listen(server, { log: false });
 
-    var socketsPort = 8080,
-        mqttPort = 8085, // need to be diffrent to socketsPort
+    var socketsPort = 8081,
+        mqttPort = 8080, // need to be diffrent to socketsPort
         serverAddress = "127.0.0.1";
 
         // Export earlier for mqqt client to connect on startup
