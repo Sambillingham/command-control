@@ -17,7 +17,7 @@ var buttonNames = { "rocker0" : "0" , "rocker1" : "0", "rocker2" : "0", "rocker3
                     "beeping canal", "polymill", " zero ray control ", "inertia dampeners", "Overdrives", "magnet enhancers", "cobalt injecter",
                     "antimatter converter", "Flux Control Systems" , "Missile Targeting Array", "Hyperdrive Engines", "reactor Core",
                     "shield hardeners", "armour plating", "capasitor relay system", "stasis defences", "auxilary boosters", "XJKL5",
-                    "sensor array angle", "USB drives", "vulpt controller", ],
+                    "sensor array angle", "USB drives", "vulpt controller" ],
     switches = [],
     rotarys = [],
     sliders = [],
@@ -34,42 +34,7 @@ var buttonNames = { "rocker0" : "0" , "rocker1" : "0", "rocker2" : "0", "rocker3
 function setButtonNames () {
 
     console.log(buttonOptions.length);
-    if ( firstCheck !== false ) { // so default values will not be stored
-
-        if ( secondCheck !== false ){ // empty values will not be moved into array
-
-            if ( thirdCheck !== false ){
-
-                for(i = 0 ; i <= secondaryStorage.length ; i++ ){
-
-                    buttonOptions.push(secondaryStorage[i]);
-                }
-
-                secondaryStorage.splice(0, secondaryStorage.length);
-
-
-            }
-
-            for(i = 0 ; i <= primaryStorage.length ; i++ ){
-
-                secondaryStorage.push(primaryStorage[i]);
-            }
-
-            primaryStorage.splice(0, primaryStorage.length);
-
-            thirdCheck = true;
-
-        }
-
-        primaryStorage.push(buttonNames.rocker0, buttonNames.rocker1, buttonNames.rocker2, buttonNames.rocker3, buttonNames.rocker4,
-                            buttonNames.rocker5, buttonNames.rocker6, buttonNames.rocker7, buttonNames.toggle0, buttonNames.toggle2,
-                            buttonNames.toggle3, buttonNames.toggle4, buttonNames.slider0, buttonNames.slider1, buttonNames.slider2,
-                            buttonNames.slider3, buttonNames.rotary0, buttonNames.rotary1, buttonNames.rotary2, buttonNames.rotary3);
-
-        secondCheck = true;
-    }
     
-    firstCheck = true;
 
         for ( i = 0 ; i < 13; i++) {
 
@@ -136,58 +101,13 @@ function setButtonNames () {
         app.io.sockets.emit('names', buttonNames);
 }
 
-function resetNames (currentLevel) {
-
-    firstCheck = false;
-    secondCheck = false;
-    thirdCheck = false;
-
-    if (currentLevel === 1) {
-
-        buttonOptions.push(buttonNames.rocker0, buttonNames.rocker1, buttonNames.rocker2, buttonNames.rocker3, buttonNames.rocker4,
-                            buttonNames.rocker5, buttonNames.rocker6, buttonNames.rocker7, buttonNames.toggle0, buttonNames.toggle2,
-                            buttonNames.toggle3, buttonNames.toggle4, buttonNames.slider0, buttonNames.slider1, buttonNames.slider2,
-                            buttonNames.slider3, buttonNames.rotary0, buttonNames.rotary1, buttonNames.rotary2, buttonNames.rotary3);
-
-        
-
-
-    } else if ( currentLevel === 2 ) {
-
-        for(i = 0 ; i <= primaryStorage.length ; i++ ){
-
-                buttonOptions.push(primaryStorage[i]);
-            }
-
-        primaryStorage.splice(0, primaryStorage.length);
+function resetNames () {
 
         buttonOptions.push(buttonNames.rocker0, buttonNames.rocker1, buttonNames.rocker2, buttonNames.rocker3, buttonNames.rocker4,
                         buttonNames.rocker5, buttonNames.rocker6, buttonNames.rocker7, buttonNames.toggle0, buttonNames.toggle2,
                         buttonNames.toggle3, buttonNames.toggle4, buttonNames.slider0, buttonNames.slider1, buttonNames.slider2,
                         buttonNames.slider3, buttonNames.rotary0, buttonNames.rotary1, buttonNames.rotary2, buttonNames.rotary3);
-
-
-    } else if ( currentLevel >= 3) {
-
-         for(i = 0 ; i <= secondaryStorage.length ; i++ ){
-
-                    buttonOptions.push(secondaryStorage[i]);
-                }
-
-                secondaryStorage.splice(0, secondaryStorage.length);
-
-        for(i = 0 ; i <= primaryStorage.length ; i++ ){
-
-                buttonOptions.push(primaryStorage[i]);
-            }
-
-        primaryStorage.splice(0, primaryStorage.length);
-
-        buttonOptions.push(buttonNames.rocker0, buttonNames.rocker1, buttonNames.rocker2, buttonNames.rocker3, buttonNames.rocker4,
-                        buttonNames.rocker5, buttonNames.rocker6, buttonNames.rocker7, buttonNames.toggle0, buttonNames.toggle2,
-                        buttonNames.toggle3, buttonNames.toggle4, buttonNames.slider0, buttonNames.slider1, buttonNames.slider2,
-                        buttonNames.slider3, buttonNames.rotary0, buttonNames.rotary1, buttonNames.rotary2, buttonNames.rotary3);
-    }
+    
 }
 
 exports.buttonNames = buttonNames;
