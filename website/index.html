@@ -1,46 +1,121 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Command Conttrol | An Interactive Physical Game by Sam Billingham</title>
+        <meta name="author" content="Sam Billingham">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
 
-	<head>
-		<meta charset="utf-8">
+        <link rel="stylesheet" href="css/main.css">
 
-		<title>Command Control | A physical gaming experience </title>
+        <script src="js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+    </head>
+    <body>
+        <div class="splash-header">
+        <img src="img/command-control-logo.svg" class="heading-logo animated fadeIn" id="logo" height="150" width="150">
+        <h1 class="title animated fadeIn"> Command Control  </h1>
+        <p class="heading-excerpt animated fadeIn">An interactive physical computing game created by Sam Billingham and inspired by Spaceteam </p>
+        <div class="scroll-button"></div>
+        </div>
+        <div id="nav-start" class="header-container sticky dark-header">
+            <header class="wrapper clearfix">
+                <h2 class="title">Command Control</h2>
+                <nav>
+                    <ul>
+                        <li><a href="#about" class="scroll">About</a></li>
+                        <li><a href="#inspiration" class="scroll">Inspiration</a></li>
+                        <li><a href="#how-it-works" class="scroll">How it works</a></li>
+                    </ul>
+                </nav>
+            </header>
+        </div> 
+        <div class="replace-header"></div>      
 
-		<meta name="description" content="Command Control | A physical colaborative space game">
-		<meta name="author" content="Sam Billingham">
+        <div class="main-container">
+            <div class="main wrapper clearfix">
 
-		<meta name="apple-mobile-web-app-capable" content="yes" />
-		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+                <article>
+                    <div class="intro"> 
+                        <div class="video-container">
+                            <div class="responsive-video">
 
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                                    <iframe src="http://player.vimeo.com/video/67952626?title=0&amp;byline=0&amp;portrait=0&amp;color=cccccc" width="720" height="405" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
+                            </div>
+                        </div>
+                        <div class="video-info">
+                             Command Control is a multiplayer game inspired by the IOS game Spaceteam. Consisting of 3  physical controllers with buttons, switches, dials and sliders that facilitate a fun group gaming experience. Watch as people begin shouting out crazy control names and sounding ridiculous in the process. 
+                        </div>
+                    </div>
+                </article>
 
-		<!-- If the query includes 'print-pdf', use the PDF print sheet -->
-		<script>
-			document.write( '<link rel="stylesheet" href="css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
-		</script>
-
-		<!--[if lt IE 9]>
-		<script src="lib/js/html5shiv.js"></script>
-		<![endif]-->
-		
-	</head>
-
-	<body>
-		<div class="container">
-			
-
-		</div>
+                
+                <article id="about">
+                    <h2 class="h2-title">About </h2>
+                    <p>Command Control was created for a final university project while studying for a BSc (Hons) Digital Art and Technology at Plymouth University by myself Sam Billingham. The idea was derived out of a number of goals. Creating something physical. learning new skills and pushing the boundaries of current skills. An established joy for Spaceteam.</p>
 
 
-		<script type="text/javascript" src="http://ajax.microsoft.com/ajax/jquery/jquery-1.4.2.min.js"></script>
-		<script type="text/javascript">
-		if (typeof jQuery == 'undefined') {
-		    document.write(unescape("%3Cscript src='/js/jquery-1.9.min.js' type='text/javascript'%3E%3C/script%3E"));
-		}
-		</script>
-        <script type="text/javascript" src="/js/retina.js"></script>
-        <script src="js/main.js"></script>
+<p>The controls used to play are housed within socket boxes which reflects the Si-Fi space aesthetic of the whole game. An amalgamation of dials, rockers, toggle switches and sliders make up each players inputs. A map of buttons can be seen on the controller screens showing the current names for controls which change each level. Players work together to press the right inputs to keep the ship flying. As the game progresses the messages that appears on individual screens may or may not relate to an input on their own controller. Players must shout out instructions to insure everything is activated, deactivated or reconfigured to the correct level before the timer runs out. </p>
 
-	
-	</body>
+<p>The number of correct inputs needed to keep the ship operational increases while the time allocated for completing operations decreases with each new zone entered. With the eventual ships destruction players are presented with stats to show how many switches and dials they successfully configured. </p>
+<img src="img/start-box.jpg">
+<p>In the week prior to command control being displayed as part of the degree show I added a physical start and reset button. The start button is a large red push button and allows players to easily start a new game at any point. The key switch works as a hardware reset while adding to the appearance it also acts as simple way for players to reset the system if anything goes wrong.  
+
+
+                </article>
+                
+                
+                <article id="inspiration">
+                    <h2 class="h2-title"> Inspiration </h2>
+                    <p> If you're thinking this sounds familiar then you've most likely played <a href="http://www.sleepingbeastgames.com/spaceteam/"> Spaceteam</a>. Spaceteam is a fantastic IOS game created by <a href="https://twitter.com/hengineer">Henry Smith</a>, one which my friends and I have had great fun playing. Spaceteam is great and I wanted to pay homage in the best way I know how by taking the time to create something that expands its core concepts. I always thought the game deserved some physical controls to interact with. I hope others who enjoy Spaceteam can appreciate Command Control. </p>
+                    <img src="img/spaceteam-command-control.jpg">
+<p>P.S Spaceteam is a lot of fun, if you have an IOS device and some friends you should go download it right now. </p>
+                </article>
+
+                
+
+                <article id="how-it-works" >
+                    <h2 class="h2-title">How it Works </h2>
+
+                    <p>There are three main parts that work together for Command Control to run as it does. An Arduino Mega 2560 is used to control and relay the sates of all 23 inputs, a Node.js backend controls the logic for the game and three android phones which have web socket enabled browsers are used to display game screens to the players. </p>
+
+                    <p>The program running on the Arduino broadcasts the new state of each input whenever it changes using this <a href="https://github.com/knolleary/pubsubclient">library for pub/sub </a> communication with the MQTT protocol. The Node.js App is running a <a href="https://github.com/adamvr/MQTT.js">Node broker </a> which passes these states to be used with the game logic. This same state is then broadcast using web sockets to the controller screens.</p>
+
+                    <p>A basic run though involves a player pressing the big red button which starts a new level. The browsers redirect to the level screen, stats, health and level systems are reset. Starting each level players have 10 seconds to look at their new button names. All Players begin receiving random instructions. If an instruction is correctly input or the time runs out the message disappears and that player receives a new message. However, if the timer runs out or an incorrect button is pressed at any time the ship loses health. levels are randomly generated and the number of successful inputs required to pass increase over time.</p>
+                    <img src="img/control-box.jpg" >
+
+                    <p>Each input needs to be connect separately to the Arduino so is soldered to a signal wire, ground wire and power wire where required. These wire then run from the individual controls to the box that houses the Arduino Mega and far too many wires. The shield allowing connection to the internet is contained in a separate box to allow easy switching between Wi-Fi and Ethernet. </p>
+
+                    <p> Command Control has been through a number of iterations in the showcase video the system is powered via 9v battery included in the main control case and connection to the game server is via a Wi-Fly shield. The version of Command Control on display at Plymouth University was a slight variation that had the starting controls added, constant mains power and connection via an ethernet shield. </p>
+
+                    <p> You can find some more info from my development stages on sambillingham.com <a href="http://sambillingham.com/Building/2013/05/15/final-year-project-development/"> here </a> &amp;  <a href="http://sambillingham.com/Building/2013/05/26/project-development-part-2/"> here. </a> </p>
+                    <img src="img/degree-show.jpg">
+                </article>
+                 
+
+            </div> <!-- #main -->
+        </div> <!-- #main-container -->
+
+        <div class="footer-container">
+            <footer class="wrapper">
+                <h3> Created by <a href="http://sambillingham.com"> Sam Billingham  </a> |  contact : <a href="http://twitter.com/sam_billingham">@sam_billingham</a> </h3>
+            </footer>
+        </div>
+
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.9.1.min.js"><\/script>')</script>
+        <script src="js/vendor/jquery.fitvids.min.js"></script>
+        <script src="js/main-ck.js"></script>
+
+        <script>
+            var _gaq=[['_setAccount','UA-35397516-2'],['_trackPageview']];
+            (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+            g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+            s.parentNode.insertBefore(g,s)}(document,'script'));
+        </script>
+    </body>
 </html>

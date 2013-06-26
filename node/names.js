@@ -42,7 +42,7 @@ function setButtonNames () {
             randomButtonName = buttonOptions[randomButtonNum];
             removeFromOptions = buttonOptions.indexOf(randomButtonName);
             switches[i] = buttonOptions[randomButtonNum];
-            buttonOptions.splice(removeFromOptions, 1);
+            //buttonOptions.splice(removeFromOptions, 1);
             
         }
 
@@ -56,7 +56,7 @@ function setButtonNames () {
             //console.log(" index of item to remove", removeFromOptions);
             rotarys[i] = buttonOptions[randomButtonNum];
             //console.log(" name for new button", rotarys[i]);
-            buttonOptions.splice(removeFromOptions, 1);
+            //buttonOptions.splice(removeFromOptions, 1);
             //console.log(" array without item", buttonOptions);
             
             
@@ -68,7 +68,7 @@ function setButtonNames () {
             randomButtonName = buttonOptions[randomButtonNum];
             removeFromOptions = buttonOptions.indexOf(randomButtonName);
             sliders[i] = buttonOptions[randomButtonNum];
-            buttonOptions.splice(removeFromOptions, 1);
+            //buttonOptions.splice(removeFromOptions, 1);
             
             
         }
@@ -103,10 +103,10 @@ function setButtonNames () {
 
 function resetNames () {
 
-        buttonOptions.push(buttonNames.rocker0, buttonNames.rocker1, buttonNames.rocker2, buttonNames.rocker3, buttonNames.rocker4,
-                        buttonNames.rocker5, buttonNames.rocker6, buttonNames.rocker7, buttonNames.toggle0, buttonNames.toggle2,
-                        buttonNames.toggle3, buttonNames.toggle4, buttonNames.slider0, buttonNames.slider1, buttonNames.slider2,
-                        buttonNames.slider3, buttonNames.rotary0, buttonNames.rotary1, buttonNames.rotary2, buttonNames.rotary3);
+        // buttonOptions.push(buttonNames.rocker0, buttonNames.rocker1, buttonNames.rocker2, buttonNames.rocker3, buttonNames.rocker4,
+        //                 buttonNames.rocker5, buttonNames.rocker6, buttonNames.rocker7, buttonNames.toggle0, buttonNames.toggle2,
+        //                 buttonNames.toggle3, buttonNames.toggle4, buttonNames.slider0, buttonNames.slider1, buttonNames.slider2,
+        //                 buttonNames.slider3, buttonNames.rotary0, buttonNames.rotary1, buttonNames.rotary2, buttonNames.rotary3);
     
 }
 

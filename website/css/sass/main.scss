@@ -1,0 +1,134 @@
+@import "normalize";
+@import "color";
+@import "fonts";
+@import "mixins";
+@import "helpers";
+@import "animate";
+
+@import "compass/css3/transition";
+@import "compass/css3/border-radius";
+@import "compass/css3/box-sizing";
+
+$font-size: 16;
+$highlight: rgb(0, 193, 156);
+$text-highlight-color: #b3d4fc;
+$site-width: 1040px;
+$text-black: #333;
+
+* {
+
+	@include box-sizing(border-box);
+}
+
+%container {
+    margin: 0 auto;
+    padding: 0 15px;
+
+    img {
+
+        width: 100%;
+    }
+
+    @include breakpoint(small) {
+
+        margin: 0 auto;
+        width: 290px;
+    }
+
+    @include breakpoint(medium) {
+
+        margin: 0 auto;
+        width: 550px;
+    }
+
+    @include breakpoint(large) {
+
+        margin: 0 auto;
+        width: 800px;
+    }
+}
+
+html {
+
+    font-size: 62.5%;
+}
+
+body,
+button,
+input,
+select,
+textarea {
+    color: $color;
+    font-family: $sans;
+}
+
+body {
+
+    @include font-size($font-size);
+
+}
+
+::-moz-selection {
+    background: $text-highlight-color;
+    text-shadow: none;
+}
+
+::selection {
+    background: $text-highlight-color;
+    text-shadow: none;
+}
+
+%cf:before,
+%cf:after {
+    content: " ";
+    display: table;
+}
+
+%cf:after { clear: both; }
+%cf { *zoom: 1; }
+
+/* Author: Saul Hardman (@saulhardman) */
+
+* {
+    box-sizing: border-box;
+    //-webkit-transition: all .125s;
+}
+
+html {
+    background: #fff;
+}
+
+body {
+    position: relative;
+    margin: 0 auto;
+}
+
+a {
+    color: $text-black;
+    @include line-height(12);
+    text-decoration: none;
+    &:hover {
+        border-bottom: 1px solid $text-black;
+    }
+    &:visited {
+        color: $text-black;
+    }
+}
+
+
+/* # Header
+================================================== */
+
+@import "includes/header";
+
+/* # Main Content
+================================================== */
+
+@import "includes/main-content";
+
+
+/* # Global Footer
+================================================== */
+
+@import "includes/footer";
+

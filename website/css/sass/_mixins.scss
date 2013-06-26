@@ -1,0 +1,48 @@
+@mixin font-size($value) {
+  font-size: $value + px;
+  font-size: ($value / 10) + rem;
+}
+
+@mixin line-height($value) {
+  line-height: $value + px;
+  line-height: ($value / 10) + rem;
+}
+
+@mixin at2x($image_name, $w: auto, $h: auto, $extension: ".jpg") {
+  background-image: url($image_name + $extension);
+  $x2img: $image_name + "@2x" + $extension;
+
+  @media all and (-webkit-min-device-pixel-ratio: 1.5) {
+    background-image: url($x2img);
+    background-size: $w $h;
+  }
+}
+
+@mixin font-family-sans-serif ($primary-font) {
+    font-family: $primary-font, helvetica, arial, verdana, sans-serif;
+}
+
+// Media Queries
+@mixin breakpoint($point) {
+
+  // Four-column
+  // @if $point == largest {
+  //   @media (min-width: 1070px) { @content; }
+  // }
+
+  // Three-column
+  @if $point == large {
+    @media (min-width: 810px) { @content; }
+  }
+
+  // Two-column
+  @else if $point == medium {
+    @media (max-width: 809px) and (min-width: 550px) { @content; }
+  }
+
+  // Single-column
+  @else if $point == small {
+    @media (max-width: 549px) { @content; }
+  }
+
+}

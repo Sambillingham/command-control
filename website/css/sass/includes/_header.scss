@@ -1,0 +1,209 @@
+.splash-header {
+
+	overflow: hidden;
+	width: 100%;
+    height: 900px;
+
+	background: url(../img/command-control-start.jpg);
+	background-position: center center;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+
+    h1 {
+    	display: block;
+    	width: auto;
+
+    	color: $off-white;
+    	font-family: $lib;
+    	@include font-size(24);
+    	letter-spacing: 3pt;
+    	text-align: center;
+    	
+    }
+    .heading-logo {
+
+    	display: block;
+    	margin: 0 auto;
+    	width: 150px;
+    	height: 150px;
+
+    }
+    .heading-excerpt{
+		
+		margin: 0 auto;
+		width: 300px;
+
+		color: $off-white;
+		@include line-height(18);
+		@include font-size(12);
+		text-transform: uppercase;
+		font-weight: 400;
+		letter-spacing: 1pt;
+		text-align: center;
+
+	}
+
+	
+}
+
+.scroll-button {
+
+		float: right;
+		margin: 0px 25px 0px 0px;
+		width: 50px;
+		height: 50px;
+
+		background-color: $dark-gray;
+		background: url(../img/arrow.svg) no-repeat;
+}
+
+.header-container {
+
+	z-index: 2;
+	width: 100%;
+	background: #ec4643;
+
+	@include transition-property(all);
+	@include transition-duration(1s);
+
+	header {
+
+		height: 57px;
+		
+
+		h2 {
+			float: left;
+			padding: 20px;
+			margin: 0;
+
+			color: $off-white;
+			font-family: $lib;
+			@include font-size(20);
+			letter-spacing: 2pt;
+		
+		}
+
+	}
+
+	nav ul {
+
+		padding: 0;
+		margin: 0;
+		height: 100px;
+
+		li {
+			float: right;
+			width: auto;
+			padding: 20px;
+			
+			font-family: $lib;
+			letter-spacing: 2pt;
+			text-align: center;
+
+
+			
+		}
+	}		
+}
+.dark-header{
+	background-color: #666;
+}
+
+.fixed {
+	position: fixed;
+	top: 0;
+}
+.replace-h {
+
+	height: 50px;
+	width: 100%;
+}
+
+@include breakpoint(small) {
+
+	.scroll-button {
+
+		
+		margin: 0 auto;
+		width: 100%;
+		background-position: center;
+	}
+
+	.header-container {
+		height: 200px;
+
+		header {
+
+			height: 100px;
+
+			h2 {
+
+				padding: 10px;
+				width: 100%;
+				font-family: $lib;
+				@include font-size(24);
+				letter-spacing: 2pt;
+				text-align: center;
+			}
+
+
+		}
+
+		nav ul {
+
+			padding-top: 60px;
+			margin: 0;
+
+			li {
+
+				float: none;
+				padding: 15px;
+				width: 100%;
+
+				text-align: center;
+				
+				
+			}
+		}
+		
+	}
+	
+}
+
+@include breakpoint(medium) {
+
+	.header-container {
+
+		header {
+
+			h2 {
+
+				padding: 22px 0 22px 15px;
+
+				@include font-size(14);
+			}
+
+		}
+
+		nav ul {
+
+			li {
+
+				padding: 20px 8px 20px 8px;
+
+				 a {
+				 	@include font-size(16);
+				 }
+				
+			}
+		}
+		
+	}
+
+}
+
+@include breakpoint(large) {
+}
+

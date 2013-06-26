@@ -14,7 +14,7 @@ module.exports = function(grunt) {
                 // the files to concatenate
                 src: ['src/**/*.js'],
                 // the location of the resulting JS file
-                dest: 'dist/<%= pkg.name %>.js'
+                dest: 'js/<%= pkg.name %>.js'
             }
         },
         uglify: {
@@ -24,7 +24,7 @@ module.exports = function(grunt) {
             },
             dist: {
                 files: {
-                    'dist/<%= pkg.name %>.min.js': ['<%= concat.dist.dest %>']
+                    'js/<%= pkg.name %>.min.js': ['<%= concat.dist.dest %>']
                 }
             }
         },

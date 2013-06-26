@@ -81,7 +81,7 @@ function mqttController (id, topic, packet) {
                             levelSystem.startGame();
                             resetRequest = false;
 
-                        }, 4000 );
+                        }, 5000 );
 
                 } else {
 
@@ -98,7 +98,7 @@ function mqttController (id, topic, packet) {
                             levelSystem.startGame();
                             resetRequest = false;
 
-                    }, 4000 );
+                    }, 5000 );
 
                 }
 

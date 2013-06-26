@@ -79,7 +79,7 @@ function nextLevel (completedLevel) {
         levelSpeed = levelSpeed - ((levelSpeed/100)*7)
         pointsSystem.gainPoints(healthIncrease);
 
-        names.resetNames();
+        ////names.resetNames();
         engageLevel(nextLevel);
 }
 
@@ -87,7 +87,7 @@ function nextLevel (completedLevel) {
 
 function endGame () {
 
-    names.resetNames();
+    //names.resetNames();
     stopLevel();
     levelSpeed = 900;
     // messageController.messageTime.range = 4000;
@@ -103,7 +103,7 @@ function endGame () {
 
 function fakeEnd () {
 
-    names.resetNames();
+    //names.resetNames();
     pointsSystem.resetShip();
     stopLevel();
 

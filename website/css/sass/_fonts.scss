@@ -1,0 +1,15 @@
+@font-face {
+    font-family: 'liberatorregular';
+    src: url('../fonts/liberator-webfont.eot') format('eot');
+    src: url('../fonts/liberator-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/liberator-webfont.woff') format('woff'),
+         url('../fonts/liberator-webfont.ttf') format('truetype'),
+         url('../fonts/liberator-webfont.svg#liberatorregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:300,400,600);
+
+$lib: 'liberatorregular', helvetica, arial, verdana, sans-serif ;
+$sans: 'Open Sans', helvetica, arial, sans-serif ;
