@@ -3,21 +3,21 @@
 $(function() {
 
 
-    //window.console.log("can't touch this");
-
         if($(".touch").length) {
 
             $(".splash-header").css("height", 480);
+            $(".scroll-button").css("margin-top", 75);
+            $(".heading-logo").css("margin-top", 100 );
 
         } else {
 
             $(".splash-header").css("height", window.innerHeight);
+            $(".scroll-button").css("margin-top", (window.innerHeight / 2 ) - 175);
+            $(".heading-logo").css("margin-top", (window.innerHeight / 2 ) - 150 );
 
         }
         
-        $(".scroll-button").css("margin-top", (window.innerHeight / 2 ) - 175);
-
-        $(".heading-logo").css("margin-top", (window.innerHeight / 2 ) - 150 );
+        
 
         $(".responsive-video").fitVids();
 
@@ -40,12 +40,23 @@ $(function() {
             var dest = 0;
         
             if ($(this.hash).offset().top > $(document).height()-$(window).height()) {
-              
-                dest = ( $(document).height()-$(window).height() ) - 125 ;
-            
+                
+                if($(".touch").length) {
+                    dest = ( $(document).height()-$(window).height() ) - 50 ;
+
+                } else {
+                    dest = ( $(document).height()-$(window).height() ) - 125 ;
+                }
+
             } else {
-              
-                dest = ($(this.hash).offset().top) - 125;
+                
+                if($(".touch").length) {
+
+                    dest = ($(this.hash).offset().top) - 50;
+                } else {
+
+                    dest = ($(this.hash).offset().top) - 125;
+                }
         }
             //go to destination
             $('html,body').animate({
