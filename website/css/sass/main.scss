@@ -51,6 +51,7 @@ $text-black: #333;
 html {
 
     font-size: 62.5%;
+    background: #fff;
 }
 
 body,
@@ -65,6 +66,9 @@ textarea {
 body {
 
     @include font-size($font-size);
+
+§position: relative;
+    margin: 0 auto;
 
 }
 
@@ -87,21 +91,6 @@ body {
 %cf:after { clear: both; }
 %cf { *zoom: 1; }
 
-/* Author: Saul Hardman (@saulhardman) */
-
-* {
-    box-sizing: border-box;
-    //-webkit-transition: all .125s;
-}
-
-html {
-    background: #fff;
-}
-
-body {
-    position: relative;
-    margin: 0 auto;
-}
 
 a {
     color: $text-black;
