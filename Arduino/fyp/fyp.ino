@@ -88,8 +88,8 @@
     int secondKeyValue = 0;
 
     //wifly
-    //byte ip[] = { 192, 168, 0, 20 }; // DEVELOPMENT
-     byte ip[] = { 178, 79, 132, 119 }; // PRODUCTION  
+    //byte ip[] = { 192, 168, 0, 13 }; // DEVELOPMENT
+    byte ip[] = { 178, 79, 132, 119 }; // PRODUCTION  
     // WiFlyClient fypClient;
 
 
@@ -99,7 +99,7 @@
     EthernetClient client;
 
     //PubSubClient cl(ip, 8080, subscriptions, fypClient);
-     PubSubClient cl(ip, 8080, subscriptions, client);
+    PubSubClient cl(ip, 8080, subscriptions, client); 
 
     //Topics to subscribe to
     char* nodeTopic = "5/node";

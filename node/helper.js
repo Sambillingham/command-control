@@ -10,13 +10,13 @@ function checkArray ( arr, obj ) {
 function findRandom ( atleast , max ){
 
 	var random = 0,
-		max = max - atleast;
+		maxN = max - atleast;
 
-	random = Math.floor(Math.random() * (max) + atleast);
+	random = Math.floor(Math.random() * (maxN) + atleast);
 
 	return random;
 }
 
 exports.checkArray = checkArray;
-exports.findRandom =findRandom;
+exports.findRandom = findRandom;
 

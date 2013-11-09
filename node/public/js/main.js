@@ -1,6 +1,6 @@
 $(function() {
 
-    //var socket = io.connect('http://192.168.0.20:8080');     // DEVELOPMENT
+    //var socket = io.connect('http://192.168.0.13:8081');     // DEVELOPMENT
     var socket = io.connect('commandcontrol.sambillingham.com');      // PRODUCTION
 
     var buttonMap = { "rocker0" : undefined , "rocker1" : undefined, "rocker2" : undefined, "rocker3" : undefined, "rocker4" : undefined,
@@ -224,7 +224,7 @@ $(function() {
 
     function showArduinoConnection () {
 
-        $(".arduino-connection").text("Ship controls are are Active!");
+        $(".arduino-connection").text("Ship controls are Active!");
 
         setTimeout( function () {
 
@@ -475,6 +475,15 @@ $(function() {
         $("#rotary" + thisId).css("background", "url(/img/silver-Rotary-" + thisValue + ".png)");
 
     }
+    function rotaryChangeBlack ( value, id ) {
+
+        thisValue = value;
+        thisId = id;
+
+        $("#rotary" + thisId + "num").text(thisValue);
+        $("#rotary" + thisId).css("background", "url(/img/black-Rotary-" + thisValue + ".png)");
+
+    }
 
     function mapNewNames ( names ) {
 
@@ -592,7 +601,7 @@ $(function() {
 
          } else if ( mapValues.rotary3 != buttonMap.rotary3 ) {
             
-            rotaryChange(mapValues.rotary3, 3);
+            rotaryChangeBlack(mapValues.rotary3, 3);
 
          } 
 

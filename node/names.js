@@ -33,17 +33,18 @@ var buttonNames = { "rocker0" : "0" , "rocker1" : "0", "rocker2" : "0", "rocker3
 
 function setButtonNames () {
 
-    console.log(buttonOptions.length);
+    console.log("ButtonOptions Length: ", buttonOptions.length);
     
-
         for ( i = 0 ; i < 13; i++) {
 
             randomButtonNum = helper.findRandom(0,buttonOptions.length);
+            //console.log("Random switches Number: " , randomButtonNum);
             randomButtonName = buttonOptions[randomButtonNum];
             removeFromOptions = buttonOptions.indexOf(randomButtonName);
             switches[i] = buttonOptions[randomButtonNum];
-            //buttonOptions.splice(removeFromOptions, 1);
             
+            primaryStorage.push(switches[i]);
+            buttonOptions.splice(randomButtonNum, 1);
         }
 
         for ( i = 0 ; i < 4; i++) {
@@ -56,7 +57,9 @@ function setButtonNames () {
             //console.log(" index of item to remove", removeFromOptions);
             rotarys[i] = buttonOptions[randomButtonNum];
             //console.log(" name for new button", rotarys[i]);
-            //buttonOptions.splice(removeFromOptions, 1);
+            
+            primaryStorage.push(rotarys[i]);
+            buttonOptions.splice(randomButtonNum, 1);
             //console.log(" array without item", buttonOptions);
             
             
@@ -68,7 +71,9 @@ function setButtonNames () {
             randomButtonName = buttonOptions[randomButtonNum];
             removeFromOptions = buttonOptions.indexOf(randomButtonName);
             sliders[i] = buttonOptions[randomButtonNum];
-            //buttonOptions.splice(removeFromOptions, 1);
+            
+            primaryStorage.push(sliders[i]);
+            buttonOptions.splice(randomButtonNum, 1);
             
             
         }
@@ -81,7 +86,6 @@ function setButtonNames () {
         buttonNames.toggle1 = switches[5];
         buttonNames.toggle2 = switches[6];
         buttonNames.rocker4 = switches[7];
-
         buttonNames.rocker5 = switches[8];
         buttonNames.rocker6 = switches[9];
         buttonNames.toggle3 = switches[10];
@@ -97,6 +101,23 @@ function setButtonNames () {
         buttonNames.rotary1 = sliders[1];
         buttonNames.rotary2 = sliders[2];
         buttonNames.rotary3 = sliders[3];
+
+        console.log("button options length after splice: ", buttonOptions.length);
+        console.log("Primary storage  length after splice", primaryStorage.length);
+        console.log("-----------");
+        console.log("primaryStorage Array ->", primaryStorage);
+
+        console.log("-----------");
+        console.log("buttonOptions Array ->", buttonOptions);
+
+        buttonOptions.push.apply(buttonOptions, primaryStorage);
+        primaryStorage.length = 0;
+
+        console.log("-----------");
+        console.log("primaryStorage Array ->", primaryStorage);
+
+        console.log("-----------");
+        console.log("buttonOptions Array ->", buttonOptions);
 
         app.io.sockets.emit('names', buttonNames);
 }

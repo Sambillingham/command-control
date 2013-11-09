@@ -38,9 +38,6 @@ function pickbutton () {
         case "rotary" :
             buttonNum = Math.floor(Math.random() * (numOfRotarys) + 0);
         break;
-        // case "ultrasound" :
-        //     buttonNum = Math.floor(Math.random() * (numOfUltrasounds) + 0);
-        // break;
     }
 
     return [type , buttonNum];
@@ -58,7 +55,7 @@ function findButtonState ( button ) {
 
     currentState = app.buttonMap[whichButton];
 
-     return [ buttonAtt[0], buttonAtt[1], currentState ];
+    return [ buttonAtt[0], buttonAtt[1], currentState ];
 
 
 }
@@ -128,17 +125,6 @@ function newState ( buttonType , state) {
         return 0;
     }
 
-    // else if ( buttonType == "ultrasound") {
-
-    //     random = Math.floor(Math.random() * (5) + 1 );
-
-    //     while ( random == state ){
-
-    //         random = Math.floor(Math.random() * (5) + 1 );
-    //     }
-
-    //     return random;
-    // }
 }
 
 function prepareMessage( messageType , buttonType, buttonNumber , state , newState , realName) {
@@ -171,7 +157,7 @@ function prepareMessage( messageType , buttonType, buttonNumber , state , newSta
         }
     } else {
 
-        messageToSend = "Error!! creating message "
+        messageToSend = "Error!! creating message ";
     }
 
         return messageToSend;

@@ -10,7 +10,6 @@
 @import "compass/css3/box-sizing";
 
 $font-size: 16;
-$highlight: rgb(0, 193, 156);
 $text-highlight-color: #b3d4fc;
 $site-width: 1040px;
 $text-black: #333;
@@ -114,7 +113,7 @@ a {
 ================================================== */
 
 @import "includes/main-content";
-
+@import "includes/show";
 
 /* # Global Footer
 ================================================== */

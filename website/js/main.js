@@ -1,7 +1,4 @@
-
-
 $(function() {
-
 
         if($(".touch").length) {
 
