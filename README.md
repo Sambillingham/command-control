@@ -1,7 +1,7 @@
 Command Control
 ===
 
-For more info please visit the [Command Control Site](http://commandcontrol.co "command control website")
+For more info please visit the [Command Control Site](http://sambillingham.github.io/command-control/ "command control website")
 
 
 
